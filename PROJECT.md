@@ -6,9 +6,12 @@ A static marketing site for **Unicore Lubricants**, an Indian B2B lubricant manu
 
 The flagship product is **Tyre Sealant Gel**. It has its own page (`tyre-sealant`) and must **never** appear in the main product grid.
 
-## Run and build locally
+## Requirements
 
-Needs Node 22.23+ (Astro 7).
+- **Node 22.23.4 or newer** (Astro 7 requires it). Pinned in `package.json` (`engines`) and `.nvmrc`; with nvm, run `nvm use`.
+- npm 9.6.5 or newer.
+
+## Run and build locally
 
 ```sh
 npm install        # once
@@ -127,7 +130,6 @@ Because the site uses view transitions, page scripts must run on `astro:page-loa
 ## Known issues
 
 - `index.astro` and `applications.astro` still say "Tractor Oils" in visible copy; `products.astro` says "Agricultural Oils". Pick one name and align.
-- The products left-rail note card says "drum or bucket sizes are confirmed on request": a packaging statement not confirmed by Unicore. Reword or remove.
 - `applications` links "Enquiry Now" to `#trade-enquiry`; `tyre-sealant` to `#enquiry-form`; both exist on their own page.
 - `tyre-sealant.astro` has one breadcrumb "Home" link with no `data-path` that is still `href="#"`.
 - `tyre-sealant.astro` carries 8 ▼ characters, more than other pages. Not yet reviewed.
