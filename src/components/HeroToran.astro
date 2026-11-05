@@ -1,0 +1,60 @@
+---
+/**
+ * A quiet seasonal toran for the homepage hero: one horizontal string of small
+ * circles hanging from a 1px hairline across the top edge of the hero.
+ *
+ * Deliberately plain — two brand blues at low opacity, nothing else. No diyas,
+ * flames, gold, orange, sparks or particles.
+ *
+ * It is gated by the SAME date window as the announcement strip
+ * (src/config/announcement.js), evaluated at build time, so it disappears on
+ * its own after Diwali and ships no markup at all outside the window.
+ *
+ * TO REMOVE IT: delete the single <HeroToran /> line in src/pages/index.astro.
+ *
+ * The circle positions come from a fixed seed, so every build is identical.
+ */
+import { isAnnouncementActive } from '../config/announcement.js';
+
+const show = isAnnouncementActive();
+
+// Small deterministic PRNG (mulberry32) — reproducible builds, no randomness
+// sneaking into the output between deploys.
+function rng(seed) {
+  return function () {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const dots = [];
+if (show) {
+  const rand = rng(20261108); // Diwali 2026, as the seed
+  let x = 1.2;
+  while (x < 99) {
+    const r = rand();
+    dots.push({
+      left: +x.toFixed(2),
+      size: 3 + Math.round(r * 3),                       // 3px – 6px
+      colour: rand() > 0.5 ? '#1B4FA0' : '#143A78',      // the two brand blues
+      opacity: +(0.15 + rand() * 0.25).toFixed(3),       // 0.15 – 0.40
+      delay: +(-(rand() * 4)).toFixed(2),                // offset so the line breathes
+      drop: 3 + Math.round(rand() * 5),                  // how far it hangs below the line
+    });
+    x += 1.9 + rand() * 2.6;                             // irregular spacing
+  }
+}
+---
+{show && (
+  <div class="hero-toran" aria-hidden="true">
+    {dots.map((d) => (
+      <span
+        class="hero-toran-dot"
+        style={`left:${d.left}%;top:${d.drop}px;width:${d.size}px;height:${d.size}px;background:${d.colour};--toran-o:${d.opacity};animation-delay:${d.delay}s`}
+      ></span>
+    ))}
+  </div>
+)}

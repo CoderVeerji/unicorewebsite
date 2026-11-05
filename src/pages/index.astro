@@ -1,12 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import HeroToran from '../components/HeroToran.astro';
 ---
 <Base title="Unicore Lubricants" active="home" htmlClass="scroll-smooth" bodyClass="bg-page-bg font-sans text-body-text antialiased">
 
   <main class="w-full pt-[116px] bg-page-bg min-h-[calc(100vh-116px)]">
 <div class="flex flex-col w-full">
 <!-- SECTION 1: HERO SECTION -->
-<section class="w-full bg-page-bg border-b border-hairline">
+<section class="w-full bg-page-bg border-b border-hairline relative overflow-hidden">
+<HeroToran />
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 <!-- Left Column -->
@@ -18,7 +20,7 @@ import Base from '../layouts/Base.astro';
                 </span>
 </div>
 <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-heading-black font-normal leading-tight mb-8">
-                Oils and lubricants <span class="italic text-logo-blue">built tough</span> for Indian roads, farms, and factories.
+                Oils and lubricants <span class="hero-accent italic text-logo-blue" data-phrases="built to last|built for heat|built for load">built tough</span> for Indian roads, farms, and factories.
               </h1>
 <p class="font-sans text-base sm:text-lg text-body-text leading-relaxed mb-10 max-w-2xl">
                 Unicore produces reliable engine oils, transmission fluids, greases, and industrial oils that protect hardworking vehicles and plant equipment. Every product is made to perform under heavy loads, hot operating temperatures, and long working hours.
@@ -42,7 +44,8 @@ import Base from '../layouts/Base.astro';
 <!-- SECTION 2: QUIET GRADE STRIP (Viscosity Only) -->
 <section class="w-full bg-page-bg border-b border-hairline py-4">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="w-full overflow-x-auto">
+<div class="w-full marquee">
+<div class="marquee-track">
 <p class="text-xs sm:text-sm text-light-text text-center tracking-[0.2em] uppercase whitespace-nowrap">
               15W-40 <span class="text-structural-line mx-3">·</span>
               20W-40 <span class="text-structural-line mx-3">·</span>
@@ -50,8 +53,18 @@ import Base from '../layouts/Base.astro';
               5W-30 <span class="text-structural-line mx-3">·</span>
               EP-90 <span class="text-structural-line mx-3">·</span>
               85W-140 <span class="text-structural-line mx-3">·</span>
-              EP-2
+              EP-2 <span class="text-structural-line mx-3">·</span>
             </p>
+<p class="text-xs sm:text-sm text-light-text text-center tracking-[0.2em] uppercase whitespace-nowrap" aria-hidden="true">
+              15W-40 <span class="text-structural-line mx-3">·</span>
+              20W-40 <span class="text-structural-line mx-3">·</span>
+              20W-50 <span class="text-structural-line mx-3">·</span>
+              5W-30 <span class="text-structural-line mx-3">·</span>
+              EP-90 <span class="text-structural-line mx-3">·</span>
+              85W-140 <span class="text-structural-line mx-3">·</span>
+              EP-2 <span class="text-structural-line mx-3">·</span>
+            </p>
+</div>
 </div>
 </div>
 </section>

@@ -89,6 +89,37 @@ function revealDistance() {
   return Number.isFinite(v) ? v : 16;
 }
 
+// Section-heading details, animated with the block they sit in.
+//   marker  the small brand-blue square before an eyebrow label, scaled up
+//   numeral the large Instrument Serif index number ("01".."06") at the start
+//           of a section on Applications, About, Dealership and Products
+// Both are matched on the authored Tailwind classes, so no page markup changed.
+const MARKER_SEL =
+  'span[class~="bg-logo-blue"][class~="w-2"], span[class~="bg-logo-blue"][class~="w-1.5"]';
+const NUMERAL_SEL = '[class~="font-serif"][class~="text-logo-blue"]';
+
+function revealDetails(el, delay) {
+  el.querySelectorAll(MARKER_SEL).forEach((marker, i) => {
+    marker.animate([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], {
+      duration: 300,
+      delay: delay + 60 + i * 40,
+      easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)',
+      fill: 'backwards',
+    });
+  });
+  el.querySelectorAll(NUMERAL_SEL).forEach((numeral) => {
+    // Only a bare index numeral, never a numeral that carries a label
+    // (the homepage's "01 / Mobility" cards are left alone).
+    if (!/^\d{1,2}$/.test(numeral.textContent.trim())) return;
+    numeral.animate([{ opacity: 0 }, { opacity: 1 }], {
+      duration: 500,
+      delay: delay + 120,
+      easing: 'ease-out',
+      fill: 'backwards',
+    });
+  });
+}
+
 function reveal(el, delay) {
   el.classList.remove('m-pending');
   el.animate(
@@ -98,6 +129,7 @@ function reveal(el, delay) {
     ],
     { duration: DURATION, delay, easing: 'ease-out', fill: 'backwards' }
   );
+  revealDetails(el, delay);
 }
 
 function onIntersect(entries) {

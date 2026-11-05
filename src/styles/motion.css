@@ -49,6 +49,70 @@ main h1 .italic {
   animation-delay: calc(var(--m-hero-step) + var(--m-dur) + 200ms);
 }
 
+/* ---- Rotating hero accent (homepage only) --------------------------------
+   The phrases are stacked in one inline-grid cell, so the box is always as
+   wide as the longest of them and the words after it never move. Only the
+   homepage <h1> gets this; the other pages keep the one-time wipe above.
+   Driven by src/scripts/accent-rotator.js. */
+.hero-accent.is-rotating {
+  display: inline-grid;
+  vertical-align: baseline;
+  font-variant-numeric: tabular-nums;   /* no metric drift between phrases */
+  font-kerning: none;
+}
+.hero-accent.is-rotating > .hero-phrase {
+  grid-area: 1 / 1;                      /* all phrases share one cell */
+  white-space: nowrap;
+  justify-self: start;
+}
+/* While the rotator is live the authored phrase is the visible one; the
+   injected alternates are parked by an inline clip-path from the script. */
+
+/* ---- Viscosity grade marquee (homepage) ----------------------------------
+   Two identical copies translated by -50% give a seamless loop. Type size,
+   tracking and colour are untouched — only the motion is new. */
+.marquee { overflow: hidden; }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+@keyframes marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* ---- Section heading details --------------------------------------------
+   The square marker scales up and the big serif index numeral fades in as a
+   section reaches the viewport. Both are driven from motion.js so they fire
+   once, with the section they belong to. */
+
+/* ---- Hero toran (seasonal, homepage) -------------------------------------
+   A 1px hairline across the top of the hero with small circles hanging from
+   it, breathing slowly on offset loops. Rendered only inside the announcement
+   window; see src/components/HeroToran.astro. */
+.hero-toran {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  pointer-events: none;
+  border-top: 1px solid theme('colors.hairline');
+}
+.hero-toran-dot {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: var(--toran-o, 0.25);
+  animation: toran-breathe 4s ease-in-out infinite alternate;
+}
+@keyframes toran-breathe {
+  from { opacity: calc(var(--toran-o, 0.25) * 0.45); }
+  to   { opacity: var(--toran-o, 0.25); }
+}
+
 /* ---- Card hover: border hairline -> logo blue, background white -> page-bg, 150ms.
    Nothing else: no lift, no scale, no shadow. ---- */
 .m-card {
@@ -96,3 +160,14 @@ html[data-motion="off"] .m-pending { opacity: 1 !important; }
 html[data-motion="off"]::view-transition-group(*),
 html[data-motion="off"]::view-transition-old(*),
 html[data-motion="off"]::view-transition-new(*) { animation: none !important; }
+
+/* The blanket `animation: none` above already freezes the marquee and the
+   toran. The marquee needs a little more: with the scroll stopped, drop the
+   duplicate copy and re-centre, so it reads as the static strip it was before.
+   The toran simply holds at its resting opacity, which is what we want. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { width: 100%; justify-content: center; }
+  .marquee-track > :nth-child(2) { display: none; }
+}
+html[data-motion="off"] .marquee-track { width: 100%; justify-content: center; }
+html[data-motion="off"] .marquee-track > :nth-child(2) { display: none; }

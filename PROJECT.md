@@ -31,7 +31,8 @@ src/
   components/MobileDrawer.astro  full-screen mobile drawer + its script (same props)
   components/Footer.astro     canonical four-column footer    (prop: active)
   components/AnnouncementStrip.astro  dismissible strip above the navy bar (copy lives here)
-  config/announcement.js      ← the strip's dates and storage key
+  components/HeroToran.astro  seasonal hero toran, homepage only, same date window
+  config/announcement.js      ← the dates and storage key for BOTH seasonal elements
   assets/unicore-logo.png     logo master; Astro derives 1x/2x PNG + WebP at build
   pages/                      one file per page, each holding only that page's <main>
     index.astro  products.astro  product-detail.astro  tyre-sealant.astro
@@ -41,6 +42,7 @@ src/
   styles/cursor.css           custom cursor CSS (see below)
   scripts/motion.js           animation JS (see below)
   scripts/cursor.js           custom cursor JS (see below)
+  scripts/accent-rotator.js   rotating hero phrase, homepage only (see below)
 public/favicon-32.png         favicon, cropped from the real logo mark
 public/favicon-180.png        apple-touch-icon, same mark
 tailwind.config.mjs           the ten brand colours + two font families
@@ -152,6 +154,7 @@ Currently set to **2026-11-05 → 2026-11-09**, i.e. three days before Diwali (8
 Two things worth knowing:
 
 - **The window is evaluated at build time, not per request.** This is a static site, so the strip only appears or disappears when the site is rebuilt. Schedule a rebuild inside the window and another after it. Outside the window nothing is emitted into the HTML at all — it is not hidden with CSS.
+- **The same window also gates the hero toran** (below), so both seasonal elements retire together.
 - **It shifts the fixed header stack.** The pages hard-code the 116px header height (`main` has `pt-[116px]`, the drawer and mobile rail sit at `top-[116px]`, the catalogue aside at `top-[136px]`). When the strip renders, `Base.astro` puts `data-strip` on `<html>` and the rules at the bottom of `global.css` add `--strip-h` to all four, so dismissing it animates the whole stack up in one step. Dismissal is stored in localStorage inside `try`/`catch`, re-applied before paint on load and again on `astro:after-swap` (a view transition replaces the `<html>` attributes, which would otherwise bring the strip back).
 
 ## Animation
@@ -164,7 +167,10 @@ Vanilla JS and CSS only. No GSAP, no AOS, no library. It animates **opacity and 
 | Hero | Pure CSS (`motion.css`). The children of the block holding the page `<h1>` (eyebrow, H1, paragraph, buttons) fade up on load, 80ms apart. No scroll trigger. |
 | Card hover | `motion.js` tags card-grid children `.m-card`; CSS shifts border hairline → logo blue and background white → page-bg over 150ms. Nothing else: no lift, no scale, no shadow. |
 | Links, buttons, `→` arrows | Unchanged: the existing Tailwind colour transitions and arrow translate. |
-| Hero accent | The italic phrase inside the page `<h1>` (`built tough`, and the equivalent on products, applications, dealership and tyre-sealant) wipes in left to right over 600ms with a `clip-path`, starting 780ms in — after the headline has faded in, plus 200ms. The H1 is in the DOM and painted from the first frame; only the accent is clipped, and only while the animation runs, so crawlers and no-JS readers get the whole headline. Pure CSS. |
+| Hero accent | The italic phrase inside the page `<h1>` wipes in left to right over 600ms with a `clip-path`, starting 780ms in — after the headline has faded in, plus 200ms. The H1 is in the DOM and painted from the first frame; only the accent is clipped, and only while the animation runs, so crawlers and no-JS readers get the whole headline. Pure CSS. On products, applications, dealership and tyre-sealant this is the whole story; **the homepage then rotates**, see below. |
+| Rotating hero phrase | Homepage only. After the load sequence, the accent cycles `built tough → built to last → built for heat → built for load`, looping. Each holds 2.5s, wipes out left-to-right over 400ms, the next wipes in over 400ms. See below. |
+| Grade marquee | The viscosity strip under the homepage hero scrolls right to left, one pass per 40s, linear and seamless. Pauses on hover. See below. |
+| Section headings | As a section reaches the viewport, the small brand-blue square before its eyebrow label scales from 0 over 300ms, and a large Instrument Serif index numeral (`01`…`06`) fades in over 500ms. Once only, with the block they belong to. Driven from `motion.js` by matching the authored Tailwind classes, so no page markup changed. |
 | Page transitions | Astro `ClientRouter` (view transitions), 200ms crossfade. |
 | Custom cursor | Desktop only. A 24px ring with a 1px logo-blue border at 35% opacity follows the pointer with a lag, and a 4px solid dot tracks it exactly. Over links, buttons, product cards and the burger the ring scales to 40px and the border goes solid; over inputs and textareas both hide so the native caret shows. rAF and transforms only. |
 
@@ -178,6 +184,37 @@ No loading spinners, skeletons, counters, typewriter effects or parallax.
 - **Manually, sitewide:** add `data-motion="off"` to the `<html>` tag in `src/layouts/Base.astro`. Same effect as reduced motion.
 - **Removing it:** delete the `motion.css` import and the `motion.js` script from `Base.astro`. Pages render normally without them.
 
+### The rotating hero phrase
+
+Homepage `<h1>` only. Driven by `src/scripts/accent-rotator.js`, styled in `motion.css` under `.hero-accent.is-rotating`.
+
+**To change the phrases**, edit one attribute in `src/pages/index.astro`:
+
+```html
+<span class="hero-accent italic text-logo-blue"
+      data-phrases="built to last|built for heat|built for load">built tough</span>
+```
+
+The text *inside* the span is the first phrase and the only one in the HTML; the pipe-separated `data-phrases` are the alternates, injected at runtime. **To remove the rotation entirely**, delete the `data-phrases` attribute — the span falls back to a plain one-time wipe like every other page. Timings (`HOLD`, `WIPE`, `START_DELAY`) are constants at the top of the script.
+
+Three things it guarantees:
+
+- **"built tough" is the only phrase in the HTML.** A crawler reads exactly *"Oils and lubricants built tough for Indian roads, farms, and factories."* — verified against the built output. The first frame shows it too.
+- **The line never reflows.** The phrases are stacked in a single `inline-grid` cell, so the box is always as wide as the longest of them. Measured across 124 samples over two full cycles: the text after the accent held one single x value at both 1280px and 390px, and the accent box width never changed. Because the width is CSS `max-content` rather than a measured pixel value, it stays correct through a webfont swap and at any viewport.
+- **It stops when nobody is looking** — paused on `visibilitychange` and when the hero leaves the viewport (IntersectionObserver), resuming where it left off.
+
+Under `prefers-reduced-motion: reduce` nothing is injected at all and "built tough" stays put.
+
+One visual consequence worth knowing: reserving the longest width means the gap between the phrase and the following "for" varies across the cycle — zero on `built for load`, about 54px on the shorter `built tough` at desktop. That is inherent to reserving the width. If you would rather split the slack either side, change `justify-self: start` to `center` in the `.hero-accent.is-rotating > .hero-phrase` rule.
+
+### The grade marquee
+
+`src/pages/index.astro` holds two identical copies of the grade list inside `.marquee-track`; the animation translates the track by `-50%`, so copy two lands exactly where copy one started and the loop has no seam (verified: both copies 750.05px, track 1500.09px). The second copy is `aria-hidden`. Speed is the `40s` in the `marquee-scroll` animation in `motion.css`.
+
+Type size, tracking and the light-text colour are untouched. One content change was unavoidable: each copy now ends with a `·` separator, otherwise the join would read `EP-2 15W-40` with no divider and the rhythm would visibly break at the loop point.
+
+Hovering pauses it. Under reduced motion it freezes, the duplicate is hidden and the list re-centres, i.e. it looks exactly like the static strip it replaced.
+
 ### The custom cursor, and how to disable it
 
 Pick whichever fits:
@@ -189,6 +226,16 @@ Pick whichever fits:
 It only starts on a device that passes `matchMedia('(hover: hover) and (pointer: fine)')`, so it never runs on touch. The native cursor is hidden *only* once the script is confirmed running (it adds `cursor-active` to `<html>`), and `cursor.css` additionally forces the native cursor back under any touch or reduced-motion media query — so a touch device, a failed script or a torn-down page always keeps a real cursor. Nothing is ever left uncursored.
 
 Because the site uses view transitions, page scripts must run on `astro:page-load` (the drawer, scrollspy and motion scripts do).
+
+### The hero toran
+
+`src/components/HeroToran.astro` — a single horizontal string of small circles hanging from a 1px hairline across the top edge of the **homepage hero only**. 29 circles between 3px and 6px, irregularly spaced, in `#1B4FA0` and `#143A78` at 0.15–0.40 opacity, each breathing on its own 4s offset loop so the line never blinks in unison. Nothing else: no diyas, flames, gold, orange, sparks or rangoli.
+
+**To remove it: delete the single `<HeroToran />` line in `src/pages/index.astro`.** (The `relative overflow-hidden` on the hero section can stay; it is harmless.)
+
+Otherwise it retires by itself. It is gated by `isAnnouncementActive()` from `src/config/announcement.js` — the **same window as the announcement strip** — evaluated at build time, so outside the window it emits no markup at all. Change the dates in that one file and both seasonal elements move together.
+
+The circle positions come from a fixed seed (`20261108`), so every build produces identical output rather than reshuffling the dots on each deploy. Under reduced motion the breathing freezes and the circles simply hold at their resting opacity.
 
 ## Known issues
 
