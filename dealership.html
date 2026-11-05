@@ -1,0 +1,591 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicore Lubricants — Dealership</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "white": "#FFFFFF",
+            "page-bg": "#FAFAF8",
+            "product-frame": "#F3F3F0",
+            "hairline": "#E6E6E2",
+            "structural-line": "#D8D8D3",
+            "heading-black": "#0B0B0C",
+            "body-text": "#434751",
+            "light-text": "#737783",
+            "logo-blue": "#1B4FA0",
+            "deep-navy": "#143A78"
+          },
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin:0; padding:0; background-color:#FAFAF8; color:#434751; font-family:'Inter', sans-serif; }
+      body { overscroll-behavior: none; }
+      * { box-shadow: none !important; }
+      .dropdown-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1) !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="bg-page-bg text-body-text font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- Persistent Shell Header -->
+  <header class="fixed top-0 left-0 w-full z-50">
+    <div class="bg-deep-navy text-white border-b border-hairline/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between text-[12px] text-white/80">
+        <div class="flex items-center gap-6">
+          <span class="">[to be confirmed by Unicore]</span>
+          <span class="hidden sm:inline-block text-white/30">|</span>
+          <span class="hidden sm:inline-block">[to be confirmed by Unicore]</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-1.5 h-1.5 bg-white"></span>
+          <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
+        </div>
+      </div>
+    </div>
+    <div class="h-20 bg-white border-b border-hairline">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+        <a class="flex flex-col group" data-path="home" href="index.html">
+          <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
+          <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="home" href="index.html">Home</a>
+          <div class="relative group py-6">
+            <button class="flex items-center gap-1 text-sm font-medium text-body-text group-hover:text-heading-black transition-colors focus:outline-none" type="button">
+              <span class="">Products</span>
+              <span class="text-xs transition-transform duration-200 group-hover:rotate-180">▼</span>
+            </button>
+            <div class="absolute top-full left-0 w-72 bg-white border border-hairline dropdown-shadow py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+              <div class="px-4 py-2 border-b border-hairline bg-product-frame">
+                <span class="text-[11px] tracking-widest text-light-text uppercase block font-medium">Product Categories</span>
+              </div>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-coolants" href="products.html#coolants">Coolants</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-greases" href="products.html#greases">Greases</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-agricultural-oils" href="products.html#tractor-oils">Agricultural Oils</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+              <div class="mt-1 pt-2 border-t border-hairline px-4 pb-1">
+                <a class="inline-flex items-center gap-1 text-[11px] tracking-wider text-logo-blue font-semibold uppercase hover:underline" data-path="products" href="products.html">All products →</a>
+              </div>
+            </div>
+          </div>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="applications" href="applications.html">Applications</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="about" href="about.html">About</a>
+          <a class="text-sm font-medium text-logo-blue transition-colors font-semibold" data-path="dealership" href="dealership.html">Dealership</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="contact" href="contact.html">Contact</a>
+        </nav>
+        <div class="hidden lg:flex items-center">
+          <a class="inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue" data-path="enquiry" href="#dealership-application">Enquiry Now</a>
+        </div>
+        <div class="flex lg:hidden items-center">
+          <button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center border border-hairline bg-product-frame text-heading-black focus:outline-none" id="mobile-nav-toggle" type="button">
+            <span class="text-xl font-bold" id="mobile-burger-icon">☰</span>
+            <span class="text-xl font-bold hidden" id="mobile-close-icon">×</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="fixed inset-0 top-[116px] bg-white z-40 hidden flex-col overflow-y-auto border-t border-hairline px-6 py-8" id="mobile-menu-drawer">
+    <div class="flex flex-col space-y-6">
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="home" href="index.html">Home</a>
+      <div>
+        <button class="w-full flex items-center justify-between font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3 text-left focus:outline-none" id="mobile-products-toggle" type="button">
+          <span class="">Products</span>
+          <span class="text-sm transition-transform duration-200" id="mobile-products-arrow">▼</span>
+        </button>
+        <div class="hidden flex-col pl-4 pt-4 space-y-3 bg-product-frame my-2 p-4 border-l border-logo-blue" id="mobile-products-menu">
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-coolants" href="products.html#coolants">Coolants</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-greases" href="products.html#greases">Greases</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-agricultural-oils" href="products.html#tractor-oils">Agricultural Oils</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+          <a class="mobile-link text-xs tracking-wider uppercase text-logo-blue font-semibold pt-2 block" data-path="products" href="products.html">All products →</a>
+        </div>
+      </div>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="applications" href="applications.html">Applications</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="about" href="about.html">About</a>
+      <a class="mobile-link font-serif text-[26px] text-logo-blue font-semibold border-b border-hairline pb-3" data-path="dealership" href="dealership.html">Dealership</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="contact" href="contact.html">Contact</a>
+      <div class="pt-4">
+        <a class="mobile-link w-full inline-flex items-center justify-center bg-logo-blue text-white py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider text-center" data-path="enquiry" href="#dealership-application">Enquiry Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow pt-[116px]">
+
+    <!-- Breadcrumb -->
+    <div class="w-full bg-white border-b border-hairline">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center text-xs text-light-text">
+        <a class="hover:text-heading-black transition-colors" data-path="home" href="index.html">Home</a>
+        <span class="mx-2 text-hairline">/</span>
+        <span class="text-heading-black font-medium">Dealership</span>
+      </div>
+    </div>
+
+    <!-- Hero / Headline Block (The single deep-navy band on this page) -->
+    <section class="w-full bg-deep-navy text-white border-b border-hairline/20 py-16 sm:py-20 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-1.5 h-1.5 bg-white inline-block"></span>
+          <span class="text-[11px] uppercase tracking-widest text-white/70 font-semibold">DISTRIBUTOR &amp; REGIONAL TRADE PARTNERSHIP</span>
+        </div>
+        <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl text-white font-normal leading-[1.1] max-w-4xl tracking-tight">
+          Distribute Unicore lubricants in your <span class="italic text-white/90">exclusive regional territory.</span>
+        </h1>
+        <p class="mt-6 text-sm sm:text-base text-white/80 max-w-2xl leading-relaxed">
+          We partner with established regional stockists and commercial parts distributors who know their local mechanics and fleet yards. Speak directly with our trade desk to secure distribution rights for your district before an area is closed.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <a class="inline-flex items-center justify-center bg-white text-deep-navy hover:bg-page-bg px-7 py-3 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150" href="#dealership-application">
+            Apply for Regional Dealership ↓
+          </a>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: What you get -->
+    <section class="w-full bg-white border-b border-hairline py-16 sm:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        <div class="mb-10">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-1.5 h-1.5 bg-logo-blue inline-block"></span>
+            <span class="text-[11px] uppercase tracking-widest text-logo-blue font-semibold">TRADE ADVANTAGES</span>
+          </div>
+          <h2 class="font-serif text-2xl sm:text-4xl text-heading-black font-normal">What you get</h2>
+          <p class="mt-2 text-xs sm:text-sm text-body-text max-w-xl">
+            Practical commercial backing designed so your warehouse operates with stability and clear operational boundaries.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-hairline">
+          <!-- Point 1: Territory -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-3">01 / TERRITORY</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Guaranteed territory</h3>
+              <p class="text-xs text-body-text leading-relaxed">
+                We assign defined district boundaries to our appointed partners. Once your territory is allocated, factory direct supplies are routed exclusively to your business without duplicate distributor appointments.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Dedicated commercial boundary</span>
+            </div>
+          </div>
+
+          <!-- Point 2: Supply -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-3">02 / SUPPLY</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Direct factory supply</h3>
+              <p class="text-xs text-body-text leading-relaxed">
+                Stock is dispatched straight from our blending plant in sealed palletized drums, pails, and cartons. You deal directly with our production desk rather than paying warehouse brokers or secondary intermediaries.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Plant-to-warehouse dispatch</span>
+            </div>
+          </div>
+
+          <!-- Point 3: Support -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-3">03 / SUPPORT</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Technical trade support</h3>
+              <p class="text-xs text-body-text leading-relaxed">
+                When your mechanics or fleet customers ask detailed questions about fluid grades for specific trucks or farm machinery, our technical team provides straight guidance to help you resolve the order.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Direct trade desk assistance</span>
+            </div>
+          </div>
+
+          <!-- Point 4: Marketing -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-3">04 / PROMOTION</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Counter materials</h3>
+              <p class="text-xs text-body-text leading-relaxed">Authorized trade partners receive marketing and counter support designed to assist product visibility and customer awareness across regional trade counters.</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Trade &amp; marketing support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Who we are looking for -->
+    <section class="w-full bg-page-bg border-b border-hairline py-16 sm:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        <div class="mb-10">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-1.5 h-1.5 bg-logo-blue inline-block"></span>
+            <span class="text-[11px] uppercase tracking-widest text-logo-blue font-semibold">PARTNERSHIP PROFILE</span>
+          </div>
+          <h2 class="font-serif text-2xl sm:text-4xl text-heading-black font-normal">Who we are looking for</h2>
+          <p class="mt-2 text-xs sm:text-sm text-body-text max-w-xl">
+            We work with operational trade businesses that have established boots on the ground and real local counter relationships.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 border-t border-l border-hairline">
+          <!-- Profile 1 -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl text-logo-blue font-normal block mb-4">01</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Regional stockists with active counter routes</h3>
+              <p class="text-xs text-body-text leading-relaxed">
+                Firms that supply automotive spare parts, filter lines, tractor accessories, or hardware goods to networks of independent retail counters and garages across their district.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Active counter networks</span>
+            </div>
+          </div>
+
+          <!-- Profile 2 -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl text-logo-blue font-normal block mb-4">02</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Distributors with secure warehouse storage</h3>
+              <p class="text-xs text-body-text leading-relaxed">
+                Businesses that own or operate clean, dry covered storage capable of receiving palletized deliveries and maintaining rolling inventory of drums, buckets, and carton packs.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Dry, covered storage capacity</span>
+            </div>
+          </div>
+
+          <!-- Profile 3 -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl text-logo-blue font-normal block mb-4">03</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Commercial trade suppliers close to fleets</h3>
+              <p class="text-xs text-body-text leading-relaxed">
+                Trade houses that supply commercial truck yards, bus operators, earthmoving contractors, or agricultural machinery hubs and want a steady factory partner for regular lubricant demands.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Fleet &amp; workshop proximity</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: How it works -->
+    <section class="w-full bg-white border-b border-hairline py-16 sm:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        <div class="mb-10">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-1.5 h-1.5 bg-logo-blue inline-block"></span>
+            <span class="text-[11px] uppercase tracking-widest text-logo-blue font-semibold">THE PROCESS</span>
+          </div>
+          <h2 class="font-serif text-2xl sm:text-4xl text-heading-black font-normal">How it works</h2>
+          <p class="mt-2 text-xs sm:text-sm text-body-text max-w-xl">
+            A straightforward commercial onboarding sequence from your initial enquiry to the arrival of your first consignment.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-hairline">
+          <!-- Step 1 -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl text-logo-blue font-normal block mb-4">01</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Submit your firm details</h3>
+              <p class="text-xs text-body-text leading-relaxed">
+                Complete the trade form below with your trading firm name, primary operating district, current product lines, and estimated monthly fluid volumes.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Initial firm registration</span>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl text-logo-blue font-normal block mb-4">02</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Territory check &amp; trade discussion</h3>
+              <p class="text-xs text-body-text leading-relaxed">
+                Our trade desk verifies territory availability for your district and contacts you directly to review category demand, packaging preferences, and commercial credit structures.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Direct trade conversation</span>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl text-logo-blue font-normal block mb-4">03</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Product selection &amp; terms confirmation</h3>
+              <p class="text-xs text-body-text leading-relaxed">
+                You select the initial product mix required for your counter network — engine oils, greases, coolants, tractor fluids, or tyre sealant gel — and trade terms are confirmed in writing.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">Agreed product allocation</span>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="p-6 sm:p-8 border-r border-b border-hairline bg-white flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl text-logo-blue font-normal block mb-4">04</span>
+              <h3 class="font-serif text-xl text-heading-black font-normal mb-3">Dispatch to your regional warehouse</h3>
+              <p class="text-xs text-body-text leading-relaxed">Your opening stock order is packed, strapped on transport pallets with tamper-evident seals, and dispatched directly to your regional warehouse address.</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-hairline">
+              <span class="text-[11px] text-light-text">First road dispatch</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Apply (Full-Width Generous Dealership Form) -->
+    <section class="w-full bg-page-bg py-16 sm:py-24" id="dealership-application">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+        
+        <!-- Form Header Block -->
+        <div class="bg-white border border-hairline p-8 sm:p-12 lg:p-16 mb-8">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-1.5 bg-logo-blue inline-block"></span>
+            <span class="text-[11px] uppercase tracking-widest text-logo-blue font-semibold">OFFICIAL APPLICATION</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-5xl text-heading-black font-normal tracking-tight">
+            Apply for an Authorized Dealership
+          </h2>
+          <p class="mt-4 text-xs sm:text-sm text-body-text max-w-2xl leading-relaxed">
+            Please fill in your firm details below. Our trade sales desk will review territory availability in your requested district and contact you directly to discuss stock allocations and trade terms.
+          </p>
+
+          <!-- Dealership Form -->
+          <form class="mt-12 space-y-10" onsubmit="return false;">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10">
+              
+              <!-- Firm Name -->
+              <div class="relative">
+                <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="firm_name">
+                  Trading Firm / Company Name *
+                </label>
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="firm_name" name="firm_name" placeholder="e.g. Shree Balaji Auto Spares &amp; Lubricants" type="text">
+              </div>
+
+              <!-- Contact Person -->
+              <div class="relative">
+                <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="contact_person">
+                  Contact Person Name *
+                </label>
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="contact_person" name="contact_person" placeholder="Full name of proprietor or partner" type="text">
+              </div>
+
+              <!-- Phone Number -->
+              <div class="relative">
+                <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="phone_number">
+                  Phone Number (Mobile / WhatsApp) *
+                </label>
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="phone_number" name="phone_number" placeholder="10-digit mobile number" type="tel">
+              </div>
+
+              <!-- City / Town -->
+              <div class="relative">
+                <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="city">
+                  City / Town *
+                </label>
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="city" name="city" placeholder="e.g. Pune, Jaipur, Raipur, Hubli" type="text">
+              </div>
+
+              <!-- District -->
+              <div class="relative">
+                <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="district">
+                  Primary District Requested *
+                </label>
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="district" name="district" placeholder="District where dealership rights are sought" type="text">
+              </div>
+
+              <!-- Current Business Type (Dropdown) -->
+              <div class="relative">
+                <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="business_type">
+                  Current Business Type *
+                </label>
+                <select class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black rounded-none transition-colors" id="business_type" name="business_type">
+                  <option class="text-body-text" value="">Select business structure...</option>
+                  <option class="text-body-text" value="retail-counter">Automotive Retail Counter / Shop</option>
+                  <option class="text-body-text" value="regional-stockist">Regional Parts Stockist / Wholesaler</option>
+                  <option class="text-body-text" value="fleet-supplier">Commercial Fleet &amp; Workshop Supplier</option>
+                  <option class="text-body-text" value="tractor-spares">Agricultural &amp; Tractor Spares Dealer</option>
+                  <option class="text-body-text" value="industrial-distributor">Industrial Supply Distributor</option>
+                  <option class="text-body-text" value="other">Other Commercial Distribution</option>
+                </select>
+              </div>
+
+              <!-- Expected Monthly Volume (Full row or input) -->
+              <div class="relative sm:col-span-2">
+                <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="monthly_volume">
+                  Expected Monthly Volume / Requirement *
+                </label>
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="monthly_volume" name="monthly_volume" placeholder="e.g. Expected initial barrel, bucket, or carton requirement per month" type="text">
+              </div>
+
+            </div>
+
+            <!-- Trade Note -->
+            <div class="bg-product-frame p-5 border border-hairline text-xs text-body-text flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"><div class=""><span class="font-semibold text-heading-black">Commercial Notice:</span> Dealership commercial terms and territory requirements are reviewed and confirmed directly with our trade sales desk upon enquiry.</div><span class="text-[11px] text-light-text whitespace-nowrap">PAN India Supply</span></div>
+
+            <!-- Submit Button (2px rounded, zero fake animation) -->
+            <div class="pt-4">
+              <button class="w-full sm:w-auto inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-10 py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue focus:outline-none" type="button">
+                Submit Dealership Application →
+              </button>
+            </div>
+          </form>
+
+        </div>
+
+        <!-- Quiet Trade Reassurance Strip -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs text-light-text pt-2">
+          <div class="flex items-start gap-2.5">
+            <span class="font-bold text-heading-black">01</span>
+            <span class="">Direct contact with factory management; zero broker interference.</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="font-bold text-heading-black">02</span>
+            <span class="">Territory protection honored once allocation is confirmed.</span>
+          </div>
+          <div class="flex items-start gap-2.5"><span class="font-bold text-heading-black">03</span><span class="">Product specifications and documentation confirmed upon request.</span></div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Persistent Shell Footer -->
+  <footer class="w-full bg-deep-navy text-white/80 border-t border-white/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 text-left">
+        <div class="space-y-4">
+          <div class="flex flex-col">
+            <span class="font-bold text-xl text-white tracking-tight">UNICORE</span>
+            <span class="text-[9px] tracking-[0.25em] text-white/60 uppercase font-medium">INDUSTRIAL LUBRICANTS</span>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed pr-2">
+            Unicore Lubricants manufactures dependable oils and specialty greases built for heavy transport fleets, agricultural tractors, and industrial plants across India.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Products</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-coolants" href="products.html#coolants">Coolants</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-greases" href="products.html#greases">Greases</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-agricultural-oils" href="products.html#tractor-oils">Agricultural Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-tyre-sealant-gel" href="tyre-sealant.html">Tyre Sealant Gel</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Company</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="about" href="about.html">About Us</a></li>
+            <li class=""><a class="text-white underline font-semibold transition-colors block" data-path="dealership" href="dealership.html">Dealership</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="contact" href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Safety &amp; Compliance</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="safety-data-sheets" href="#">Safety Data Sheets (SDS)</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="terms-of-trade" href="#">Terms of Trade</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="privacy-policy" href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
+        <p class="">© 2026 Unicore Lubricants. All rights reserved.</p>
+        <p class="text-[11px] text-white/50">Precision manufactured in India</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const burgerIcon = document.getElementById('mobile-burger-icon');
+    const closeIcon = document.getElementById('mobile-close-icon');
+    const productsToggle = document.getElementById('mobile-products-toggle');
+    const productsMenu = document.getElementById('mobile-products-menu');
+    const productsArrow = document.getElementById('mobile-products-arrow');
+
+    function setDrawer(open) {
+      if (open) {
+        drawer.classList.remove('hidden'); drawer.classList.add('flex');
+        burgerIcon.classList.add('hidden'); closeIcon.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer.classList.add('hidden'); drawer.classList.remove('flex');
+        burgerIcon.classList.remove('hidden'); closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = !drawer.classList.contains('hidden');
+        setDrawer(!isOpen);
+      });
+    }
+
+    if (productsToggle) {
+      productsToggle.addEventListener('click', () => {
+        const isProdOpen = !productsMenu.classList.contains('hidden');
+        if (isProdOpen) {
+          productsMenu.classList.add('hidden'); productsMenu.classList.remove('flex');
+          productsArrow.classList.remove('rotate-180');
+        } else {
+          productsMenu.classList.remove('hidden'); productsMenu.classList.add('flex');
+          productsArrow.classList.add('rotate-180');
+        }
+      });
+    }
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => setDrawer(false));
+    });
+  </script>
+
+
+
+
+
+</body></html>

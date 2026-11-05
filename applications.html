@@ -1,0 +1,646 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Unicore Lubricants — Applications</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "white": "#FFFFFF",
+            "page-bg": "#FAFAF8",
+            "product-frame": "#F3F3F0",
+            "hairline": "#E6E6E2",
+            "structural-line": "#D8D8D3",
+            "heading-black": "#0B0B0C",
+            "body-text": "#434751",
+            "light-text": "#737783",
+            "logo-blue": "#1B4FA0",
+            "deep-navy": "#143A78"
+          },
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body { margin:0; padding:0; background-color:#FAFAF8; color:#434751; font-family:'Inter', sans-serif; }
+      body { overscroll-behavior: none; }
+      * { box-shadow: none !important; }
+      .dropdown-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1) !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    details > summary::-webkit-details-marker { display: none; }
+  </style>
+<meta content="web_standard" name="shell-type"></head>
+<body class="bg-page-bg text-body-text antialiased selection:bg-logo-blue selection:text-white">
+<!-- HEADER -->
+<header class="fixed top-0 left-0 w-full z-50">
+<div class="bg-deep-navy text-white border-b border-hairline/20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between text-[12px] text-white/80">
+<div class="flex items-center gap-6">
+<span class="">[to be confirmed by Unicore]</span>
+<span class="hidden sm:inline-block text-white/30">|</span>
+<span class="hidden sm:inline-block">[to be confirmed by Unicore]</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-block w-1.5 h-1.5 bg-white"></span>
+<span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
+</div>
+</div>
+</div>
+<div class="h-20 bg-white border-b border-hairline">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+<a class="flex flex-col group" data-path="home" href="index.html">
+<span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
+<span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
+</a>
+<nav class="hidden lg:flex items-center gap-7">
+<a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="home" href="index.html">Home</a>
+<div class="relative group py-6">
+<button class="flex items-center gap-1 text-sm font-medium text-body-text group-hover:text-heading-black transition-colors focus:outline-none" type="button">
+<span class="">Products</span>
+<span class="text-xs transition-transform duration-200 group-hover:rotate-180">▼</span>
+</button>
+<div class="absolute top-full left-0 w-72 bg-white border border-hairline dropdown-shadow py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+<div class="px-4 py-2 border-b border-hairline bg-product-frame">
+<span class="text-[11px] tracking-widest text-light-text uppercase block font-medium">Product Categories</span>
+</div>
+<a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+<a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+<a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-coolants" href="products.html#coolants">Coolants</a>
+<a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-greases" href="products.html#greases">Greases</a>
+<a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-agricultural-oils" href="products.html#tractor-oils">Agricultural Oils</a>
+<a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+<div class="mt-1 pt-2 border-t border-hairline px-4 pb-1">
+<a class="inline-flex items-center gap-1 text-[11px] tracking-wider text-logo-blue font-semibold uppercase hover:underline" data-path="products" href="products.html">All products →</a>
+</div>
+</div>
+</div>
+<a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+<a class="text-sm font-semibold text-logo-blue transition-colors" data-path="applications" href="applications.html">Applications</a>
+<a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="about" href="about.html">About</a>
+<a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="dealership" href="dealership.html">Dealership</a>
+<a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="contact" href="contact.html">Contact</a>
+</nav>
+<div class="hidden lg:flex items-center">
+<a class="inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue" data-path="enquiry" href="#enquiry-form">Enquiry Now</a>
+</div>
+<div class="flex lg:hidden items-center">
+<button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center border border-hairline bg-product-frame text-heading-black focus:outline-none" id="mobile-nav-toggle" type="button">
+<span class="text-xl font-bold" id="mobile-burger-icon">☰</span>
+<span class="text-xl font-bold hidden" id="mobile-close-icon">×</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- MOBILE MENU DRAWER -->
+<div class="fixed inset-0 top-[116px] bg-white z-40 hidden flex-col overflow-y-auto border-t border-hairline px-6 py-8" id="mobile-menu-drawer">
+<div class="flex flex-col space-y-6">
+<a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="home" href="index.html">Home</a>
+<div>
+<button class="w-full flex items-center justify-between font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3 text-left focus:outline-none" id="mobile-products-toggle" type="button">
+<span class="">Products</span>
+<span class="text-sm transition-transform duration-200" id="mobile-products-arrow">▼</span>
+</button>
+<div class="hidden flex-col pl-4 pt-4 space-y-3 bg-product-frame my-2 p-4 border-l border-logo-blue" id="mobile-products-menu">
+<a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+<a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+<a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-coolants" href="products.html#coolants">Coolants</a>
+<a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-greases" href="products.html#greases">Greases</a>
+<a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-agricultural-oils" href="products.html#tractor-oils">Agricultural Oils</a>
+<a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+<a class="mobile-link text-xs tracking-wider uppercase text-logo-blue font-semibold pt-2 block" data-path="products" href="products.html">All products →</a>
+</div>
+</div>
+<a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+<a class="mobile-link font-serif text-[26px] text-logo-blue border-b border-hairline pb-3" data-path="applications" href="applications.html">Applications</a>
+<a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="about" href="about.html">About</a>
+<a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="dealership" href="dealership.html">Dealership</a>
+<a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="contact" href="contact.html">Contact</a>
+<div class="pt-4">
+<a class="mobile-link w-full inline-flex items-center justify-center bg-logo-blue text-white py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider text-center" data-path="enquiry" href="#enquiry-form">Enquiry Now</a>
+</div>
+</div>
+</div>
+<!-- MAIN WRAPPER -->
+<main class="pt-[116px]"><div class="flex flex-col w-full">
+<!-- BREADCRUMB BAR -->
+<div class="w-full bg-white border-b border-hairline py-3">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-2 text-xs font-sans text-light-text">
+<a class="hover:text-heading-black transition-colors" data-path="home" href="index.html">Home</a>
+<span class="text-structural-line">/</span>
+<span class="text-heading-black font-medium">Applications</span>
+</div>
+</div>
+</div>
+<!-- TITLE BLOCK -->
+<section class="w-full bg-page-bg border-b border-hairline pt-12 pb-14 lg:pt-16 lg:pb-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl flex flex-col gap-4">
+<div class="flex items-center gap-2">
+<span class="inline-block w-2 h-2 bg-logo-blue rounded-none"></span>
+<span class="text-[11px] font-sans font-semibold uppercase tracking-[0.2em] text-logo-blue">APPLICATIONS</span>
+</div>
+<h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-heading-black leading-[1.15] tracking-tight">
+          Dependable lubrication for machinery <span class="italic text-logo-blue">working across India.</span>
+</h1>
+<p class="font-sans text-sm sm:text-base text-body-text leading-relaxed mt-2">
+          From heavy line-haul transport traversing national corridors to tractors plowing dense rural soils and factories running round-the-clock assembly shifts, Indian operating cycles demand unyielding fluid integrity. Unicore oils and functional greases are engineered specifically to shield rotating gear assemblies, combustion chambers, and fluid circuits against extreme summer ambient heat, pervasive road dust, and uninterrupted heavy loads.
+        </p>
+</div>
+</div>
+</section>
+<!-- SECTION 1: TWO-WHEELERS (WHITE) -->
+<section class="w-full bg-white border-b border-hairline py-16 lg:py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+<!-- Header & Description -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<div class="flex items-baseline gap-4">
+<span class="font-serif text-3xl sm:text-4xl text-logo-blue font-normal">01</span>
+<h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-heading-black">Two-Wheelers</h2>
+</div>
+<p class="font-sans text-sm text-body-text leading-relaxed">Commuter motorcycles and delivery fleets endure grueling stop-start urban cycles, dense traffic congestion, and prolonged idling in intense summer heat. Unicore two-wheeler engine oils and tire protectants safeguard high-revving engines, wet clutch systems, and tires against excessive wear, thermal degradation, and road debris.</p>
+<div class="pt-2">
+<div class="inline-flex items-center gap-2 text-xs font-sans text-light-text uppercase tracking-wider bg-product-frame px-3 py-1.5 border border-hairline">
+<span class="">Operating Environment: Urban Stop-Start · High Ambient Temperatures</span>
+</div>
+</div>
+</div>
+<!-- Suited Products Cards -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-page-bg border border-hairline p-6 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-2">
+<span class="text-[11px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Fluid Category</span>
+<h3 class="font-serif text-xl text-heading-black">Engine Oils</h3>
+<p class="font-sans text-xs sm:text-sm text-body-text leading-relaxed mt-1">
+                Protects clutch grip and high-rev engine parts in dense city traffic, preventing internal component wear during prolonged idling.
+              </p>
+</div>
+<div class="pt-6 border-t border-hairline mt-6">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-engine-oils" href="products.html#engine-oils">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-page-bg border border-hairline p-6 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-2">
+<span class="text-[11px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Protection Category</span>
+<h3 class="font-serif text-xl text-heading-black">Tyre Sealant Gel</h3>
+<p class="font-sans text-xs sm:text-sm text-body-text leading-relaxed mt-1">
+                Instantly closes tread punctures from street nails and gravel debris as you ride, maintaining steady tyre pressure for delivery routes.
+              </p>
+</div>
+<div class="pt-6 border-t border-hairline mt-6">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="tyre-sealant" href="tyre-sealant.html">
+                View product <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: COMMERCIAL FLEETS (PAGE-BG) -->
+<section class="w-full bg-page-bg border-b border-hairline py-16 lg:py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+<!-- Header & Description -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<div class="flex items-baseline gap-4">
+<span class="font-serif text-3xl sm:text-4xl text-logo-blue font-normal">02</span>
+<h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-heading-black">Commercial Fleets</h2>
+</div>
+<p class="font-sans text-sm text-body-text leading-relaxed">Multi-axle haulage trucks and intercity passenger buses tackle continuous long-haul highway routes with overloaded cargo beds through shifting climatic zones. Sustained hill climbs, unyielding brake heat, driving monsoon downpours, and unpaved bypass roads subject transmissions, wheel hubs, and radiators to relentless mechanical stress.</p>
+<div class="pt-2">
+<div class="inline-flex items-center gap-2 text-xs font-sans text-light-text uppercase tracking-wider bg-white px-3 py-1.5 border border-hairline">
+<span class="">Operating Environment: Heavy Axle Loads · Long-Haul Highway Routes</span>
+</div>
+</div>
+</div>
+<!-- Suited Products Cards Grid -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Engine Oils</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Maintains steady film thickness across unstopped day-and-night transport hauls to minimize piston and cylinder friction.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-engine-oils" href="products.html#engine-oils">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Gear Oils</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Guards differential teeth and heavy transmission gears against grinding shock under steep grade acceleration with full tonnage.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-gear-oils" href="products.html#gear-oils">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Coolants</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Prevents radiator boil-over under blistering summer sun and guards engine cooling water channels against internal scaling.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-coolants" href="products.html#coolants">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Greases</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Seals wheel hub bearings and chassis steering joints against water washout during heavy monsoon rain and road spray.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-greases" href="products.html#greases">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-none sm:col-span-2 lg:col-span-2">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Tyre Sealant Gel</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">Prevents tyre pressure drops and highway blowouts across multi-axle trailers, sealing punctures instantly while rolling.</p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="tyre-sealant" href="tyre-sealant.html">
+                View product <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: AGRICULTURAL MACHINERY (WHITE) -->
+<section class="w-full bg-white border-b border-hairline py-16 lg:py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+<!-- Header & Description -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<div class="flex items-baseline gap-4">
+<span class="font-serif text-3xl sm:text-4xl text-logo-blue font-normal">03</span>
+<h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-heading-black">Agricultural Machinery</h2>
+</div>
+<p class="font-sans text-sm text-body-text leading-relaxed">
+            Farm tractors, combine harvesters, and irrigation pumps function amidst swirling field dust, muddy paddy basins, and sharp seasonal cycles. Equipment often runs at peak continuous throttle during sowing and harvest seasons, followed by weeks of open yard standing where rust, dust ingress, and moisture can compromise hydraulic arms and gear cases.
+          </p>
+<div class="pt-2">
+<div class="inline-flex items-center gap-2 text-xs font-sans text-light-text uppercase tracking-wider bg-product-frame px-3 py-1.5 border border-hairline">
+<span class="">Operating Environment: Airborne Field Dust · Waterlogged Soils · Seasonal Idle</span>
+</div>
+</div>
+</div>
+<!-- Suited Products Cards Grid -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-page-bg border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Tractor Oils</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Powers hydraulic lift arms, smooth wet brake operation, and central transmission cases without chatter during field tilling.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-agricultural-oils" href="products.html#tractor-oils">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-page-bg border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Engine Oils</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Prevents carbon build-up and cylinder lining wear in tractor diesel engines running at high throttle under thick airborne field dirt.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-engine-oils" href="products.html#engine-oils">View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span></a>
+</div>
+</div>
+<div class="bg-page-bg border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Greases</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">Shields tractor wheel hubs, linkage pins, and PTO joints against heavy field dust, mud, and water washout during demanding seasonal work.</p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-greases" href="products.html#greases">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-page-bg border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Coolants</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Keeps harvest machinery radiators cool and rust-free throughout intense pre-monsoon threshing schedules in direct sunlight.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-coolants" href="products.html#coolants">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: OFF-HIGHWAY EQUIPMENT (PAGE-BG) -->
+<section class="w-full bg-page-bg border-b border-hairline py-16 lg:py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+<!-- Header & Description -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<div class="flex items-baseline gap-4">
+<span class="font-serif text-3xl sm:text-4xl text-logo-blue font-normal">04</span>
+<h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-heading-black">Off-Highway Equipment</h2>
+</div>
+<p class="font-sans text-sm text-body-text leading-relaxed">
+            Earthmovers, quarry loaders, stone crushers, and site dumpers handle severe shock vibration while clawing through rock beds and fine construction grit. Extreme hydraulic pressures and unyielding mechanical leverage generate tremendous fluid heat, requiring tough lubricants that stay inside open pins and gear boxes without foaming or thinning out.
+          </p>
+<div class="pt-2">
+<div class="inline-flex items-center gap-2 text-xs font-sans text-light-text uppercase tracking-wider bg-white px-3 py-1.5 border border-hairline">
+<span class="">Operating Environment: Severe Impact Shocks · Heavy Hydraulic Pressure · Grit Ingress</span>
+</div>
+</div>
+</div>
+<!-- Suited Products Cards Grid -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Industrial &amp; Hydraulic Oils</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Transfers rapid power through excavator booms and loader rams without pump cavitation or valve sticking under constant cycles.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Heavy Greases</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Stays firmly in bucket hinge pins, tracks, and turntable rings despite crushing impact shocks and gritty abrasive quarry stone dust.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-greases" href="products.html#greases">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Engine Oils</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">Shields turbo-charged site machinery diesel engines from excessive soot accumulation and heat degradation over continuous mining shifts.</p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-engine-oils" href="products.html#engine-oils">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Gear Oils</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Provides tough lubrication for tracked final drive hubs and planetary gear reductions moving massive earth mounds across uneven ground.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-gear-oils" href="products.html#gear-oils">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: INDUSTRIAL PLANTS (WHITE) -->
+<section class="w-full bg-white border-b border-hairline py-16 lg:py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+<!-- Header & Description -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<div class="flex items-baseline gap-4">
+<span class="font-serif text-3xl sm:text-4xl text-logo-blue font-normal">05</span>
+<h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-heading-black">Industrial Plants</h2>
+</div>
+<p class="font-sans text-sm text-body-text leading-relaxed">
+            Steel mills, textile looms, cement grinding lines, and plastic molding presses depend on machinery operating around the clock without unscheduled stoppages. High internal drive temperatures, continuous conveyor friction, steam moisture, and chemical atmosphere exposure demand fluids that resist oxidation and maintain boundary protection month after month.
+          </p>
+<div class="pt-2">
+<div class="inline-flex items-center gap-2 text-xs font-sans text-light-text uppercase tracking-wider bg-product-frame px-3 py-1.5 border border-hairline">
+<span class="">Operating Environment: 24/7 Factory Shifts · Thermal Loads · Ambient Moisture</span>
+</div>
+</div>
+</div>
+<!-- Suited Products Cards Grid -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="bg-page-bg border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Industrial &amp; Hydraulic</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Maintains steady hydraulic pressure and smooth actuation across automated presses, machine tool sliders, and circulating lines.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-page-bg border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Greases</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Lubricates high-speed electric motor bearings, roller conveyors, and drying fan shafts under steady high temperature operating shifts.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-greases" href="products.html#greases">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+<div class="bg-page-bg border border-hairline p-5 flex flex-col justify-between rounded-none">
+<div class="flex flex-col gap-1.5">
+<span class="text-[10px] font-sans font-semibold uppercase tracking-wider text-logo-blue">Category</span>
+<h3 class="font-serif text-lg text-heading-black">Gear Oils</h3>
+<p class="font-sans text-xs text-body-text leading-relaxed">
+                Cushions heavy reduction gearboxes and conveyor drive units against gear surface pitting and heat wear during nonstop manufacturing runs.
+              </p>
+</div>
+<div class="pt-4 border-t border-hairline mt-4">
+<a class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-logo-blue hover:text-deep-navy group" data-path="products-gear-oils" href="products.html#gear-oils">
+                View category <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CLOSING ENQUIRY BAND (DEEP-NAVY) -->
+<section class="w-full bg-deep-navy text-white py-16 lg:py-20" id="trade-enquiry">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 lg:gap-12">
+<div class="max-w-2xl flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="inline-block w-1.5 h-1.5 bg-white"></span>
+<span class="text-[11px] font-sans font-semibold uppercase tracking-[0.2em] text-white/80">Direct Commercial Trade</span>
+</div>
+<h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-white font-normal leading-snug">
+            Need technical recommendations for your fleet or plant machinery?
+          </h2>
+<p class="font-sans text-xs sm:text-sm text-white/70 leading-relaxed max-w-xl">
+            Speak directly with our trade team for bulk drum supplies, fleet trials, and authorized regional dealership allocations.
+          </p>
+</div>
+<div class="flex-shrink-0">
+<a class="inline-flex items-center justify-center bg-white hover:bg-page-bg text-deep-navy px-8 py-3.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150" data-path="contact" href="contact.html">
+            Contact Trade Sales →
+          </a>
+</div>
+</div>
+</div>
+</section>
+</div></main>
+<!-- CANONICAL FOOTER -->
+<footer class="w-full bg-deep-navy text-white/80 border-t border-white/20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+<div class="space-y-4">
+<div class="flex flex-col">
+<span class="font-bold text-xl text-white tracking-tight">UNICORE</span>
+<span class="text-[9px] tracking-[0.25em] text-white/60 uppercase font-medium">INDUSTRIAL LUBRICANTS</span>
+</div>
+<p class="text-xs text-white/70 leading-relaxed pr-2">Unicore Lubricants manufactures dependable oils and specialty greases built for heavy transport fleets, agricultural tractors, and industrial plants across India.</p>
+</div>
+<div>
+<h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Products</h4>
+<ul class="space-y-2.5 text-xs">
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-coolants" href="products.html#coolants">Coolants</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-greases" href="products.html#greases">Greases</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-agricultural-oils" href="products.html#tractor-oils">Agricultural Oils</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-tyre-sealant-gel" href="tyre-sealant.html">Tyre Sealant Gel</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Company</h4>
+<ul class="space-y-2.5 text-xs">
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="about" href="about.html">About Us</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="dealership" href="dealership.html">Dealership</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="contact" href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Safety &amp; Compliance</h4>
+<ul class="space-y-2.5 text-xs">
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="safety-data-sheets" href="#">Safety Data Sheets (SDS)</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="terms-of-trade" href="#">Terms of Trade</a></li>
+<li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="privacy-policy" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
+<p class="">© 2026 Unicore Lubricants. All rights reserved.</p>
+<p class="text-[11px] text-white/50">Precision manufactured in India</p>
+</div>
+</div>
+</footer>
+<!-- MOBILE SCRIPT -->
+<script>
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const burgerIcon = document.getElementById('mobile-burger-icon');
+    const closeIcon = document.getElementById('mobile-close-icon');
+    const productsToggle = document.getElementById('mobile-products-toggle');
+    const productsMenu = document.getElementById('mobile-products-menu');
+    const productsArrow = document.getElementById('mobile-products-arrow');
+    function setDrawer(open) {
+      if (open) {
+        drawer.classList.remove('hidden'); drawer.classList.add('flex');
+        burgerIcon.classList.add('hidden'); closeIcon.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer.classList.add('hidden'); drawer.classList.remove('flex');
+        burgerIcon.classList.remove('hidden'); closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = !drawer.classList.contains('hidden');
+        setDrawer(!isOpen);
+      });
+    }
+    if (productsToggle) {
+      productsToggle.addEventListener('click', () => {
+        const isProdOpen = !productsMenu.classList.contains('hidden');
+        if (isProdOpen) {
+          productsMenu.classList.add('hidden'); productsMenu.classList.remove('flex');
+          productsArrow.classList.remove('rotate-180');
+        } else {
+          productsMenu.classList.remove('hidden'); productsMenu.classList.add('flex');
+          productsArrow.classList.add('rotate-180');
+        }
+      });
+    }
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => setDrawer(false));
+    });
+  </script>
+
+
+
+
+</body></html>

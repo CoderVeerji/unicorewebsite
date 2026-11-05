@@ -1,0 +1,758 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicore Lubricants — Tyre Sealant Gel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "white": "#FFFFFF",
+            "page-bg": "#FAFAF8",
+            "product-frame": "#F3F3F0",
+            "hairline": "#E6E6E2",
+            "structural-line": "#D8D8D3",
+            "heading-black": "#0B0B0C",
+            "body-text": "#434751",
+            "light-text": "#737783",
+            "logo-blue": "#1B4FA0",
+            "deep-navy": "#143A78"
+          },
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin:0; padding:0; background-color:#FAFAF8; color:#434751; font-family:'Inter', sans-serif; }
+      body { overscroll-behavior: none; }
+      * { box-shadow: none !important; }
+      .dropdown-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1) !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    details > summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+<body class="bg-page-bg text-body-text antialiased selection:bg-logo-blue selection:text-white">
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 w-full z-50">
+    <div class="bg-deep-navy text-white border-b border-hairline/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between text-[12px] text-white/80">
+        <div class="flex items-center gap-6">
+          <span class="">[to be confirmed by Unicore]</span>
+          <span class="hidden sm:inline-block text-white/30">|</span>
+          <span class="hidden sm:inline-block">[to be confirmed by Unicore]</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-1.5 h-1.5 bg-white"></span>
+          <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
+        </div>
+      </div>
+    </div>
+    <div class="h-20 bg-white border-b border-hairline">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+        <a class="flex flex-col group" data-path="home" href="index.html">
+          <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
+          <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="home" href="index.html">Home</a>
+          <div class="relative group py-6">
+            <button class="flex items-center gap-1 text-sm font-medium text-body-text group-hover:text-heading-black transition-colors focus:outline-none" type="button">
+              <span class="">Products</span>
+              <span class="text-xs transition-transform duration-200 group-hover:rotate-180">▼</span>
+            </button>
+            <div class="absolute top-full left-0 w-72 bg-white border border-hairline dropdown-shadow py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+              <div class="px-4 py-2 border-b border-hairline bg-product-frame">
+                <span class="text-[11px] tracking-widest text-light-text uppercase block font-medium">Product Categories</span>
+              </div>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-coolants" href="products.html#coolants">Coolants</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-greases" href="products.html#greases">Greases</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-agricultural-oils" href="products.html#tractor-oils">Agricultural Oils</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+              <div class="mt-1 pt-2 border-t border-hairline px-4 pb-1">
+                <a class="inline-flex items-center gap-1 text-[11px] tracking-wider text-logo-blue font-semibold uppercase hover:underline" data-path="products" href="products.html">All products →</a>
+              </div>
+            </div>
+          </div>
+          <a class="text-sm font-semibold text-logo-blue transition-colors" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="applications" href="applications.html">Applications</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="about" href="about.html">About</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="dealership" href="dealership.html">Dealership</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="contact" href="contact.html">Contact</a>
+        </nav>
+        <div class="hidden lg:flex items-center">
+          <a class="inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue" data-path="enquiry" href="#enquiry-form">Enquiry Now</a>
+        </div>
+        <div class="flex lg:hidden items-center">
+          <button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center border border-hairline bg-product-frame text-heading-black focus:outline-none" id="mobile-nav-toggle" type="button">
+            <span class="text-xl font-bold" id="mobile-burger-icon">☰</span>
+            <span class="text-xl font-bold hidden" id="mobile-close-icon">×</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU DRAWER -->
+  <div class="fixed inset-0 top-[116px] bg-white z-40 hidden flex-col overflow-y-auto border-t border-hairline px-6 py-8" id="mobile-menu-drawer">
+    <div class="flex flex-col space-y-6">
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="home" href="index.html">Home</a>
+      <div>
+        <button class="w-full flex items-center justify-between font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3 text-left focus:outline-none" id="mobile-products-toggle" type="button">
+          <span class="">Products</span>
+          <span class="text-sm transition-transform duration-200" id="mobile-products-arrow">▼</span>
+        </button>
+        <div class="hidden flex-col pl-4 pt-4 space-y-3 bg-product-frame my-2 p-4 border-l border-logo-blue" id="mobile-products-menu">
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-coolants" href="products.html#coolants">Coolants</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-greases" href="products.html#greases">Greases</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-agricultural-oils" href="products.html#tractor-oils">Agricultural Oils</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+          <a class="mobile-link text-xs tracking-wider uppercase text-logo-blue font-semibold pt-2 block" data-path="products" href="products.html">All products →</a>
+        </div>
+      </div>
+      <a class="mobile-link font-serif text-[26px] text-logo-blue border-b border-hairline pb-3" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="applications" href="applications.html">Applications</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="about" href="about.html">About</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="dealership" href="dealership.html">Dealership</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="contact" href="contact.html">Contact</a>
+      <div class="pt-4">
+        <a class="mobile-link w-full inline-flex items-center justify-center bg-logo-blue text-white py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider text-center" data-path="enquiry" href="#enquiry-form">Enquiry Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN WRAPPER -->
+  <main class="pt-[116px]">
+
+    <!-- BREADCRUMB ROW -->
+    <div class="bg-white border-b border-hairline">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <nav class="flex items-center text-xs text-light-text">
+          <a href="#" class="hover:text-heading-black transition-colors">Home</a>
+          <span class="mx-2 text-hairline">/</span>
+          <span class="text-heading-black font-medium">Tyre Sealant Gel</span>
+        </nav>
+      </div>
+    </div>
+
+    <!-- 1. HERO SECTION -->
+    <section class="bg-white border-b border-hairline py-16 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          <!-- Square Frame on Product Ground (left column) -->
+          <div class="lg:col-span-5 w-full">
+            <div class="w-full aspect-square bg-product-frame border border-hairline flex flex-col items-center justify-center p-8 text-center">
+              <span class="font-serif italic text-light-text text-[13px] leading-relaxed max-w-[240px]">
+                [Photograph: Studio pack shot of Unicore Tyre Sealant Gel container and applicator nozzle on light ground]
+              </span>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-[11px] text-light-text">
+              <span class="">SPECIALTY COMMERCIAL GRADE</span>
+              <span class="">TUBELESS TYRE APPLICATION</span>
+            </div>
+          </div>
+
+          <!-- Content (right column) -->
+          <div class="lg:col-span-7 flex flex-col justify-start text-left pt-2">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-1.5 h-1.5 bg-logo-blue"></span>
+              <span class="text-xs font-semibold uppercase tracking-[0.2em] text-logo-blue">Flagship Specialty Product</span>
+            </div>
+
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-[54px] leading-[1.08] text-heading-black mb-6">
+              Continuous puncture protection <span class="italic text-logo-blue">while the vehicle keeps moving.</span>
+            </h1>
+
+            <div class="space-y-4 text-base sm:text-lg text-body-text max-w-2xl leading-relaxed mb-10">
+              <p class="">
+                When a nail enters a rolling tyre, the rushing air pushes the heavy gel straight into the hole. The gel packs tight into the wound instantly and holds tyre pressure so the driver never has to pull over.
+              </p>
+              <p class="">It remains liquid inside the tread crown for the active life of the tyre, cooling the casing on hot highway runs.</p>
+            </div>
+
+            <div class="pt-2">
+              <a href="#enquiry-form" class="inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-8 py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors border border-logo-blue">
+                Enquire about tyre sealant
+              </a>
+              <p class="mt-3 text-xs text-light-text">Pack sizes and trade supply confirmed by Unicore on request.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. HOW IT WORKS (The single deep-navy band on the page for maximum technical authority) -->
+    <section class="bg-deep-navy text-white border-b border-hairline/20 py-20 lg:py-28">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-2xl text-left mb-16">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-1.5 bg-white"></span>
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Action Inside The Tyre</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mb-4">
+            How it works
+          </h2>
+          <p class="text-sm text-white/80 leading-relaxed">
+            The mechanical sealing process begins the second a sharp object pierces the rolling tread.
+          </p>
+        </div>
+
+        <!-- Hairline Grid: 4 Steps -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border border-white/20 divide-y md:divide-y-0 md:divide-x divide-white/20">
+          
+          <div class="p-8 sm:p-10 flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl sm:text-4xl text-white/40 block mb-6">01</span>
+              <h3 class="font-serif text-xl sm:text-2xl text-white mb-4">Spreads across tread</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-white/80 leading-relaxed">
+              As the wheel turns, centrifugal motion spreads the thick gel evenly over the entire inner face of the tyre crown.
+            </p>
+          </div>
+
+          <div class="p-8 sm:p-10 flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl sm:text-4xl text-white/40 block mb-6">02</span>
+              <h3 class="font-serif text-xl sm:text-2xl text-white mb-4">Rushes into wound</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-white/80 leading-relaxed">
+              When a nail punctures the rubber, the escaping compressed air immediately forces the gel directly into the puncture opening.
+            </p>
+          </div>
+
+          <div class="p-8 sm:p-10 flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl sm:text-4xl text-white/40 block mb-6">03</span>
+              <h3 class="font-serif text-xl sm:text-2xl text-white mb-4">Packs tight plug</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-white/80 leading-relaxed">
+              The solid bodies carried in the gel wedge tightly together inside the channel, forming a solid mechanical plug through the casing.
+            </p>
+          </div>
+
+          <div class="p-8 sm:p-10 flex flex-col justify-between">
+            <div>
+              <span class="font-serif text-3xl sm:text-4xl text-white/40 block mb-6">04</span>
+              <h3 class="font-serif text-xl sm:text-2xl text-white mb-4">Holds full pressure</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-white/80 leading-relaxed">
+              The plug seals flush with the tread face and holds working air pressure while the vehicle continues its trip without stopping.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. WHO IT IS FOR -->
+    <section class="bg-white border-b border-hairline py-20 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-2xl text-left mb-16">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-1.5 bg-logo-blue"></span>
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-logo-blue">Vehicle Applications</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-4">
+            Who it is for
+          </h2>
+          <p class="text-sm text-body-text leading-relaxed">
+            Formulated for heavy commercial daily use on Indian roads, highway freight corridors, and agricultural land.
+          </p>
+        </div>
+
+        <!-- 4 Segments in Hairline Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border border-hairline divide-y md:divide-y-0 md:divide-x divide-hairline">
+          
+          <div class="p-8 bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-4">Segment 01</span>
+              <h3 class="font-serif text-2xl text-heading-black mb-3">Two-wheelers</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-body-text leading-relaxed">
+              Protects daily commuter motorcycles and delivery scooters from sharp wire and roadside nail punctures in busy city traffic.
+            </p>
+          </div>
+
+          <div class="p-8 bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-4">Segment 02</span>
+              <h3 class="font-serif text-2xl text-heading-black mb-3">Auto-rickshaws and taxis</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-body-text leading-relaxed">
+              Stops sudden air loss and costly downtime for passenger vehicles running long daily shifts across broken urban roads.
+            </p>
+          </div>
+
+          <div class="p-8 bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-4">Segment 03</span>
+              <h3 class="font-serif text-2xl text-heading-black mb-3">Commercial fleets</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-body-text leading-relaxed">
+              Maintains full tyre pressure on multi-axle trucks and highway buses carrying heavy consignments through remote long-haul corridors.
+            </p>
+          </div>
+
+          <div class="p-8 bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-4">Segment 04</span>
+              <h3 class="font-serif text-2xl text-heading-black mb-3">Farm vehicles</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-body-text leading-relaxed">
+              Prevents thorn, stubble, and scrap punctures on tractor front tyres and haulage trailers operating in rough rural ground.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. HOW MUCH TO USE -->
+    <section class="bg-page-bg border-b border-hairline py-20 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-2xl text-left mb-12">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-1.5 bg-logo-blue"></span>
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-logo-blue">Dosage Guidelines</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-4">
+            How much to use
+          </h2>
+          <p class="text-sm text-body-text leading-relaxed">
+            The required amount of gel depends directly on tyre volume and tread width.
+          </p>
+        </div>
+
+        <!-- Hairline Table: 7 Rows -->
+        <div class="bg-white border border-hairline max-w-4xl">
+          <div class="grid grid-cols-12 border-b border-hairline bg-product-frame text-[11px] font-semibold uppercase tracking-wider text-light-text py-3 px-6">
+            <div class="col-span-7 sm:col-span-8">Tyre Size &amp; Vehicle Class</div>
+            <div class="col-span-5 sm:col-span-4 text-right">Required Quantity</div>
+          </div>
+
+          <!-- Row 1 -->
+          <div class="grid grid-cols-12 border-b border-hairline py-4 px-6 items-center hover:bg-page-bg transition-colors">
+            <div class="col-span-7 sm:col-span-8 font-medium text-sm text-heading-black">
+              Scooter tubeless tyres (10" to 12")
+            </div>
+            <div class="col-span-5 sm:col-span-4 text-right text-xs sm:text-sm font-mono text-body-text">
+              [to be confirmed by Unicore]
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="grid grid-cols-12 border-b border-hairline py-4 px-6 items-center hover:bg-page-bg transition-colors">
+            <div class="col-span-7 sm:col-span-8 font-medium text-sm text-heading-black">
+              Motorcycle rear tubeless tyres (17" to 18")
+            </div>
+            <div class="col-span-5 sm:col-span-4 text-right text-xs sm:text-sm font-mono text-body-text">
+              [to be confirmed by Unicore]
+            </div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="grid grid-cols-12 border-b border-hairline py-4 px-6 items-center hover:bg-page-bg transition-colors">
+            <div class="col-span-7 sm:col-span-8 font-medium text-sm text-heading-black">
+              Auto-rickshaw commercial tyres
+            </div>
+            <div class="col-span-5 sm:col-span-4 text-right text-xs sm:text-sm font-mono text-body-text">
+              [to be confirmed by Unicore]
+            </div>
+          </div>
+
+          <!-- Row 4 -->
+          <div class="grid grid-cols-12 border-b border-hairline py-4 px-6 items-center hover:bg-page-bg transition-colors">
+            <div class="col-span-7 sm:col-span-8 font-medium text-sm text-heading-black">
+              Compact passenger car tyres (13" to 14")
+            </div>
+            <div class="col-span-5 sm:col-span-4 text-right text-xs sm:text-sm font-mono text-body-text">
+              [to be confirmed by Unicore]
+            </div>
+          </div>
+
+          <!-- Row 5 -->
+          <div class="grid grid-cols-12 border-b border-hairline py-4 px-6 items-center hover:bg-page-bg transition-colors">
+            <div class="col-span-7 sm:col-span-8 font-medium text-sm text-heading-black">
+              Commercial utility and pickup tyres (15" to 16")
+            </div>
+            <div class="col-span-5 sm:col-span-4 text-right text-xs sm:text-sm font-mono text-body-text">
+              [to be confirmed by Unicore]
+            </div>
+          </div>
+
+          <!-- Row 6 -->
+          <div class="grid grid-cols-12 border-b border-hairline py-4 px-6 items-center hover:bg-page-bg transition-colors">
+            <div class="col-span-7 sm:col-span-8 font-medium text-sm text-heading-black">
+              Heavy truck and bus radial tyres (20" to 22.5")
+            </div>
+            <div class="col-span-5 sm:col-span-4 text-right text-xs sm:text-sm font-mono text-body-text">
+              [to be confirmed by Unicore]
+            </div>
+          </div>
+
+          <!-- Row 7 -->
+          <div class="grid grid-cols-12 py-4 px-6 items-center hover:bg-page-bg transition-colors">
+            <div class="col-span-7 sm:col-span-8 font-medium text-sm text-heading-black">
+              Agricultural tractor front steering tyres
+            </div>
+            <div class="col-span-5 sm:col-span-4 text-right text-xs sm:text-sm font-mono text-body-text">
+              [to be confirmed by Unicore]
+            </div>
+          </div>
+
+        </div>
+
+        <p class="mt-4 text-xs text-light-text max-w-4xl text-left">
+          Application quantities are confirmed by Unicore according to wheel rim diameter and tyre tread profile.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- 5. WHAT IT DOES NOT DO (Honest, plain, unglamorous) -->
+    <section class="bg-white border-b border-hairline py-20 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-2xl text-left mb-16">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-1.5 bg-heading-black"></span>
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-heading-black">Product Limitations</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-4">
+            What it does not do
+          </h2>
+          <p class="text-sm text-body-text leading-relaxed">
+            This product is built for real working conditions. We state its exact mechanical boundaries clearly so workshops and fleet managers know what to expect.
+          </p>
+        </div>
+
+        <!-- 3 Honest points in Hairline Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 border border-hairline divide-y md:divide-y-0 md:divide-x divide-hairline">
+          
+          <div class="p-8 bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-4">Limit 01</span>
+              <h3 class="font-serif text-2xl text-heading-black mb-3">It cannot seal sidewall cuts</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-body-text leading-relaxed">
+              The gel stays on the rolling tread crown through centrifugal force. It cannot protect the vertical tyre sidewall from kerb cuts or knife slashes.
+            </p>
+          </div>
+
+          <div class="p-8 bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-4">Limit 02</span>
+              <h3 class="font-serif text-2xl text-heading-black mb-3">It does not replace worn rubber</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-body-text leading-relaxed">
+              The gel protects against punctures through sound tyre casing. It cannot restore cracked, bald, or aged rubber that has run past its legal life.
+            </p>
+          </div>
+
+          <div class="p-8 bg-white flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold text-light-text uppercase tracking-widest block mb-4">Limit 03</span>
+              <h3 class="font-serif text-2xl text-heading-black mb-3">It cannot fix bent steel rims</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-body-text leading-relaxed">
+              Air escaping from damaged bead seating or a hammered rim flange cannot be plugged by tread sealant. That requires workshop rim repair.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. QUESTIONS (Accordion items written like a counter owner) -->
+    <section class="bg-page-bg border-b border-hairline py-20 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-2xl text-left mb-16">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-1.5 bg-logo-blue"></span>
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-logo-blue">Counter Owner Inquiries</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-4">
+            Questions
+          </h2>
+          <p class="text-sm text-body-text leading-relaxed">
+            Practical operational questions from workshop managers, tyre dealers, and parts counter owners.
+          </p>
+        </div>
+
+        <!-- 6 Hairline-separated accordion items -->
+        <div class="border border-hairline bg-white divide-y divide-hairline max-w-4xl">
+          
+          <!-- Item 1 -->
+          <details class="group p-6 text-left cursor-pointer">
+            <summary class="flex items-center justify-between font-serif text-xl sm:text-2xl text-heading-black group-hover:text-logo-blue transition-colors focus:outline-none list-none">
+              <span class="">Will the gel dry up or freeze inside the tyre after three months?</span>
+              <span class="text-sm font-sans text-light-text transition-transform duration-200 group-open:rotate-180">▼</span>
+            </summary>
+            <div class="mt-4 pt-4 border-t border-hairline text-xs sm:text-sm text-body-text leading-relaxed">No. The gel is formulated to stay liquid inside the sealed tyre chamber during regular operation. Specific operating temperature thresholds, shelf life, and service limits are confirmed by Unicore on request.</div>
+          </details>
+
+          <!-- Item 2 -->
+          <details class="group p-6 text-left cursor-pointer">
+            <summary class="flex items-center justify-between font-serif text-xl sm:text-2xl text-heading-black group-hover:text-logo-blue transition-colors focus:outline-none list-none">
+              <span class="">Does it rust the steel rim or rot the inside of the tyre?</span>
+              <span class="text-sm font-sans text-light-text transition-transform duration-200 group-open:rotate-180">▼</span>
+            </summary>
+            <div class="mt-4 pt-4 border-t border-hairline text-xs sm:text-sm text-body-text leading-relaxed">Specific formulation details, metal surface compatibility, and rim protection specifications are confirmed by Unicore on request.</div>
+          </details>
+
+          <!-- Item 3 -->
+          <details class="group p-6 text-left cursor-pointer">
+            <summary class="flex items-center justify-between font-serif text-xl sm:text-2xl text-heading-black group-hover:text-logo-blue transition-colors focus:outline-none list-none">
+              <span class="">What hole size can it close when a nail is pulled out?</span>
+              <span class="text-sm font-sans text-light-text transition-transform duration-200 group-open:rotate-180">▼</span>
+            </summary>
+            <div class="mt-4 pt-4 border-t border-hairline text-xs sm:text-sm text-body-text leading-relaxed">
+              It readily seals standard puncture wounds caused by road nails, screws, and wire. The maximum puncture diameter rating for each vehicle category is confirmed on request.
+            </div>
+          </details>
+
+          <!-- Item 4 -->
+          <details class="group p-6 text-left cursor-pointer">
+            <summary class="flex items-center justify-between font-serif text-xl sm:text-2xl text-heading-black group-hover:text-logo-blue transition-colors focus:outline-none list-none">
+              <span class="">How hard is it to wash off the rim when changing tyres?</span>
+              <span class="text-sm font-sans text-light-text transition-transform duration-200 group-open:rotate-180">▼</span>
+            </summary>
+            <div class="mt-4 pt-4 border-t border-hairline text-xs sm:text-sm text-body-text leading-relaxed">Rim cleaning methods, tyre demounting procedures, and workshop servicing guidelines are confirmed by Unicore on request.</div>
+          </details>
+
+          <!-- Item 5 -->
+          <details class="group p-6 text-left cursor-pointer">
+            <summary class="flex items-center justify-between font-serif text-xl sm:text-2xl text-heading-black group-hover:text-logo-blue transition-colors focus:outline-none list-none">
+              <span class="">Can it be installed through the standard air valve stem?</span>
+              <span class="text-sm font-sans text-light-text transition-transform duration-200 group-open:rotate-180">▼</span>
+            </summary>
+            <div class="mt-4 pt-4 border-t border-hairline text-xs sm:text-sm text-body-text leading-relaxed">Recommended dosage tools, valve stem compatibility, and workshop installation methods are confirmed by Unicore on request.</div>
+          </details>
+
+          <!-- Item 6 -->
+          <details class="group p-6 text-left cursor-pointer">
+            <summary class="flex items-center justify-between font-serif text-xl sm:text-2xl text-heading-black group-hover:text-logo-blue transition-colors focus:outline-none list-none">
+              <span class="">What pack sizes are supplied for trade counters and fleet workshops?</span>
+              <span class="text-sm font-sans text-light-text transition-transform duration-200 group-open:rotate-180">▼</span>
+            </summary>
+            <div class="mt-4 pt-4 border-t border-hairline text-xs sm:text-sm text-body-text leading-relaxed">Available container sizes, bulk workshop packaging, and trade dispensing formats are confirmed by Unicore on request.</div>
+          </details>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. ENQUIRY FORM (Underlined fields, clean industrial structure) -->
+    <section id="enquiry-form" class="bg-white border-b border-hairline py-20 lg:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          
+          <!-- Left Column Note -->
+          <div class="lg:col-span-5 text-left">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-1.5 h-1.5 bg-logo-blue"></span>
+              <span class="text-xs font-semibold uppercase tracking-[0.2em] text-logo-blue">Trade Supply &amp; Distribution</span>
+            </div>
+            <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-4">
+              Enquire about Tyre Sealant Gel
+            </h2>
+            <p class="text-sm text-body-text leading-relaxed mb-6">Supplying regional distributors, fleet depots, and independent workshop counters across India. Submit your business requirement for batch dispatch rates.</p>
+
+            <div class="border-t border-hairline pt-6 space-y-3 text-xs text-light-text">
+              <div class="flex items-start gap-2">
+                <span class="font-bold text-heading-black">•</span>
+                <span class="">Direct factory supply for trade partners.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="font-bold text-heading-black">•</span>
+                <span class="">Dealership allocations open for unrepresented districts across India.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column Form with Underlined Fields -->
+          <div class="lg:col-span-7 bg-page-bg border border-hairline p-8 sm:p-12">
+            <form onsubmit="return false;" class="space-y-8 text-left">
+              
+              <!-- Full Name -->
+              <div>
+                <label for="contact-name" class="block text-xs uppercase tracking-wider text-light-text font-semibold mb-1">
+                  Full Name
+                </label>
+                <input type="text" id="contact-name" placeholder="Your name" class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 text-heading-black text-sm px-0 py-2.5 placeholder-light-text/60 transition-colors">
+              </div>
+
+              <!-- Phone Number & City -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div>
+                  <label for="contact-phone" class="block text-xs uppercase tracking-wider text-light-text font-semibold mb-1">
+                    Phone Number
+                  </label>
+                  <input type="tel" id="contact-phone" placeholder="10-digit mobile number" class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 text-heading-black text-sm px-0 py-2.5 placeholder-light-text/60 transition-colors">
+                </div>
+                <div>
+                  <label for="contact-city" class="block text-xs uppercase tracking-wider text-light-text font-semibold mb-1">
+                    City / Town
+                  </label>
+                  <input type="text" id="contact-city" placeholder="e.g. Pune, Indore, Ludhiana" class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 text-heading-black text-sm px-0 py-2.5 placeholder-light-text/60 transition-colors">
+                </div>
+              </div>
+
+              <!-- Business Type Dropdown -->
+              <div>
+                <label for="business-type" class="block text-xs uppercase tracking-wider text-light-text font-semibold mb-1">
+                  Business Type
+                </label>
+                <select id="business-type" class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 text-heading-black text-sm px-0 py-2.5 transition-colors cursor-pointer">
+                  <option value="workshop">Workshop</option>
+                  <option value="retail-counter">Retail Counter</option>
+                  <option value="fleet">Fleet Operator</option>
+                  <option value="distributor">Regional Distributor</option>
+                </select>
+              </div>
+
+              <!-- Message Field -->
+              <div>
+                <label for="contact-message" class="block text-xs uppercase tracking-wider text-light-text font-semibold mb-1">
+                  Message
+                </label>
+                <textarea id="contact-message" rows="3" placeholder="State vehicle types, expected volume, or district dealership interest..." class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 text-heading-black text-sm px-0 py-2.5 placeholder-light-text/60 resize-none transition-colors"></textarea>
+              </div>
+
+              <!-- Submit Button (2px roundness, no fake interactions) -->
+              <div class="pt-2">
+                <button type="button" class="inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-8 py-3.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors border border-logo-blue cursor-pointer">
+                  Submit Tyre Sealant Enquiry
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CANONICAL FOOTER -->
+  <footer class="w-full bg-deep-navy text-white/80 border-t border-white/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div class="space-y-4">
+          <div class="flex flex-col">
+            <span class="font-bold text-xl text-white tracking-tight">UNICORE</span>
+            <span class="text-[9px] tracking-[0.25em] text-white/60 uppercase font-medium">INDUSTRIAL LUBRICANTS</span>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed pr-2">Unicore Lubricants manufactures dependable oils and specialty greases built for heavy transport fleets, agricultural tractors, and industrial plants across India.</p>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Products</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-coolants" href="products.html#coolants">Coolants</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-greases" href="products.html#greases">Greases</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-agricultural-oils" href="products.html#tractor-oils">Agricultural Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-tyre-sealant-gel" href="tyre-sealant.html">Tyre Sealant Gel</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Company</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="about" href="about.html">About Us</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="dealership" href="dealership.html">Dealership</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="contact" href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Safety &amp; Compliance</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="safety-data-sheets" href="#">Safety Data Sheets (SDS)</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="terms-of-trade" href="#">Terms of Trade</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="privacy-policy" href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
+        <p class="">© 2026 Unicore Lubricants. All rights reserved.</p>
+        <p class="text-[11px] text-white/50">Precision manufactured in India</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE SCRIPT -->
+  <script>
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const burgerIcon = document.getElementById('mobile-burger-icon');
+    const closeIcon = document.getElementById('mobile-close-icon');
+    const productsToggle = document.getElementById('mobile-products-toggle');
+    const productsMenu = document.getElementById('mobile-products-menu');
+    const productsArrow = document.getElementById('mobile-products-arrow');
+    function setDrawer(open) {
+      if (open) {
+        drawer.classList.remove('hidden'); drawer.classList.add('flex');
+        burgerIcon.classList.add('hidden'); closeIcon.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer.classList.add('hidden'); drawer.classList.remove('flex');
+        burgerIcon.classList.remove('hidden'); closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = !drawer.classList.contains('hidden');
+        setDrawer(!isOpen);
+      });
+    }
+    if (productsToggle) {
+      productsToggle.addEventListener('click', () => {
+        const isProdOpen = !productsMenu.classList.contains('hidden');
+        if (isProdOpen) {
+          productsMenu.classList.add('hidden'); productsMenu.classList.remove('flex');
+          productsArrow.classList.remove('rotate-180');
+        } else {
+          productsMenu.classList.remove('hidden'); productsMenu.classList.add('flex');
+          productsArrow.classList.add('rotate-180');
+        }
+      });
+    }
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => setDrawer(false));
+    });
+  </script>
+
+
+
+
+
+
+</body></html>
