@@ -1,22 +1,19 @@
 <!DOCTYPE html><html lang="en"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Products | Unicore Industrial Lubricants</title>
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicore Lubricants — Products</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
           colors: {
-            white: "#FFFFFF",
+            "white": "#FFFFFF",
             "page-bg": "#FAFAF8",
             "product-frame": "#F3F3F0",
-            hairline: "#E6E6E2",
+            "hairline": "#E6E6E2",
             "structural-line": "#D8D8D3",
             "heading-black": "#0B0B0C",
             "body-text": "#434751",
@@ -25,129 +22,118 @@
             "deep-navy": "#143A78"
           },
           fontFamily: {
-            serif: ['"Instrument Serif"', "Georgia", "serif"],
-            sans: ['"Inter"', "sans-serif"]
-          },
-          boxShadow: {
-            dropdown: "0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)"
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Inter"', 'sans-serif']
           }
         }
       }
     };
   </script>
-<style>
-    body {
-      background-color: #FAFAF8;
-      color: #434751;
-      font-family: "Inter", sans-serif;
+  <style>
+    @layer base {
+      html, body { margin:0; padding:0; background-color:#FAFAF8; color:#434751; font-family:'Inter', sans-serif; }
+      body { overscroll-behavior: none; }
+      * { box-shadow: none !important; }
+      .dropdown-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1) !important; }
     }
-    .dropdown-shadow {
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-    }
+    ::-webkit-scrollbar { display: none; }
   </style>
 </head>
 <body class="bg-page-bg text-body-text antialiased">
-<!-- Top Utility Bar -->
 
-<!-- Primary Header -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-hairline">
-  <!-- Utility Bar -->
-  <div class="bg-deep-navy text-white/80 text-[11px] font-sans border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-      <div class="flex items-center space-x-4 tracking-wide text-white/90">
-        <span class="">[to be confirmed by Unicore]</span>
-        <span class="text-white/30">|</span>
-        <span class="">[to be confirmed by Unicore]</span>
-      </div>
-      <div class="flex items-center space-x-2 text-[11px] font-medium">
-        <span class="inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
-        <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Navigation Bar -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <!-- Wordmark -->
-      <a class="flex flex-col group" data-path="home" href="index.html">
-        <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
-        <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
-      </a>
-
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="home" href="index.html">Home</a>
-        
-        <!-- Products with Dropdown -->
-        <div class="relative group py-2">
-          <a aria-current="page" class="text-logo-blue font-semibold inline-flex items-center space-x-1 border-b-2 border-logo-blue pb-0.5" data-path="products" href="products.html">
-            <span class="">Products</span>
-            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-          </a>
-          <div class="dropdown-shadow absolute top-full left-0 w-64 bg-white border border-hairline py-3 hidden group-hover:block z-50">
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#engine-oils">Engine Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#gear-oils">Gear Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#coolants">Coolants</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#greases">Greases</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#tractor-oils">Agricultural Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
-            <div class="border-t border-hairline my-2"></div>
-            <a class="block px-5 py-2 text-xs font-semibold text-logo-blue hover:underline" data-path="products" href="products.html">All products →</a>
-          </div>
+  <!-- TOP CANONICAL HEADER -->
+  <header class="fixed top-0 left-0 w-full z-50">
+    <div class="bg-deep-navy text-white border-b border-hairline/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between text-[12px] text-white/80">
+        <div class="flex items-center gap-6">
+          <span class="">[to be confirmed by Unicore]</span>
+          <span class="hidden sm:inline-block text-white/30">|</span>
+          <span class="hidden sm:inline-block">[to be confirmed by Unicore]</span>
         </div>
-
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="applications" href="applications.html">Applications</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="about" href="about.html">About</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="dealership" href="dealership.html">Dealership</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="contact" href="contact.html">Contact</a>
-      </nav>
-
-      <!-- Desktop Action & Mobile Toggle -->
-      <div class="flex items-center space-x-4">
-        <a class="hidden lg:inline-flex bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors border border-logo-blue" data-path="contact" href="contact.html">
-          Enquiry Now
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-1.5 h-1.5 bg-white"></span>
+          <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
+        </div>
+      </div>
+    </div>
+    <div class="h-20 bg-white border-b border-hairline">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+        <a class="flex flex-col group" data-path="home" href="index.html">
+          <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
+          <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
         </a>
-        <button aria-expanded="false" aria-label="Toggle Menu" class="lg:hidden p-2 text-heading-black hover:text-logo-blue focus:outline-none" id="mobile-nav-toggle">
-          <svg class="w-6 h-6 block" id="burger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-          <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="home" href="index.html">Home</a>
+          <div class="relative group py-6">
+            <button class="flex items-center gap-1 text-sm font-semibold text-logo-blue transition-colors focus:outline-none" type="button">
+              <span class="">Products</span>
+              <span class="text-xs transition-transform duration-200 group-hover:rotate-180">▼</span>
+            </button>
+            <div class="absolute top-full left-0 w-72 bg-white border border-hairline dropdown-shadow py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+              <div class="px-4 py-2 border-b border-hairline bg-product-frame">
+                <span class="text-[11px] tracking-widest text-light-text uppercase block font-medium">Product Categories</span>
+              </div>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-coolants" href="products.html#coolants">Coolants</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-greases" href="products.html#greases">Greases</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-agricultural-oils" href="products.html#agricultural-oils">Agricultural Oils</a>
+              <a class="block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+              <div class="mt-1 pt-2 border-t border-hairline px-4 pb-1">
+                <a class="inline-flex items-center gap-1 text-[11px] tracking-wider text-logo-blue font-semibold uppercase hover:underline" data-path="products" href="products.html">All products →</a>
+              </div>
+            </div>
+          </div>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="applications" href="applications.html">Applications</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="about" href="about.html">About</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="dealership" href="dealership.html">Dealership</a>
+          <a class="text-sm font-medium text-body-text hover:text-heading-black transition-colors" data-path="contact" href="contact.html">Contact</a>
+        </nav>
+        <div class="hidden lg:flex items-center">
+          <a class="inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue" data-path="enquiry" href="contact.html">Enquiry Now</a>
+        </div>
+        <div class="flex lg:hidden items-center">
+          <button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center border border-hairline bg-product-frame text-heading-black focus:outline-none" id="mobile-nav-toggle" type="button">
+            <span class="text-xl font-bold" id="mobile-burger-icon">☰</span>
+            <span class="text-xl font-bold hidden" id="mobile-close-icon">×</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU DRAWER -->
+  <div class="fixed inset-0 top-[116px] bg-white z-40 hidden flex-col overflow-y-auto border-t border-hairline px-6 py-8" id="mobile-menu-drawer">
+    <div class="flex flex-col space-y-6">
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="home" href="index.html">Home</a>
+      <div>
+        <button class="w-full flex items-center justify-between font-serif text-[26px] text-logo-blue border-b border-hairline pb-3 text-left focus:outline-none" id="mobile-products-toggle" type="button">
+          <span class="">Products</span>
+          <span class="text-sm transition-transform duration-200" id="mobile-products-arrow">▼</span>
         </button>
+        <div class="hidden flex-col pl-4 pt-4 space-y-3 bg-product-frame my-2 p-4 border-l border-logo-blue" id="mobile-products-menu">
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-coolants" href="products.html#coolants">Coolants</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-greases" href="products.html#greases">Greases</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-agricultural-oils" href="products.html#agricultural-oils">Agricultural Oils</a>
+          <a class="mobile-link text-sm font-medium text-body-text hover:text-logo-blue" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+          <a class="mobile-link text-xs tracking-wider uppercase text-logo-blue font-semibold pt-2 block" data-path="products" href="products.html">All products →</a>
+        </div>
+      </div>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="applications" href="applications.html">Applications</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="about" href="about.html">About</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="dealership" href="dealership.html">Dealership</a>
+      <a class="mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3" data-path="contact" href="contact.html">Contact</a>
+      <div class="pt-4">
+        <a class="mobile-link w-full inline-flex items-center justify-center bg-logo-blue text-white py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider text-center" data-path="enquiry" href="contact.html">Enquiry Now</a>
       </div>
     </div>
   </div>
-</header>
-<!-- Mobile Drawer Menu -->
-<div class="fixed inset-x-0 top-[116px] bottom-0 bg-white z-40 lg:hidden overflow-y-auto hidden border-t border-hairline px-6 py-8" id="mobile-menu-drawer">
-  <nav class="flex flex-col space-y-5 text-base font-medium">
-    <a class="text-body-text hover:text-logo-blue transition-colors pb-2 border-b border-hairline/50" data-path="home" href="index.html">Home</a>
-    <div>
-      <button class="w-full flex items-center justify-between text-logo-blue font-semibold pb-2 border-b border-hairline/50 text-left" id="mobile-products-toggle">
-        <span class="">Products</span>
-        <svg class="w-4 h-4 transition-transform" id="mobile-products-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-      </button>
-      <div class="pl-4 mt-2 space-y-2.5 hidden" id="mobile-products-menu">
-        <a class="block text-sm text-body-text hover:text-logo-blue py-1" href="#engine-oils">Engine Oils</a>
-        <a class="block text-sm text-body-text hover:text-logo-blue py-1" href="#gear-oils">Gear Oils</a>
-        <a class="block text-sm text-body-text hover:text-logo-blue py-1" href="#coolants">Coolants</a>
-        <a class="block text-sm text-body-text hover:text-logo-blue py-1" href="#greases">Greases</a>
-        <a class="block text-sm text-body-text hover:text-logo-blue py-1" href="#tractor-oils">Agricultural Oils</a>
-        <a class="block text-sm text-body-text hover:text-logo-blue py-1" href="#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
-        <a class="block text-sm font-semibold text-logo-blue pt-1" data-path="products" href="products.html">All Products →</a>
-      </div>
-    </div>
-    <a class="text-body-text hover:text-logo-blue transition-colors pb-2 border-b border-hairline/50" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
-    <a class="text-body-text hover:text-logo-blue transition-colors pb-2 border-b border-hairline/50" data-path="applications" href="applications.html">Applications</a>
-    <a class="text-body-text hover:text-logo-blue transition-colors pb-2 border-b border-hairline/50" data-path="about" href="about.html">About</a>
-    <a class="text-body-text hover:text-logo-blue transition-colors pb-2 border-b border-hairline/50" data-path="dealership" href="dealership.html">Dealership</a>
-    <a class="text-body-text hover:text-logo-blue transition-colors pb-2 border-b border-hairline/50" data-path="contact" href="contact.html">Contact</a>
-  </nav>
-  <div class="mt-8 pt-6 border-t border-hairline">
-    <a class="block w-full text-center bg-logo-blue text-white px-6 py-3 rounded-[2px] text-xs font-semibold uppercase tracking-wider" data-path="contact" href="contact.html">
-      Enquiry Now
-    </a>
-  </div>
-</div>
+
+  <!-- MAIN CONTENT CONTAINER -->
 <main class="w-full bg-page-bg min-h-screen pt-[116px]">
 <!-- 1. Breadcrumb Bar -->
 <section class="w-full bg-white border-b border-hairline py-3 px-4 sm:px-6 lg:px-8">
@@ -186,51 +172,50 @@
 <a class="text-body-text hover:text-heading-black pb-1 flex items-center gap-1.5" href="#greases">
 <span class="font-serif text-lg text-light-text">04</span> Greases
 </a>
-<a class="text-body-text hover:text-heading-black pb-1 flex items-center gap-1.5" href="#tractor-oils">
-<span class="font-serif text-lg text-light-text">05</span> Tractor Oils
+<a class="text-body-text hover:text-heading-black pb-1 flex items-center gap-1.5" href="#agricultural-oils">
+<span class="font-serif text-lg text-light-text">05</span> Agricultural Oils
 </a>
 <a class="text-body-text hover:text-heading-black pb-1 flex items-center gap-1.5" href="#industrial-hydraulic-oils">
-<span class="font-serif text-lg text-light-text">06</span> Industrial &amp; Hydraulic
+<span class="font-serif text-lg text-light-text">06</span> Industrial &amp; Hydraulic Oils
 </a>
 </div>
 </div>
 <!-- 3. Two-Column Catalog Body -->
 <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-start relative px-4 sm:px-6 lg:px-8">
-<!-- Left Column: Fixed / Sticky Navigation Rail (Desktop) -->
+<!-- Left Column: Sticky Navigation Rail (Desktop) -->
 <aside class="hidden lg:block w-64 flex-shrink-0 sticky top-[136px] pt-10 pb-12 pr-6 self-start border-r border-hairline min-h-[calc(100vh-9rem)]">
 <div class="flex flex-col justify-between h-full">
 <div>
 <span class="text-[11px] font-semibold uppercase tracking-widest text-light-text mb-4 block">PORTFOLIO INDEX</span>
 <nav class="flex flex-col space-y-1" id="catalog-sidebar-nav">
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-logo-blue border-l-2 border-logo-blue bg-[#f4f4f2] transition-colors" href="#engine-oils">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-logo-blue border-logo-blue bg-[#f4f4f2] border-l-2 transition-colors" href="#engine-oils">
 <span class="text-sm font-semibold text-logo-blue">Engine Oils</span>
 <span class="font-serif text-xl text-logo-blue font-normal">01</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-l-2 border-transparent hover:text-heading-black hover:bg-[#f4f4f2] transition-colors" href="#gear-oils">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#gear-oils">
 <span class="text-sm">Gear Oils</span>
 <span class="font-serif text-xl text-light-text font-normal">02</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-l-2 border-transparent hover:text-heading-black hover:bg-[#f4f4f2] transition-colors" href="#coolants">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#coolants">
 <span class="text-sm">Coolants</span>
 <span class="font-serif text-xl text-light-text font-normal">03</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-l-2 border-transparent hover:text-heading-black hover:bg-[#f4f4f2] transition-colors" href="#greases">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#greases">
 <span class="text-sm">Greases</span>
 <span class="font-serif text-xl text-light-text font-normal">04</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-l-2 border-transparent hover:text-heading-black hover:bg-[#f4f4f2] transition-colors" href="#tractor-oils">
-<span class="text-sm">Tractor Oils</span>
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#agricultural-oils">
+<span class="text-sm">Agricultural Oils</span>
 <span class="font-serif text-xl text-light-text font-normal">05</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-l-2 border-transparent hover:text-heading-black hover:bg-[#f4f4f2] transition-colors" href="#industrial-hydraulic-oils">
-<span class="text-sm">Industrial &amp; Hydraulic</span>
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#industrial-hydraulic-oils">
+<span class="text-sm">Industrial &amp; Hydraulic Oils</span>
 <span class="font-serif text-xl text-light-text font-normal">06</span>
 </a>
 </nav>
 </div>
 <!-- Note Card -->
 <div class="bg-page-bg border border-hairline p-4 mt-8 rounded-[0px] text-left">
-<svg class="w-4 h-4 text-light-text mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
 <p class="text-xs text-light-text leading-relaxed">
               Full technical details, safety data, and drum or bucket sizes are confirmed on request for trade partners.
             </p>
@@ -241,75 +226,12 @@
 <div class="w-full flex-1 flex flex-col text-left lg:pl-8">
 <!-- Section 01: Engine Oils -->
 <section class="w-full py-12 border-b border-hairline scroll-mt-28" id="engine-oils">
-<header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-hairline">
-  <!-- Utility Bar -->
-  <div class="bg-deep-navy text-white/80 text-[11px] font-sans border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-      <div class="flex items-center space-x-4 tracking-wide text-white/90">
-        <span class="">[to be confirmed by Unicore]</span>
-        <span class="text-white/30">|</span>
-        <span class="">[to be confirmed by Unicore]</span>
-      </div>
-      <div class="flex items-center space-x-2 text-[11px] font-medium">
-        <span class="inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
-        <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Navigation Bar -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <!-- Wordmark -->
-      <a class="flex flex-col group" data-path="home" href="index.html">
-        <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
-        <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
-      </a>
-
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="home" href="index.html">Home</a>
-        
-        <!-- Products with Dropdown -->
-        <div class="relative group py-2">
-          <a aria-current="page" class="text-logo-blue font-semibold inline-flex items-center space-x-1 border-b-2 border-logo-blue pb-0.5" data-path="products" href="products.html">
-            <span class="">Products</span>
-            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-          </a>
-          <div class="dropdown-shadow absolute top-full left-0 w-64 bg-white border border-hairline py-3 hidden group-hover:block z-50">
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#engine-oils">Engine Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#gear-oils">Gear Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#coolants">Coolants</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#greases">Greases</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#tractor-oils">Agricultural Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
-            <div class="border-t border-hairline my-2"></div>
-            <a class="block px-5 py-2 text-xs font-semibold text-logo-blue hover:underline" data-path="products" href="products.html">All products →</a>
-          </div>
-        </div>
-
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="applications" href="applications.html">Applications</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="about" href="about.html">About</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="dealership" href="dealership.html">Dealership</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="contact" href="contact.html">Contact</a>
-      </nav>
-
-      <!-- Desktop Action & Mobile Toggle -->
-      <div class="flex items-center space-x-4">
-        <a class="hidden lg:inline-flex bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors border border-logo-blue" data-path="contact" href="contact.html">
-          Enquiry Now
-        </a>
-        <button aria-expanded="false" aria-label="Toggle Menu" class="lg:hidden p-2 text-heading-black hover:text-logo-blue focus:outline-none" id="mobile-nav-toggle">
-          <svg class="w-6 h-6 block" id="burger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-          <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
+<div class="mb-8">
+<span class="font-serif text-2xl text-logo-blue block mb-2">01</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Engine Oils</h2>
+<p class="text-sm text-body-text leading-relaxed max-w-2xl">Multi-grade oils that protect engines from heavy wear, heat buildup, and internal deposits.</p>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<!-- Card 1 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -332,7 +254,6 @@
 </div>
 </div>
 </article>
-<!-- Card 2 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -355,7 +276,6 @@
 </div>
 </div>
 </article>
-<!-- Card 3 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -382,75 +302,12 @@
 </section>
 <!-- Section 02: Gear Oils -->
 <section class="w-full py-12 border-b border-hairline scroll-mt-28" id="gear-oils">
-<header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-hairline">
-  <!-- Utility Bar -->
-  <div class="bg-deep-navy text-white/80 text-[11px] font-sans border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-      <div class="flex items-center space-x-4 tracking-wide text-white/90">
-        <span class="">[to be confirmed by Unicore]</span>
-        <span class="text-white/30">|</span>
-        <span class="">[to be confirmed by Unicore]</span>
-      </div>
-      <div class="flex items-center space-x-2 text-[11px] font-medium">
-        <span class="inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
-        <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Navigation Bar -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <!-- Wordmark -->
-      <a class="flex flex-col group" data-path="home" href="index.html">
-        <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
-        <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
-      </a>
-
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="home" href="index.html">Home</a>
-        
-        <!-- Products with Dropdown -->
-        <div class="relative group py-2">
-          <a aria-current="page" class="text-logo-blue font-semibold inline-flex items-center space-x-1 border-b-2 border-logo-blue pb-0.5" data-path="products" href="products.html">
-            <span class="">Products</span>
-            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-          </a>
-          <div class="dropdown-shadow absolute top-full left-0 w-64 bg-white border border-hairline py-3 hidden group-hover:block z-50">
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#engine-oils">Engine Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#gear-oils">Gear Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#coolants">Coolants</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#greases">Greases</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#tractor-oils">Agricultural Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
-            <div class="border-t border-hairline my-2"></div>
-            <a class="block px-5 py-2 text-xs font-semibold text-logo-blue hover:underline" data-path="products" href="products.html">All products →</a>
-          </div>
-        </div>
-
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="applications" href="applications.html">Applications</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="about" href="about.html">About</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="dealership" href="dealership.html">Dealership</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="contact" href="contact.html">Contact</a>
-      </nav>
-
-      <!-- Desktop Action & Mobile Toggle -->
-      <div class="flex items-center space-x-4">
-        <a class="hidden lg:inline-flex bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors border border-logo-blue" data-path="contact" href="contact.html">
-          Enquiry Now
-        </a>
-        <button aria-expanded="false" aria-label="Toggle Menu" class="lg:hidden p-2 text-heading-black hover:text-logo-blue focus:outline-none" id="mobile-nav-toggle">
-          <svg class="w-6 h-6 block" id="burger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-          <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
+<div class="mb-8">
+<span class="font-serif text-2xl text-logo-blue block mb-2">02</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Gear Oils</h2>
+<p class="text-sm text-body-text leading-relaxed max-w-2xl">Heavy-duty gear oils built to protect transmission gears under sudden shocks and extreme pressures.</p>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<!-- Card 4 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -473,7 +330,6 @@
 </div>
 </div>
 </article>
-<!-- Card 5 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -496,7 +352,6 @@
 </div>
 </div>
 </article>
-<!-- Card 6 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -523,75 +378,12 @@
 </section>
 <!-- Section 03: Coolants -->
 <section class="w-full py-12 border-b border-hairline scroll-mt-28" id="coolants">
-<header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-hairline">
-  <!-- Utility Bar -->
-  <div class="bg-deep-navy text-white/80 text-[11px] font-sans border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-      <div class="flex items-center space-x-4 tracking-wide text-white/90">
-        <span class="">[to be confirmed by Unicore]</span>
-        <span class="text-white/30">|</span>
-        <span class="">[to be confirmed by Unicore]</span>
-      </div>
-      <div class="flex items-center space-x-2 text-[11px] font-medium">
-        <span class="inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
-        <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Navigation Bar -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <!-- Wordmark -->
-      <a class="flex flex-col group" data-path="home" href="index.html">
-        <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
-        <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
-      </a>
-
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="home" href="index.html">Home</a>
-        
-        <!-- Products with Dropdown -->
-        <div class="relative group py-2">
-          <a aria-current="page" class="text-logo-blue font-semibold inline-flex items-center space-x-1 border-b-2 border-logo-blue pb-0.5" data-path="products" href="products.html">
-            <span class="">Products</span>
-            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-          </a>
-          <div class="dropdown-shadow absolute top-full left-0 w-64 bg-white border border-hairline py-3 hidden group-hover:block z-50">
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#engine-oils">Engine Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#gear-oils">Gear Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#coolants">Coolants</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#greases">Greases</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#tractor-oils">Agricultural Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
-            <div class="border-t border-hairline my-2"></div>
-            <a class="block px-5 py-2 text-xs font-semibold text-logo-blue hover:underline" data-path="products" href="products.html">All products →</a>
-          </div>
-        </div>
-
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="applications" href="applications.html">Applications</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="about" href="about.html">About</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="dealership" href="dealership.html">Dealership</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="contact" href="contact.html">Contact</a>
-      </nav>
-
-      <!-- Desktop Action & Mobile Toggle -->
-      <div class="flex items-center space-x-4">
-        <a class="hidden lg:inline-flex bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors border border-logo-blue" data-path="contact" href="contact.html">
-          Enquiry Now
-        </a>
-        <button aria-expanded="false" aria-label="Toggle Menu" class="lg:hidden p-2 text-heading-black hover:text-logo-blue focus:outline-none" id="mobile-nav-toggle">
-          <svg class="w-6 h-6 block" id="burger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-          <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
+<div class="mb-8">
+<span class="font-serif text-2xl text-logo-blue block mb-2">03</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Coolants</h2>
+<p class="text-sm text-body-text leading-relaxed max-w-2xl">Radiator fluids that prevent overheating, boiling, and metal rust inside the cooling passage.</p>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<!-- Card 7 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -614,7 +406,6 @@
 </div>
 </div>
 </article>
-<!-- Card 8 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -637,7 +428,6 @@
 </div>
 </div>
 </article>
-<!-- Card 9 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -664,75 +454,12 @@
 </section>
 <!-- Section 04: Greases -->
 <section class="w-full py-12 border-b border-hairline scroll-mt-28" id="greases">
-<header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-hairline">
-  <!-- Utility Bar -->
-  <div class="bg-deep-navy text-white/80 text-[11px] font-sans border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-      <div class="flex items-center space-x-4 tracking-wide text-white/90">
-        <span class="">[to be confirmed by Unicore]</span>
-        <span class="text-white/30">|</span>
-        <span class="">[to be confirmed by Unicore]</span>
-      </div>
-      <div class="flex items-center space-x-2 text-[11px] font-medium">
-        <span class="inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
-        <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Navigation Bar -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <!-- Wordmark -->
-      <a class="flex flex-col group" data-path="home" href="index.html">
-        <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
-        <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
-      </a>
-
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="home" href="index.html">Home</a>
-        
-        <!-- Products with Dropdown -->
-        <div class="relative group py-2">
-          <a aria-current="page" class="text-logo-blue font-semibold inline-flex items-center space-x-1 border-b-2 border-logo-blue pb-0.5" data-path="products" href="products.html">
-            <span class="">Products</span>
-            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-          </a>
-          <div class="dropdown-shadow absolute top-full left-0 w-64 bg-white border border-hairline py-3 hidden group-hover:block z-50">
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#engine-oils">Engine Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#gear-oils">Gear Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#coolants">Coolants</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#greases">Greases</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#tractor-oils">Agricultural Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
-            <div class="border-t border-hairline my-2"></div>
-            <a class="block px-5 py-2 text-xs font-semibold text-logo-blue hover:underline" data-path="products" href="products.html">All products →</a>
-          </div>
-        </div>
-
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="applications" href="applications.html">Applications</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="about" href="about.html">About</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="dealership" href="dealership.html">Dealership</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="contact" href="contact.html">Contact</a>
-      </nav>
-
-      <!-- Desktop Action & Mobile Toggle -->
-      <div class="flex items-center space-x-4">
-        <a class="hidden lg:inline-flex bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors border border-logo-blue" data-path="contact" href="contact.html">
-          Enquiry Now
-        </a>
-        <button aria-expanded="false" aria-label="Toggle Menu" class="lg:hidden p-2 text-heading-black hover:text-logo-blue focus:outline-none" id="mobile-nav-toggle">
-          <svg class="w-6 h-6 block" id="burger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-          <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
+<div class="mb-8">
+<span class="font-serif text-2xl text-logo-blue block mb-2">04</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Greases</h2>
+<p class="text-sm text-body-text leading-relaxed max-w-2xl">Long-lasting lubricating greases that stay in place under high pressure and resist water washout.</p>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<!-- Card 10 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -755,7 +482,6 @@
 </div>
 </div>
 </article>
-<!-- Card 11 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -778,7 +504,6 @@
 </div>
 </div>
 </article>
-<!-- Card 12 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -803,77 +528,14 @@
 </article>
 </div>
 </section>
-<!-- Section 05: Tractor Oils -->
-<section class="w-full py-12 border-b border-hairline scroll-mt-28" id="tractor-oils">
-<header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-hairline">
-  <!-- Utility Bar -->
-  <div class="bg-deep-navy text-white/80 text-[11px] font-sans border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-      <div class="flex items-center space-x-4 tracking-wide text-white/90">
-        <span class="">[to be confirmed by Unicore]</span>
-        <span class="text-white/30">|</span>
-        <span class="">[to be confirmed by Unicore]</span>
-      </div>
-      <div class="flex items-center space-x-2 text-[11px] font-medium">
-        <span class="inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
-        <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Navigation Bar -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <!-- Wordmark -->
-      <a class="flex flex-col group" data-path="home" href="index.html">
-        <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
-        <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
-      </a>
-
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="home" href="index.html">Home</a>
-        
-        <!-- Products with Dropdown -->
-        <div class="relative group py-2">
-          <a aria-current="page" class="text-logo-blue font-semibold inline-flex items-center space-x-1 border-b-2 border-logo-blue pb-0.5" data-path="products" href="products.html">
-            <span class="">Products</span>
-            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-          </a>
-          <div class="dropdown-shadow absolute top-full left-0 w-64 bg-white border border-hairline py-3 hidden group-hover:block z-50">
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#engine-oils">Engine Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#gear-oils">Gear Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#coolants">Coolants</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#greases">Greases</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#tractor-oils">Agricultural Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
-            <div class="border-t border-hairline my-2"></div>
-            <a class="block px-5 py-2 text-xs font-semibold text-logo-blue hover:underline" data-path="products" href="products.html">All products →</a>
-          </div>
-        </div>
-
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="applications" href="applications.html">Applications</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="about" href="about.html">About</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="dealership" href="dealership.html">Dealership</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="contact" href="contact.html">Contact</a>
-      </nav>
-
-      <!-- Desktop Action & Mobile Toggle -->
-      <div class="flex items-center space-x-4">
-        <a class="hidden lg:inline-flex bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors border border-logo-blue" data-path="contact" href="contact.html">
-          Enquiry Now
-        </a>
-        <button aria-expanded="false" aria-label="Toggle Menu" class="lg:hidden p-2 text-heading-black hover:text-logo-blue focus:outline-none" id="mobile-nav-toggle">
-          <svg class="w-6 h-6 block" id="burger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-          <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
+<!-- Section 05: Agricultural Oils -->
+<section class="w-full py-12 border-b border-hairline scroll-mt-28" id="agricultural-oils">
+<div class="mb-8">
+<span class="font-serif text-2xl text-logo-blue block mb-2">05</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Agricultural Oils</h2>
+<p class="text-sm text-body-text leading-relaxed max-w-2xl">All-round farm oils protecting tractor engines, wet brakes, and hydraulic lift arms.</p>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<!-- Card 13 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -896,7 +558,6 @@
 </div>
 </div>
 </article>
-<!-- Card 14 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -919,7 +580,6 @@
 </div>
 </div>
 </article>
-<!-- Card 15 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -946,75 +606,12 @@
 </section>
 <!-- Section 06: Industrial & Hydraulic Oils -->
 <section class="w-full py-12 border-b border-hairline scroll-mt-28" id="industrial-hydraulic-oils">
-<header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-hairline">
-  <!-- Utility Bar -->
-  <div class="bg-deep-navy text-white/80 text-[11px] font-sans border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-      <div class="flex items-center space-x-4 tracking-wide text-white/90">
-        <span class="">[to be confirmed by Unicore]</span>
-        <span class="text-white/30">|</span>
-        <span class="">[to be confirmed by Unicore]</span>
-      </div>
-      <div class="flex items-center space-x-2 text-[11px] font-medium">
-        <span class="inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
-        <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Navigation Bar -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <!-- Wordmark -->
-      <a class="flex flex-col group" data-path="home" href="index.html">
-        <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
-        <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
-      </a>
-
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="home" href="index.html">Home</a>
-        
-        <!-- Products with Dropdown -->
-        <div class="relative group py-2">
-          <a aria-current="page" class="text-logo-blue font-semibold inline-flex items-center space-x-1 border-b-2 border-logo-blue pb-0.5" data-path="products" href="products.html">
-            <span class="">Products</span>
-            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-          </a>
-          <div class="dropdown-shadow absolute top-full left-0 w-64 bg-white border border-hairline py-3 hidden group-hover:block z-50">
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#engine-oils">Engine Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#gear-oils">Gear Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#coolants">Coolants</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#greases">Greases</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#tractor-oils">Agricultural Oils</a>
-            <a class="block px-5 py-2 text-xs text-body-text hover:bg-[#f4f4f2] hover:text-logo-blue transition-colors" href="#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
-            <div class="border-t border-hairline my-2"></div>
-            <a class="block px-5 py-2 text-xs font-semibold text-logo-blue hover:underline" data-path="products" href="products.html">All products →</a>
-          </div>
-        </div>
-
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="applications" href="applications.html">Applications</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="about" href="about.html">About</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="dealership" href="dealership.html">Dealership</a>
-        <a class="text-body-text hover:text-logo-blue transition-colors py-2" data-path="contact" href="contact.html">Contact</a>
-      </nav>
-
-      <!-- Desktop Action & Mobile Toggle -->
-      <div class="flex items-center space-x-4">
-        <a class="hidden lg:inline-flex bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors border border-logo-blue" data-path="contact" href="contact.html">
-          Enquiry Now
-        </a>
-        <button aria-expanded="false" aria-label="Toggle Menu" class="lg:hidden p-2 text-heading-black hover:text-logo-blue focus:outline-none" id="mobile-nav-toggle">
-          <svg class="w-6 h-6 block" id="burger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-          <svg class="w-6 h-6 hidden" id="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
+<div class="mb-8">
+<span class="font-serif text-2xl text-logo-blue block mb-2">06</span>
+<h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Industrial &amp; Hydraulic Oils</h2>
+<p class="text-sm text-body-text leading-relaxed max-w-2xl">Industrial fluids that keep hydraulic pumps and factory machinery operating smoothly without power loss.</p>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-<!-- Card 16 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -1037,7 +634,6 @@
 </div>
 </div>
 </article>
-<!-- Card 17 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -1060,7 +656,6 @@
 </div>
 </div>
 </article>
-<!-- Card 18 -->
 <article class="bg-white border border-hairline p-5 flex flex-col justify-between rounded-[0px]">
 <div class="bg-product-frame aspect-square w-full border border-hairline flex items-center justify-center p-4 text-center mb-4 rounded-[0px]">
 <span class="text-[13px] italic text-light-text text-center px-4 max-w-[220px] leading-relaxed">
@@ -1106,88 +701,94 @@
 </div>
 </section>
 </main>
-<!-- Footer -->
-<footer class="bg-deep-navy text-white/80 border-t border-white/20">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-      <!-- Col 1 -->
-      <div>
-        <span class="font-sans font-bold text-xl tracking-tight text-white block mb-1">UNICORE</span>
-        <span class="text-[9px] tracking-[0.25em] text-white/60 uppercase font-medium block mb-4">INDUSTRIAL LUBRICANTS</span>
-        <p class="text-xs text-white/70 leading-relaxed">
-          Engineered lubricants, industrial oils, and preventative puncture tyre sealants manufactured to strict performance thresholds across India.
-        </p>
-      </div>
 
-      <!-- Col 2 -->
-      <div>
-        <h4 class="text-xs font-semibold text-white uppercase tracking-wider mb-4">Products</h4>
-        <ul class="space-y-2.5 text-xs text-white/70">
-          <li class=""><a class="hover:text-white transition-colors" href="#engine-oils">Engine Oils</a></li>
-          <li class=""><a class="hover:text-white transition-colors" href="#gear-oils">Gear Oils</a></li>
-          <li class=""><a class="hover:text-white transition-colors" href="#coolants">Coolants</a></li>
-          <li class=""><a class="hover:text-white transition-colors" href="#greases">Greases</a></li>
-          <li class=""><a class="hover:text-white transition-colors" href="#tractor-oils">Agricultural Oils</a></li>
-          <li class=""><a class="hover:text-white transition-colors" href="#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a></li>
-          <li class=""><a class="hover:text-white transition-colors" data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a></li>
-        </ul>
+  <!-- CANONICAL FOOTER -->
+  <footer class="w-full bg-deep-navy text-white/80 border-t border-white/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div class="space-y-4">
+          <div class="flex flex-col">
+            <span class="font-bold text-xl text-white tracking-tight">UNICORE</span>
+            <span class="text-[9px] tracking-[0.25em] text-white/60 uppercase font-medium">INDUSTRIAL LUBRICANTS</span>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed pr-2">Unicore Lubricants manufactures dependable oils and specialty greases built for heavy transport fleets, agricultural tractors, and industrial plants across India.</p>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Products</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-coolants" href="products.html#coolants">Coolants</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-greases" href="products.html#greases">Greases</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-agricultural-oils" href="products.html#agricultural-oils">Agricultural Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-tyre-sealant-gel" href="tyre-sealant.html">Tyre Sealant Gel</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Company</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="about" href="about.html">About Us</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="dealership" href="dealership.html">Dealership</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="contact" href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Safety &amp; Compliance</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="safety-data-sheets" href="#">Safety Data Sheets (SDS)</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="terms-of-trade" href="#">Terms of Trade</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="privacy-policy" href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
       </div>
-
-      <!-- Col 3 -->
-      <div>
-        <h4 class="text-xs font-semibold text-white uppercase tracking-wider mb-4">Company</h4>
-        <ul class="space-y-2.5 text-xs text-white/70">
-          <li class=""><a class="hover:text-white transition-colors" data-path="about" href="about.html">About Unicore</a></li>
-          <li class=""><a class="hover:text-white transition-colors" data-path="applications" href="applications.html">Applications &amp; Sectors</a></li>
-          <li class=""><a class="hover:text-white transition-colors" data-path="dealership" href="dealership.html">Dealership Network</a></li>
-          <li class=""><a class="hover:text-white transition-colors" data-path="contact" href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
-
-      <!-- Col 4 -->
-      <div>
-        <h4 class="text-xs font-semibold text-white uppercase tracking-wider mb-4">Safety &amp; Compliance</h4>
-        <ul class="space-y-2.5 text-xs text-white/70">
-          <li class=""><a class="hover:text-white transition-colors" data-path="contact" href="contact.html">Technical Data Sheets (TDS)</a></li>
-          <li class=""><a class="hover:text-white transition-colors" data-path="contact" href="contact.html">Safety Data Sheets (SDS)</a></li>
-          <li class=""><a class="hover:text-white transition-colors" data-path="dealership" href="dealership.html">Quality Standard Disclosures</a></li>
-          <li class=""><a class="hover:text-white transition-colors" data-path="contact" href="contact.html">Storage &amp; Handling Guidelines</a></li>
-        </ul>
+      <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
+        <p class="">© 2026 Unicore Lubricants. All rights reserved.</p>
+        <p class="text-[11px] text-white/50">Precision manufactured in India</p>
       </div>
     </div>
+  </footer>
 
-    <!-- Bottom line -->
-    <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-white/60 space-y-4 sm:space-y-0">
-      <div class="">© 2026 Unicore Lubricants. All rights reserved.</div>
-      <div class="">Precision manufactured in India</div>
-    </div>
-  </div>
-</footer>
-<script>
-    // Mobile menu toggle
-    const mobileBtn = document.getElementById('mobile-menu-btn');
-    const mobileClose = document.getElementById('mobile-close-btn');
-    const mobileDrawer = document.getElementById('mobile-menu-drawer');
-
-    if (mobileBtn && mobileDrawer) {
-      mobileBtn.addEventListener('click', () => {
-        mobileDrawer.classList.remove('hidden');
+  <script>
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const burgerIcon = document.getElementById('mobile-burger-icon');
+    const closeIcon = document.getElementById('mobile-close-icon');
+    const productsToggle = document.getElementById('mobile-products-toggle');
+    const productsMenu = document.getElementById('mobile-products-menu');
+    const productsArrow = document.getElementById('mobile-products-arrow');
+    function setDrawer(open) {
+      if (open) {
+        drawer.classList.remove('hidden'); drawer.classList.add('flex');
+        burgerIcon.classList.add('hidden'); closeIcon.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer.classList.add('hidden'); drawer.classList.remove('flex');
+        burgerIcon.classList.remove('hidden'); closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = !drawer.classList.contains('hidden');
+        setDrawer(!isOpen);
       });
     }
-
-    if (mobileClose && mobileDrawer) {
-      mobileClose.addEventListener('click', () => {
-        mobileDrawer.classList.add('hidden');
-      });
-    }
-
-    if (mobileDrawer) {
-      mobileDrawer.addEventListener('click', (e) => {
-        if (e.target === mobileDrawer) {
-          mobileDrawer.classList.add('hidden');
+    if (productsToggle) {
+      productsToggle.addEventListener('click', () => {
+        const isProdOpen = !productsMenu.classList.contains('hidden');
+        if (isProdOpen) {
+          productsMenu.classList.add('hidden'); productsMenu.classList.remove('flex');
+          productsArrow.classList.remove('rotate-180');
+        } else {
+          productsMenu.classList.remove('hidden'); productsMenu.classList.add('flex');
+          productsArrow.classList.add('rotate-180');
         }
       });
     }
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => setDrawer(false));
+    });
 
     // Scrollspy highlighting for left rail index
     (function() {
@@ -1239,6 +840,5 @@
       });
     })();
   </script>
-
 
 </body></html>
