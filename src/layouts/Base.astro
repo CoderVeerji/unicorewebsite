@@ -19,8 +19,14 @@ import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import MobileDrawer from '../components/MobileDrawer.astro';
 import Footer from '../components/Footer.astro';
+import AnnouncementStrip from '../components/AnnouncementStrip.astro';
+import { STORAGE_KEY, isAnnouncementActive } from '../config/announcement.js';
 import '../styles/global.css';
 import '../styles/motion.css';
+import '../styles/cursor.css';
+
+// Build-time: see src/config/announcement.js to change the window.
+const stripActive = isAnnouncementActive();
 
 const {
   title,
@@ -31,7 +37,7 @@ const {
 } = Astro.props;
 ---
 <!doctype html>
-<html lang="en" class={htmlClass}>
+<html lang="en" class={htmlClass} data-strip={stripActive ? '' : undefined}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,11 +45,25 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
     <ClientRouter />
+    {stripActive && (
+      <script is:inline define:vars={{ STORAGE_KEY }}>
+        // Before first paint: if the strip was dismissed earlier, collapse the
+        // whole header stack with no transition, so there is no flash of it.
+        try {
+          if (localStorage.getItem(STORAGE_KEY) === 'dismissed') {
+            document.documentElement.classList.add('strip-dismissed');
+          }
+        } catch (e) { /* blocked storage: just show the strip */ }
+      </script>
+    )}
     <slot name="head" />
   </head>
   <body class={bodyClass}>
+
+    <AnnouncementStrip />
 
     <Header active={active} enquiryHref={enquiryHref} />
 
@@ -55,6 +75,7 @@ const {
 
     <script>
       import '../scripts/motion.js';
+      import '../scripts/cursor.js';
     </script>
   </body>
 </html>

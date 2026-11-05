@@ -1,0 +1,82 @@
+/*
+ * Custom cursor styling. The JS half is src/scripts/cursor.js, which adds
+ * `cursor-active` to <html> only once it is actually running — so the native
+ * cursor is the fallback on touch devices, under reduced motion, or if the
+ * script never loads.
+ *
+ * To remove the custom cursor entirely: drop the cursor.css and cursor.js
+ * imports from src/layouts/Base.astro.
+ */
+
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  border-radius: 9999px;
+  opacity: 0;
+  will-change: transform;
+  /* Position and size are driven by transform in rAF; only the fade and the
+     border colour are left to CSS. */
+  transition: opacity 150ms linear, border-color 150ms ease;
+}
+
+.cursor-ring {
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border: 1px solid rgba(27, 79, 160, 0.35); /* logo-blue at low opacity */
+}
+
+.cursor-dot {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  background-color: #1b4fa0; /* logo-blue */
+}
+
+/* Shown once the pointer has actually moved. */
+html.cursor-visible .cursor-ring,
+html.cursor-visible .cursor-dot {
+  opacity: 1;
+}
+
+/* Over an interactive target the border goes solid (the growth to 40px is the
+   scale applied in rAF). */
+.cursor-ring.is-hot {
+  border-color: #1b4fa0;
+}
+
+/* Over text inputs: hide both so the native caret is the only cursor. */
+.cursor-ring.is-hidden,
+.cursor-dot.is-hidden {
+  opacity: 0 !important;
+}
+
+/* Hide the native cursor only while the custom one is confirmed running. */
+html.cursor-active,
+html.cursor-active * {
+  cursor: none;
+}
+html.cursor-active input,
+html.cursor-active textarea,
+html.cursor-active select,
+html.cursor-active [contenteditable=""],
+html.cursor-active [contenteditable="true"] {
+  cursor: auto;
+}
+
+/* Belt and braces: never take the native cursor away on a touch device or
+   under reduced motion, whatever the class says. */
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  html.cursor-active,
+  html.cursor-active * {
+    cursor: auto;
+  }
+  .cursor-ring,
+  .cursor-dot {
+    display: none !important;
+  }
+}

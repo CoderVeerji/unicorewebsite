@@ -1,0 +1,82 @@
+---
+/**
+ * Dismissible announcement strip, above the deep-navy utility bar.
+ *
+ * The dates and the storage key live in src/config/announcement.js — edit
+ * them there. Only the copy lives in this file (the two spans below).
+ *
+ * Outside the window this renders nothing at all: the markup never reaches
+ * the HTML, it is not hidden with CSS.
+ */
+import { STORAGE_KEY, isAnnouncementActive } from '../config/announcement.js';
+
+const show = isAnnouncementActive();
+---
+{show && (
+  <div
+    id="announcement-strip"
+    class="w-full bg-white border-b border-hairline overflow-hidden"
+    data-storage-key={STORAGE_KEY}
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-10 flex items-center justify-center relative">
+      <p class="flex items-center gap-2 text-[12px] text-logo-blue font-medium text-center pr-7">
+        <span class="inline-block w-1.5 h-1.5 bg-logo-blue shrink-0"></span>
+        <span class="hidden sm:inline">Unicore Lubricants wishes our trade partners a safe and prosperous Diwali · Dealership enquiries open</span>
+        <span class="sm:hidden">A prosperous Diwali · Dealership enquiries open</span>
+      </p>
+      <button
+        type="button"
+        id="announcement-dismiss"
+        aria-label="Dismiss announcement"
+        class="absolute right-4 sm:right-6 lg:right-8 w-7 h-7 flex items-center justify-center text-logo-blue hover:text-deep-navy transition-colors focus:outline-none"
+      >
+        <span class="text-base leading-none font-medium" aria-hidden="true">×</span>
+      </button>
+    </div>
+  </div>
+)}
+
+{show && (
+  <script>
+    function dismissed(key) {
+      try {
+        return localStorage.getItem(key) === 'dismissed';
+      } catch (e) {
+        return false; // blocked storage: show the strip
+      }
+    }
+
+    // A view transition swaps in the new document's <html> attributes, which
+    // drops the class the inline head script set. Re-apply it right after the
+    // swap, before paint, so a dismissed strip does not flash back in.
+    document.addEventListener('astro:after-swap', () => {
+      const strip = document.getElementById('announcement-strip');
+      if (strip && dismissed(strip.dataset.storageKey || '')) {
+        document.documentElement.classList.add('strip-dismissed');
+      }
+    });
+
+    function initStrip() {
+      const strip = document.getElementById('announcement-strip');
+      const btn = document.getElementById('announcement-dismiss');
+      const root = document.documentElement;
+      if (!strip || !btn) return;
+
+      // Arm the transitions only after the first paint, so the no-flash path in
+      // Base.astro collapses instantly and only a real click animates.
+      requestAnimationFrame(() => root.classList.add('strip-ready'));
+
+      btn.addEventListener('click', () => {
+        // Collapsing --strip-h shuts the strip and lifts the fixed header, the
+        // drawer, the sticky rails and the page padding with it, in one step.
+        root.classList.add('strip-dismissed');
+        try {
+          localStorage.setItem(strip.dataset.storageKey || '', 'dismissed');
+        } catch (e) {
+          /* private browsing or blocked storage: the dismissal just will not persist */
+        }
+      });
+    }
+    document.addEventListener('astro:page-load', initStrip);
+  </script>
+)}

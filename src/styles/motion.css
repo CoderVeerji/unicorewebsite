@@ -34,6 +34,21 @@ main :has(> h1) > :not(:has(.grid)):nth-child(3) { animation-delay: calc(var(--m
 main :has(> h1) > :not(:has(.grid)):nth-child(4) { animation-delay: calc(var(--m-hero-step) * 3); }
 main :has(> h1) > :not(:has(.grid)):nth-child(5) { animation-delay: calc(var(--m-hero-step) * 4); }
 
+/* ---- Hero accent: the italic phrase inside the page H1 wipes in left to right.
+   The H1 itself is in the DOM and painted from the first frame (crawlers and
+   no-JS readers see the whole headline); only the accent is clipped, and only
+   while its animation runs. The H1 is the hero's 2nd child everywhere, so it
+   has finished fading in at hero-step + duration; the wipe starts 200ms later,
+   which reads as the line settling rather than as typing. ---- */
+@keyframes m-accent-wipe {
+  from { clip-path: inset(-0.35em 100% -0.35em -0.1em); }
+  to   { clip-path: inset(-0.35em -0.15em -0.35em -0.1em); }
+}
+main h1 .italic {
+  animation: m-accent-wipe 600ms ease-out backwards;
+  animation-delay: calc(var(--m-hero-step) + var(--m-dur) + 200ms);
+}
+
 /* ---- Card hover: border hairline -> logo blue, background white -> page-bg, 150ms.
    Nothing else: no lift, no scale, no shadow. ---- */
 .m-card {

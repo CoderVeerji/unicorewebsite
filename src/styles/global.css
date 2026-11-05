@@ -11,3 +11,48 @@
 }
 ::-webkit-scrollbar { display: none; }
 details > summary::-webkit-details-marker { display: none; }
+
+/* ── Announcement strip offsets ────────────────────────────────────────────
+ * The fixed header stack is 116px tall (36px utility bar + 80px main bar) and
+ * the pages hard-code that number: main has pt-[116px], the drawer and the
+ * mobile product rail sit at top-[116px], the sticky catalogue aside at
+ * top-[136px].
+ *
+ * When the strip is rendered, Base.astro puts data-strip on <html>, which adds
+ * its height to all four. One variable moves everything together, so
+ * dismissing the strip animates the whole stack up in one step rather than
+ * leaving a gap. Dismissed, --strip-h is 0 and the numbers are exactly as
+ * authored.
+ *
+ * These selectors are more specific than the Tailwind utilities they override.
+ */
+html[data-strip]                   { --strip-h: 40px; }
+html[data-strip].strip-dismissed   { --strip-h: 0px; }
+
+html[data-strip] header.fixed      { top: var(--strip-h); }
+html[data-strip] main              { padding-top: calc(116px + var(--strip-h)); }
+html[data-strip] .top-\[116px\]    { top: calc(116px + var(--strip-h)); }
+html[data-strip] .top-\[136px\]    { top: calc(136px + var(--strip-h)); }
+
+/* box-sizing is border-box, so the 1px bottom border would survive height:0 —
+   collapse it too, otherwise a hairline stays behind. */
+#announcement-strip                { height: var(--strip-h); }
+html.strip-dismissed #announcement-strip { visibility: hidden; border-bottom-width: 0; }
+
+/* Transitions are armed only after the first paint (strip-ready), so restoring
+   a previous dismissal on load collapses instantly and only a click animates. */
+html.strip-ready #announcement-strip {
+  transition: height 300ms ease, border-bottom-width 300ms ease, visibility 0s linear 300ms;
+}
+html.strip-ready header.fixed,
+html.strip-ready .top-\[116px\],
+html.strip-ready .top-\[136px\] { transition: top 300ms ease; }
+html.strip-ready main           { transition: padding-top 300ms ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.strip-ready #announcement-strip,
+  html.strip-ready header.fixed,
+  html.strip-ready .top-\[116px\],
+  html.strip-ready .top-\[136px\],
+  html.strip-ready main { transition: none; }
+}

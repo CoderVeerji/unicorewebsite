@@ -7,7 +7,14 @@
  *                applications | about | dealership | contact
  *   enquiryHref  target of the "Enquiry Now" button (a page may point it at its own anchor)
  */
+import { Picture } from 'astro:assets';
+import logo from '../assets/unicore-logo.png';
+
 const { active = '', enquiryHref = 'contact.html' } = Astro.props;
+
+// Lockup is 1600x383 (4.178:1). Rendered 28px tall on mobile, 34px on desktop.
+const LOGO_H = 34;
+const LOGO_W = Math.round(LOGO_H * (logo.width / logo.height));
 
 const ON = 'text-sm font-medium text-logo-blue font-semibold transition-colors';
 const OFF = 'text-sm font-medium text-body-text hover:text-heading-black transition-colors';
@@ -38,9 +45,19 @@ const dropdownItem =
     </div>
     <div class="h-20 bg-white border-b border-hairline">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-        <a class="flex flex-col group" data-path="home" href="index.html">
-          <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
-          <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
+        <a class="flex items-center group" data-path="home" href="index.html">
+          <Picture
+            src={logo}
+            formats={['webp']}
+            densities={[1, 2]}
+            width={LOGO_W}
+            height={LOGO_H}
+            alt="Unicore Lubricants"
+            loading="eager"
+            decoding="async"
+            class="h-7 w-auto lg:h-[34px]"
+            pictureAttributes={{ class: 'block' }}
+          />
         </a>
         <nav class="hidden lg:flex items-center gap-7">
           <a class={link('home')} aria-current={current('home')} data-path="home" href="index.html">Home</a>
