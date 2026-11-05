@@ -1,0 +1,95 @@
+---
+/**
+ * Canonical full-screen mobile drawer plus its vanilla-JS toggle script.
+ * Exists once; rendered by Base.astro. Takes the same props as Header.astro.
+ */
+const { active = '', enquiryHref = 'contact.html' } = Astro.props;
+
+const ON = 'mobile-link font-serif text-[26px] text-logo-blue border-b border-hairline pb-3';
+const OFF = 'mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3';
+const link = (key) => (active === key ? ON : OFF);
+
+const productsBtn =
+  active === 'products'
+    ? 'w-full flex items-center justify-between font-serif text-[26px] text-logo-blue border-b border-hairline pb-3 text-left focus:outline-none'
+    : 'w-full flex items-center justify-between font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3 text-left focus:outline-none';
+const sub = 'mobile-link text-sm font-medium text-body-text hover:text-logo-blue';
+---
+  <!-- MOBILE MENU DRAWER -->
+  <div class="fixed inset-0 top-[116px] bg-white z-40 hidden flex-col overflow-y-auto border-t border-hairline px-6 py-8" id="mobile-menu-drawer">
+    <div class="flex flex-col space-y-6">
+      <a class={link('home')} data-path="home" href="index.html">Home</a>
+      <div>
+        <button class={productsBtn} id="mobile-products-toggle" type="button">
+          <span class="">Products</span>
+          <span class="text-sm transition-transform duration-200" id="mobile-products-arrow">▼</span>
+        </button>
+        <div class="hidden flex-col pl-4 pt-4 space-y-3 bg-product-frame my-2 p-4 border-l border-logo-blue" id="mobile-products-menu">
+          <a class={sub} data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+          <a class={sub} data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+          <a class={sub} data-path="products-coolants" href="products.html#coolants">Coolants</a>
+          <a class={sub} data-path="products-greases" href="products.html#greases">Greases</a>
+          <a class={sub} data-path="products-agricultural-oils" href="products.html#agricultural-oils">Agricultural Oils</a>
+          <a class={sub} data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+          <a class="mobile-link text-xs tracking-wider uppercase text-logo-blue font-semibold pt-2 block" data-path="products" href="products.html">All products →</a>
+        </div>
+      </div>
+      <a class={link('tyre-sealant')} data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+      <a class={link('applications')} data-path="applications" href="applications.html">Applications</a>
+      <a class={link('about')} data-path="about" href="about.html">About</a>
+      <a class={link('dealership')} data-path="dealership" href="dealership.html">Dealership</a>
+      <a class={link('contact')} data-path="contact" href="contact.html">Contact</a>
+      <div class="pt-4">
+        <a class="mobile-link w-full inline-flex items-center justify-center bg-logo-blue text-white py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider text-center" data-path="enquiry" href={enquiryHref}>Enquiry Now</a>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Drawer script. Runs on first load and after every Astro view-transition
+  // navigation (astro:page-load), because the DOM is swapped on navigation.
+  function initDrawer() {
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const burgerIcon = document.getElementById('mobile-burger-icon');
+    const closeIcon = document.getElementById('mobile-close-icon');
+    const productsToggle = document.getElementById('mobile-products-toggle');
+    const productsMenu = document.getElementById('mobile-products-menu');
+    const productsArrow = document.getElementById('mobile-products-arrow');
+    if (!drawer || !burgerIcon || !closeIcon) return;
+
+    function setDrawer(open) {
+      if (open) {
+        drawer.classList.remove('hidden'); drawer.classList.add('flex');
+        burgerIcon.classList.add('hidden'); closeIcon.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer.classList.add('hidden'); drawer.classList.remove('flex');
+        burgerIcon.classList.remove('hidden'); closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = !drawer.classList.contains('hidden');
+        setDrawer(!isOpen);
+      });
+    }
+    if (productsToggle && productsMenu && productsArrow) {
+      productsToggle.addEventListener('click', () => {
+        const isProdOpen = !productsMenu.classList.contains('hidden');
+        if (isProdOpen) {
+          productsMenu.classList.add('hidden'); productsMenu.classList.remove('flex');
+          productsArrow.classList.remove('rotate-180');
+        } else {
+          productsMenu.classList.remove('hidden'); productsMenu.classList.add('flex');
+          productsArrow.classList.add('rotate-180');
+        }
+      });
+    }
+    document.querySelectorAll('.mobile-link').forEach((link) => {
+      link.addEventListener('click', () => setDrawer(false));
+    });
+  }
+  document.addEventListener('astro:page-load', initDrawer);
+</script>

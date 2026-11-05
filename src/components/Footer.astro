@@ -1,0 +1,60 @@
+---
+/**
+ * Canonical four-column footer. Exists once; rendered by Base.astro.
+ * `active` marks the current page in the Company column (about | dealership | contact).
+ */
+const { active = '' } = Astro.props;
+
+const BASE = 'hover:text-white hover:underline transition-colors block';
+const companyClass = (key) => {
+  if (active !== key) return BASE;
+  if (key === 'about') return `${BASE} text-white font-medium`;
+  return 'text-white underline font-semibold transition-colors block';
+};
+---
+  <!-- CANONICAL FOOTER -->
+  <footer class="w-full bg-deep-navy text-white/80 border-t border-white/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div class="space-y-4">
+          <div class="flex flex-col">
+            <span class="font-bold text-xl text-white tracking-tight">UNICORE</span>
+            <span class="text-[9px] tracking-[0.25em] text-white/60 uppercase font-medium">INDUSTRIAL LUBRICANTS</span>
+          </div>
+          <p class="text-xs text-white/70 leading-relaxed pr-2">Unicore Lubricants manufactures dependable oils and specialty greases built for heavy transport fleets, agricultural tractors, and industrial plants across India.</p>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Products</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-coolants" href="products.html#coolants">Coolants</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-greases" href="products.html#greases">Greases</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-agricultural-oils" href="products.html#agricultural-oils">Agricultural Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="products-tyre-sealant-gel" href="tyre-sealant.html">Tyre Sealant Gel</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Company</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class={companyClass('about')} data-path="about" href="about.html">About Us</a></li>
+            <li class=""><a class={companyClass('dealership')} data-path="dealership" href="dealership.html">Dealership</a></li>
+            <li class=""><a class={companyClass('contact')} data-path="contact" href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg text-white font-normal mb-5 border-l-2 border-white pl-3">Safety &amp; Compliance</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="safety-data-sheets" href="#">Safety Data Sheets (SDS)</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="terms-of-trade" href="#">Terms of Trade</a></li>
+            <li class=""><a class="hover:text-white hover:underline transition-colors block" data-path="privacy-policy" href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
+        <p class="">© 2026 Unicore Lubricants. All rights reserved.</p>
+        <p class="text-[11px] text-white/50">Precision manufactured in India</p>
+      </div>
+    </div>
+  </footer>

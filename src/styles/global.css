@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body { margin:0; padding:0; background-color:#FAFAF8; color:#434751; font-family:'Inter', sans-serif; }
+  body { overscroll-behavior: none; }
+  /* All box shadows are forbidden except the desktop Products dropdown. */
+  * { box-shadow: none !important; }
+  .dropdown-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1) !important; }
+}
+::-webkit-scrollbar { display: none; }
+details > summary::-webkit-details-marker { display: none; }

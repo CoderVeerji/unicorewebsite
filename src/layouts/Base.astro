@@ -1,0 +1,59 @@
+---
+/**
+ * Base layout: html shell, fonts, global styles, view transitions, and the
+ * shared header / mobile drawer / footer. Every page in src/pages renders
+ * its <main> inside this layout.
+ *
+ * Props
+ *   title        <title> text
+ *   active       highlighted nav item (see Header.astro)
+ *   enquiryHref  target of the "Enquiry Now" buttons (default contact.html)
+ *   htmlClass    extra class on <html>
+ *   bodyClass    class on <body>
+ *
+ * Slots
+ *   (default)    the page <main>
+ *   head         extra <head> content (page-specific styles)
+ */
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import MobileDrawer from '../components/MobileDrawer.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import '../styles/motion.css';
+
+const {
+  title,
+  active = '',
+  enquiryHref = 'contact.html',
+  htmlClass,
+  bodyClass = 'bg-page-bg text-body-text antialiased',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en" class={htmlClass}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <ClientRouter />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+
+    <Header active={active} enquiryHref={enquiryHref} />
+
+    <MobileDrawer active={active} enquiryHref={enquiryHref} />
+
+    <slot />
+
+    <Footer active={active} />
+
+    <script>
+      import '../scripts/motion.js';
+    </script>
+  </body>
+</html>

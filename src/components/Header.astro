@@ -1,0 +1,84 @@
+---
+/**
+ * Canonical two-row fixed header. Exists once; every page renders it via Base.astro.
+ *
+ * Props
+ *   active       which nav item is highlighted: home | products | tyre-sealant |
+ *                applications | about | dealership | contact
+ *   enquiryHref  target of the "Enquiry Now" button (a page may point it at its own anchor)
+ */
+const { active = '', enquiryHref = 'contact.html' } = Astro.props;
+
+const ON = 'text-sm font-medium text-logo-blue font-semibold transition-colors';
+const OFF = 'text-sm font-medium text-body-text hover:text-heading-black transition-colors';
+const link = (key) => (active === key ? ON : OFF);
+const current = (key) => (active === key ? 'page' : undefined);
+
+const productsBtn =
+  active === 'products'
+    ? 'flex items-center gap-1 text-sm font-semibold text-logo-blue transition-colors focus:outline-none'
+    : 'flex items-center gap-1 text-sm font-medium text-body-text group-hover:text-heading-black transition-colors focus:outline-none';
+const dropdownItem =
+  'block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all';
+---
+  <!-- TOP CANONICAL HEADER -->
+  <header class="fixed top-0 left-0 w-full z-50">
+    <div class="bg-deep-navy text-white border-b border-hairline/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between text-[12px] text-white/80">
+        <div class="flex items-center gap-6">
+          <span class="">[to be confirmed by Unicore]</span>
+          <span class="hidden sm:inline-block text-white/30">|</span>
+          <span class="hidden sm:inline-block">[to be confirmed by Unicore]</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-1.5 h-1.5 bg-white"></span>
+          <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
+        </div>
+      </div>
+    </div>
+    <div class="h-20 bg-white border-b border-hairline">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+        <a class="flex flex-col group" data-path="home" href="index.html">
+          <span class="font-sans font-bold text-xl tracking-tight text-heading-black group-hover:text-logo-blue transition-colors">UNICORE</span>
+          <span class="text-[9px] tracking-[0.25em] text-light-text uppercase font-medium -mt-1">INDUSTRIAL LUBRICANTS</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a class={link('home')} aria-current={current('home')} data-path="home" href="index.html">Home</a>
+          <div class="relative group py-6">
+            <button class={productsBtn} type="button">
+              <span class="">Products</span>
+              <span class="text-xs transition-transform duration-200 group-hover:rotate-180">▼</span>
+            </button>
+            <div class="absolute top-full left-0 w-72 bg-white border border-hairline dropdown-shadow py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+              <div class="px-4 py-2 border-b border-hairline bg-product-frame">
+                <span class="text-[11px] tracking-widest text-light-text uppercase block font-medium">Product Categories</span>
+              </div>
+              <a class={dropdownItem} data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
+              <a class={dropdownItem} data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
+              <a class={dropdownItem} data-path="products-coolants" href="products.html#coolants">Coolants</a>
+              <a class={dropdownItem} data-path="products-greases" href="products.html#greases">Greases</a>
+              <a class={dropdownItem} data-path="products-agricultural-oils" href="products.html#agricultural-oils">Agricultural Oils</a>
+              <a class={dropdownItem} data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
+              <div class="mt-1 pt-2 border-t border-hairline px-4 pb-1">
+                <a class="inline-flex items-center gap-1 text-[11px] tracking-wider text-logo-blue font-semibold uppercase hover:underline" data-path="products" href="products.html">All products →</a>
+              </div>
+            </div>
+          </div>
+          <a class={link('tyre-sealant')} aria-current={current('tyre-sealant')} data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
+          <a class={link('applications')} aria-current={current('applications')} data-path="applications" href="applications.html">Applications</a>
+          <a class={link('about')} aria-current={current('about')} data-path="about" href="about.html">About</a>
+          <a class={link('dealership')} aria-current={current('dealership')} data-path="dealership" href="dealership.html">Dealership</a>
+          <a class={link('contact')} aria-current={current('contact')} data-path="contact" href="contact.html">Contact</a>
+        </nav>
+        <div class="hidden lg:flex items-center">
+          <a class="inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue" data-path="enquiry" href={enquiryHref}>Enquiry Now</a>
+        </div>
+        <div class="flex lg:hidden items-center">
+          <button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center border border-hairline bg-product-frame text-heading-black focus:outline-none" id="mobile-nav-toggle" type="button">
+            <span class="text-xl font-bold" id="mobile-burger-icon">☰</span>
+            <span class="text-xl font-bold hidden" id="mobile-close-icon">×</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
