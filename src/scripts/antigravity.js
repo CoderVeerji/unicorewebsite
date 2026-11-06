@@ -16,6 +16,9 @@
  */
 
 const PIXEL_BUDGET = 2.4e6;
+// The field is scaled in "world units" off the SHORTER side of the container.
+// The original keyed this to height alone, which is fine for a wide hero but
+// blows the particles up on a tall, narrow (mobile) one.
 const WORLD_HEIGHT = 31.5;
 const PALETTE_SIZE = 256;
 // Brand palette (docs/DESIGN.md): logo-blue, deep-navy, light-text.
@@ -487,7 +490,7 @@ const mount = (container, canvas, s, firstRun, onContextRestored) => {
 
   const simulate = (dt) => {
     if (!field) return;
-    const unit = size.height / WORLD_HEIGHT;
+    const unit = Math.min(size.width, size.height) / WORLD_HEIGHT;
     const ringPx = s.ring * unit * (1 - 0.38 * charge);
     const magnetPx = Math.max(s.magnet * unit, 1);
     const spread = (5 / (s.tightness + 0.1)) * unit;
@@ -544,7 +547,7 @@ const mount = (container, canvas, s, firstRun, onContextRestored) => {
 
   const burst = (strength) => {
     if (!field) return;
-    const unit = size.height / WORLD_HEIGHT;
+    const unit = Math.min(size.width, size.height) / WORLD_HEIGHT;
     const reach = Math.max(s.magnet, s.ring) * unit * 1.8;
     const { x, y, vx, vy, agility, total } = field;
     for (let index = 0; index < total; index++) {
@@ -584,7 +587,7 @@ const mount = (container, canvas, s, firstRun, onContextRestored) => {
 
     simulate(dt);
 
-    const unit = size.height / WORLD_HEIGHT;
+    const unit = Math.min(size.width, size.height) / WORLD_HEIGHT;
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);

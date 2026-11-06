@@ -6,12 +6,17 @@
  * No React, no hydration directive, no extra dependency.
  *
  * Defaults are tuned for this site: brand blues only, low ambient and low
- * opacity so it reads as a faint engineered field behind the headline rather
- * than decoration. Pass `options` to override any of the original's props.
+ * opacity so it reads as a faint engineered field rather than decoration.
+ *
+ * Two things keep it off the text:
+ *   - a vertical mask, so the field is strongest at the top of the hero and
+ *     gone before the body copy and the CTAs;
+ *   - a separate, much lighter set of settings under 768px, where the hero is
+ *     tall and narrow and the text fills the full width.
  *
  * It never runs under prefers-reduced-motion or <html data-motion="off">, and
- * the canvas is pointer-events:none so it cannot intercept clicks — the engine
- * tracks the pointer on `window` instead.
+ * the container is pointer-events:none so it cannot intercept clicks — the
+ * engine tracks the pointer on `window` instead.
  *
  * TO REMOVE IT: delete the single <Antigravity /> line from the page.
  */
@@ -45,15 +50,58 @@ const DEFAULTS = {
   maxDevicePixelRatio: 2,
 };
 
-const { options = {}, class: className = '', mobileCount = 550 } = Astro.props;
+/*
+ * Below 1024px the field is switched OFF, deliberately.
+ *
+ * The cutoff is the `lg` breakpoint, not a phone width, because that is where
+ * the hero stops being a two-column layout. The field needs the empty side
+ * gutter next to the headline to live in; once the columns stack, the hero
+ * goes tall and narrow (390x1051 on a phone, 900x1006 on a tablet) and the
+ * text runs full width, so the field has nowhere to go. Measured on a phone,
+ * the clean band above the eyebrow is only ~64px tall.
+ *
+ * Both honest options were tried and both were worse than nothing: full-bleed
+ * made the headline hard to read, and masking it clear of the text made it
+ * invisible while still running a 500-particle simulation every frame on the
+ * devices least able to afford it.
+ *
+ * Stacked heroes are not bare — they keep the rotating headline, the grade
+ * marquee and (in season) the toran.
+ *
+ * To run it below `lg` anyway, set `mobile` on the component and tune
+ * MOBILE_DEFAULTS.
+ */
+const MOBILE_BREAKPOINT = '(max-width: 1023.98px)';
+const MOBILE_DEFAULTS = {
+  count: 420,
+  particleSize: 0.6,
+  ringRadius: 5,
+  magnetRadius: 6.5,
+  ambient: 0.1,
+  opacity: 0.35,
+  maxDevicePixelRatio: 1.75,
+};
+
+const {
+  options = {},
+  mobileOptions = {},
+  /** Run on phones too. Off by default — see MOBILE_DEFAULTS above. */
+  mobile = false,
+  class: className = '',
+  /** Where the field fades out, as a share of the container height. */
+  fade = '58%',
+} = Astro.props;
+
 const config = { ...DEFAULTS, ...options };
+const mobileConfig = { ...config, ...MOBILE_DEFAULTS, ...mobileOptions };
 ---
 
 <div
   class:list={['antigravity', className]}
   data-antigravity
   data-config={JSON.stringify(config)}
-  data-mobile-count={mobileCount}
+  data-mobile-config={mobile ? JSON.stringify(mobileConfig) : undefined}
+  style={`--ag-fade:${fade}`}
 >
   <canvas aria-hidden="true"></canvas>
 </div>
@@ -66,6 +114,13 @@ const config = { ...DEFAULTS, ...options };
     /* Decorative only: never swallow a click meant for the headline or a CTA.
        The engine reads pointer position from window, so this costs nothing. */
     pointer-events: none;
+    /* Strongest at the top, gone by the body copy and the buttons. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--ag-fade, 58%), transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 var(--ag-fade, 58%), transparent 100%);
+  }
+  /* Off below the `lg` breakpoint unless the page opted in with `mobile`. */
+  @media (max-width: 1023.98px) {
+    .antigravity:not([data-mobile-config]) { display: none; }
   }
   .antigravity canvas {
     position: absolute;
@@ -83,7 +138,9 @@ const config = { ...DEFAULTS, ...options };
 <script>
   import { createAntigravity } from '../scripts/antigravity.js';
 
+  const MOBILE = '(max-width: 1023.98px)'; // keep in step with the CSS above
   let instances = [];
+  let mq = null;
 
   function motionOff() {
     return (
@@ -92,30 +149,46 @@ const config = { ...DEFAULTS, ...options };
     );
   }
 
-  function initAntigravity() {
-    teardownAntigravity();
+  function build() {
     if (motionOff()) return;
-
+    const small = window.matchMedia(MOBILE).matches;
     document.querySelectorAll('[data-antigravity]').forEach((el) => {
+      // No mobile config means this field does not run on phones at all:
+      // nothing is created, so no simulation and no GPU work.
+      if (small && !el.dataset.mobileConfig) return;
+      const raw = small ? el.dataset.mobileConfig : el.dataset.config;
       let config;
       try {
-        config = JSON.parse(el.dataset.config || '{}');
+        config = JSON.parse(raw || '{}');
       } catch (e) {
         return;
-      }
-      // Fewer particles on phones: the engine already caps DPR and total
-      // pixels, but the per-frame simulation is CPU-side and O(count).
-      if (window.matchMedia('(max-width: 767.98px)').matches) {
-        const mobile = Number(el.dataset.mobileCount);
-        if (Number.isFinite(mobile) && mobile > 0) config.count = mobile;
       }
       instances.push(createAntigravity(el, config));
     });
   }
 
-  function teardownAntigravity() {
+  function clear() {
     instances.forEach((instance) => instance.destroy());
     instances = [];
+  }
+
+  // Crossing the breakpoint swaps the whole settings object, so rebuild.
+  function onBreakpoint() {
+    clear();
+    build();
+  }
+
+  function initAntigravity() {
+    teardownAntigravity();
+    build();
+    mq = window.matchMedia(MOBILE);
+    mq.addEventListener('change', onBreakpoint);
+  }
+
+  function teardownAntigravity() {
+    clear();
+    if (mq) mq.removeEventListener('change', onBreakpoint);
+    mq = null;
   }
 
   document.addEventListener('astro:page-load', initAntigravity);

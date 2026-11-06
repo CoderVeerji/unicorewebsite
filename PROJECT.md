@@ -174,7 +174,7 @@ Vanilla JS and CSS only. No GSAP, no AOS, no library. It animates **opacity and 
 | Grade marquee | The viscosity strip under the homepage hero scrolls right to left, one pass per 40s, linear and seamless. Pauses on hover. See below. |
 | Section headings | As a section reaches the viewport, the small brand-blue square before its eyebrow label scales from 0 over 300ms, and a large Instrument Serif index numeral (`01`…`06`) fades in over 500ms. Once only, with the block they belong to. Driven from `motion.js` by matching the authored Tailwind classes, so no page markup changed. |
 | Page transitions | Astro `ClientRouter` (view transitions), 200ms crossfade. |
-| Particle field | Homepage hero background only. A WebGL2 field of ~1100 brand-blue capsules that gathers into a ring around a drifting focus point and follows the pointer. See below. |
+| Particle field | Homepage hero background, **desktop only (≥ 1024px)**. A WebGL2 field of ~1100 brand-blue capsules that gathers into a ring around a drifting focus point and follows the pointer. See below. |
 | Custom cursor | Desktop only. A 24px ring with a 1px logo-blue border at 35% opacity follows the pointer with a lag, and a 4px solid dot tracks it exactly. Over links, buttons, product cards and the burger the ring scales to 40px and the border goes solid; over inputs and textareas both hide so the native caret shows. rAF and transforms only. |
 
 Never animated: header, footer, mobile drawer, the sticky product rail (`aside` / `.sticky`), anything inside a `<form>`, the breadcrumb bar, and the tyre sealant dosage table (marked `data-no-motion`). Any element can be opted out by adding `data-no-motion`. The announcement strip's collapse is the one place a layout property is transitioned, because that is what "collapses smoothly" requires.
@@ -256,7 +256,33 @@ Three decisions worth recording, because each departs from what was supplied:
 
 - **Ported from React to vanilla JS.** The source is a React Bits component, and `npx shadcn@latest add` would not have worked here: shadcn targets React projects and this one has no framework integration and no `components.json`. The WebGL, shaders, Oklab palette maths and spring simulation are the original's, unchanged; only `useRef`/`useEffect`/`useState` were replaced by `createAntigravity()` and `destroy()`. **No React, no `@astrojs/react`, no new dependency, no hydration** — the dependency list is still the six packages it was.
 - **Recoloured to the brand palette.** The supplied `#5227FF` / `#FF9FFC` / `#B497CF` are not among the ten brand colours. It now runs on `#1B4FA0`, `#143A78` and `#737783`, with `lightMode: true` because the hero sits on `#FAFAF8`. `docs/DESIGN.md` is intact.
-- **Toned down.** `ambient` 0.25 → 0.14, `particleSize` 0.9 → 0.75, `opacity` 1 → 0.5, `count` 1500 → 1100 (550 under 768px, since the simulation is CPU-side and O(count)). Measured behind the H1: background luminance holds at 244–246 against a plain-page 249, with particles covering 2.5–5% of the headline band, so text contrast is untouched.
+- **Toned down.** `ambient` 0.25 → 0.14, `particleSize` 0.9 → 0.75, `opacity` 1 → 0.5, `count` 1500 → 1100. Measured behind the H1: background luminance holds at 244–246 against a plain-page 249, with particles covering 2.5–5% of the headline band, so text contrast is untouched.
+
+#### It is off below 1024px, deliberately
+
+The cutoff is the `lg` breakpoint, not a phone width, because that is where the hero stops being a two-column layout. **The field needs the empty gutter beside the headline to live in.** Once the columns stack, the hero goes tall and narrow — 390×1051 on a phone, 900×1006 on a tablet — and the text runs the full width.
+
+Two things were wrong in the first attempt, and both are fixed:
+
+1. **A real bug in the engine.** It scaled the whole field off the container *height* (`height / 31.5`). On a wide hero that is fine, since height is the shorter side. On a tall mobile hero it made the unit 33.4px against the desktop's 18.6px — so particles rendered **1.8× larger on a screen 3.3× narrower**, which is what made it unreadable. `src/scripts/antigravity.js` now scales off `Math.min(width, height)`. Desktop is unchanged (18.6 before and after); every viewport where the field runs now sits in a tight 18.6–21.9 band.
+2. **There is still nowhere to put it on a stacked hero.** With the sizing fixed, both honest options were tried and measured. Full-bleed still sat behind the headline. Masking it clear of the text made it invisible, because the clean band above the eyebrow is only ~64px tall — and an invisible field still runs a 500-particle CPU simulation every frame on the devices least able to afford it. Nothing is rendered now: no element, no canvas, no rAF loop.
+
+Stacked heroes are not bare — they keep the rotating headline, the grade marquee and, in season, the toran.
+
+To run it below `lg` anyway, pass `mobile` and tune `MOBILE_DEFAULTS` in the component:
+
+```astro
+<Antigravity mobile mobileOptions={{ count: 400, opacity: 0.3 }} />
+```
+
+#### Why it is only on the homepage
+
+It was tried on two other heroes and removed from both, because it has to earn its place:
+
+- **Tyre Sealant** — no room. The left column is an opaque product frame and the right column is filled with text, so the field rendered invisibly behind both.
+- **Dealership** (the deep-navy band, measured at 29% empty) — pushed to `opacity: 0.95` on the dark ground it still read as a smudge rather than a designed field, so it was reverted rather than forced.
+
+The homepage hero is the one place on the site with a large empty gutter beside the headline on a light ground, which is exactly what this effect needs.
 
 Note this is the one place the site uses particles, which the earlier motion brief ruled out — added on explicit request. It is also the only GPU-driven effect; everything else is CSS and small vanilla scripts.
 
