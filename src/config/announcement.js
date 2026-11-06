@@ -5,8 +5,9 @@
  *  extend, retire or reuse the strip that sits above the navy utility bar.
  *
  *  Diwali (Lakshmi Puja) 2026 falls on 8 November 2026 — confirm the date
- *  before reusing this for another year. The window below runs from three
- *  days before Diwali to the end of the day after it. Times are IST
+ *  before reusing this for another year. The window runs from three days
+ *  before Diwali to a week after it, so the greeting survives the launch
+ *  week instead of vanishing on the next rebuild. Times are IST
  *  (+05:30), written explicitly so the result does not depend on the clock
  *  of whichever machine builds the site.
  *
@@ -16,7 +17,7 @@
  *  The copy itself lives in src/components/AnnouncementStrip.astro.
  * ──────────────────────────────────────────────────────────────────────── */
 export const WINDOW_START = '2026-11-05T00:00:00+05:30';
-export const WINDOW_END   = '2026-11-09T23:59:59+05:30';
+export const WINDOW_END   = '2026-11-16T23:59:59+05:30';
 export const STORAGE_KEY  = 'unicore:strip:diwali-2026';
 /* Lakshmi Puja itself — the strip counts down to this moment. Midnight IST at
    the start of 8 November 2026. */

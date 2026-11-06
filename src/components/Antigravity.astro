@@ -156,7 +156,11 @@ const mobileDarkConfig = { ...mobileConfig, ...DARK_DEFAULTS, ambient: 0.08, opa
 </style>
 
 <script>
-  import { createAntigravity } from '../scripts/antigravity.js';
+  /* The engine is pulled in with a dynamic import, not a static one. It is
+     16 KB of WebGL that never runs below `lg` or under reduced motion, and a
+     static import made every phone download and parse it anyway. Now the
+     bundle is only fetched once we know the field is actually going to run. */
+  let createAntigravity = null;
 
   const MOBILE = '(max-width: 1023.98px)'; // keep in step with the CSS above
   let instances = [];
@@ -169,13 +173,18 @@ const mobileDarkConfig = { ...mobileConfig, ...DARK_DEFAULTS, ambient: 0.08, opa
     );
   }
 
-  function build() {
+  async function build() {
     if (motionOff()) return;
     const small = window.matchMedia(MOBILE).matches;
-    document.querySelectorAll('[data-antigravity]').forEach((el) => {
-      // No mobile config means this field does not run on phones at all:
-      // nothing is created, so no simulation and no GPU work.
-      if (small && !el.dataset.mobileConfig) return;
+    const targets = [...document.querySelectorAll('[data-antigravity]')]
+      .filter((el) => !small || el.dataset.mobileConfig);
+    if (!targets.length) return;        // nothing to run: never fetch the engine
+
+    if (!createAntigravity) {
+      ({ createAntigravity } = await import('../scripts/antigravity.js'));
+    }
+
+    targets.forEach((el) => {
       const dark = document.documentElement.classList.contains('dark');
       const raw = small
         ? (dark ? el.dataset.mobileDarkConfig : el.dataset.mobileConfig)

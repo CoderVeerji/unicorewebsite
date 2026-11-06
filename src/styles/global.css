@@ -27,7 +27,11 @@
   --c-structural-line:  216 216 211;   /* #D8D8D3 */
   --c-heading-black:     11  11  12;   /* #0B0B0C */
   --c-body-text:         67  71  81;   /* #434751 */
-  --c-light-text:       115 119 131;   /* #737783 */
+  /* Was #737783, which scored 4.02 on the product frame, 4.28 on the page
+     and 4.47 on white — all under the 4.5 AA needs, across roughly a hundred
+     labels. Darkened ~4% to #686C77: visually the same grey, now 4.61 / 5.03
+     / 5.25. */
+  --c-light-text:       104 108 119;   /* #686C77 */
   --c-logo-blue:         27  79 160;   /* #1B4FA0 */
   --c-deep-navy:         20  58 120;   /* #143A78 */
   color-scheme: light;
@@ -89,6 +93,79 @@ html.dark .site-logo {
 html.dark .dropdown-shadow {
   box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.7), 0 8px 12px -6px rgba(0, 0, 0, 0.6) !important;
 }
+
+/* ── Utility bar ──────────────────────────────────────────────────────────
+ * The deep-navy bar is a 36px single-line strip. On a phone its two halves
+ * wrapped to two lines each and overflowed the box. Below lg, keep only the
+ * right-hand "Dealership enquiries open" line and centre it — the left half
+ * is placeholder contact detail that is not confirmed yet anyway.
+ */
+@media (max-width: 1023.98px) {
+  .utility-bar > div { justify-content: center; }
+  .utility-bar .utility-left { display: none; }
+  .utility-bar .utility-right { white-space: nowrap; }
+}
+
+/* ── Logo sizing ──────────────────────────────────────────────────────────
+ * `w-auto` reserves no width, so the header reflowed as the image decoded
+ * and again when the webfont swapped — the biggest single contributor to
+ * layout shift on mobile. The lockup is 1600x383 (4.178:1), so the width is
+ * known from the height and can be stated up front.
+ */
+.site-logo-img { width: 117px; }          /* 28px x 4.178 */
+@media (min-width: 1024px) {
+  .site-logo-img { width: 142px; }        /* 34px x 4.178 */
+}
+
+/* ── Products dropdown ────────────────────────────────────────────────────
+ * It used to be `opacity-0 invisible` with a group-hover override, so its
+ * seven links were removed from the tab order and no keyboard user could
+ * reach them. Now it is hidden with `display:none`, revealed on hover, on
+ * focus-within, and on [data-open] which the script toggles on click.
+ */
+.products-panel { display: none; opacity: 1; }
+.products-menu:hover > .products-panel,
+.products-menu[data-open] > .products-panel { display: block; }
+
+/* Without JavaScript there is nothing to toggle [data-open], so fall back to
+   :focus-within — tabbing to the button opens the panel and Tab carries on
+   through its links. It is deliberately NOT used when the script is running:
+   the trigger is inside .products-menu, so focus-within would keep the panel
+   open at the exact moment Escape returns focus to the button. */
+html:not(.js) .products-menu:focus-within > .products-panel { display: block; }
+.products-menu[data-open] > button .text-xs { transform: rotate(180deg); }
+
+/* ── Footer tap targets ───────────────────────────────────────────────────
+ * The footer link lists were 16px tall on a phone, so neighbouring links
+ * were easy to hit by mistake. Pad them to a 24px target without changing
+ * the type size or the visual rhythm on desktop.
+ */
+@media (max-width: 1023.98px) {
+  footer a { display: inline-block; padding-top: 0.25rem; padding-bottom: 0.25rem; }
+}
+
+/* ── Skip link ────────────────────────────────────────────────────────────
+ * Off-screen until focused, then it drops into the top-left corner. Not
+ * display:none — that would take it out of the tab order, which is the one
+ * thing it exists for.
+ */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  transform: translateY(-120%);
+  padding: 0.75rem 1.25rem;
+  background-color: rgb(var(--c-heading-black));
+  color: rgb(var(--c-page-bg));
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: transform 150ms ease;
+}
+.skip-link:focus { transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
 
 /* ── Indic typography ─────────────────────────────────────────────────────
  * The two brand fonts cover Latin only, so on a translated page the browser

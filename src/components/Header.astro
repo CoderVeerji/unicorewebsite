@@ -23,23 +23,25 @@ const OFF = 'text-sm font-medium text-body-text hover:text-heading-black transit
 const link = (key) => (active === key ? ON : OFF);
 const current = (key) => (active === key ? 'page' : undefined);
 
+// focus:outline-none used to be on both of these, which renders a 2px
+// *transparent* outline — a keyboard user could not see where they were.
 const productsBtn =
   active === 'products'
-    ? 'flex items-center gap-1 text-sm font-semibold text-logo-blue transition-colors focus:outline-none'
-    : 'flex items-center gap-1 text-sm font-medium text-body-text group-hover:text-heading-black transition-colors focus:outline-none';
+    ? 'flex items-center gap-1 text-sm font-semibold text-logo-blue transition-colors'
+    : 'flex items-center gap-1 text-sm font-medium text-body-text group-hover:text-heading-black transition-colors';
 const dropdownItem =
   'block px-4 py-2.5 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent hover:border-logo-blue transition-all';
 ---
   <!-- TOP CANONICAL HEADER -->
   <header class="fixed top-0 left-0 w-full z-50">
-    <div class="bg-deep-navy text-white border-b border-hairline/20">
+    <div class="utility-bar bg-deep-navy text-white border-b border-hairline/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between text-[12px] text-white/80">
-        <div class="flex items-center gap-6">
+        <div class="utility-left flex items-center gap-6">
           <span class="">[to be confirmed by Unicore]</span>
           <span class="hidden sm:inline-block text-white/30">|</span>
           <span class="hidden sm:inline-block">[to be confirmed by Unicore]</span>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="utility-right flex items-center gap-2">
           <span class="inline-block w-1.5 h-1.5 bg-white"></span>
           <span class="tracking-wide text-white">Dealership enquiries open · PAN India</span>
         </div>
@@ -57,18 +59,31 @@ const dropdownItem =
             alt="Unicore Lubricants"
             loading="eager"
             decoding="async"
-            class="h-7 w-auto lg:h-[34px]"
+            class="site-logo-img h-7 w-auto lg:h-[34px]"
             pictureAttributes={{ class: 'block site-logo' }}
           />
         </a>
         <nav class="hidden lg:flex items-center gap-7">
           <a class={link('home')} aria-current={current('home')} data-path="home" href="index.html">Home</a>
-          <div class="relative group py-6">
-            <button class={productsBtn} type="button">
+          {/* Hover opens it for a mouse; focus-within and the script open it
+              for a keyboard. The panel used to be `invisible`, which takes its
+              seven links out of the tab order entirely. */}
+          <div class="relative group py-6 products-menu" data-products-menu>
+            <button
+              class={productsBtn}
+              type="button"
+              data-products-trigger
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="products-menu-panel"
+            >
               <span class="">Products</span>
-              <span class="text-xs transition-transform duration-200 group-hover:rotate-180">▼</span>
+              <span class="text-xs transition-transform duration-200 group-hover:rotate-180" aria-hidden="true">▼</span>
             </button>
-            <div class="absolute top-full left-0 w-72 bg-white border border-hairline dropdown-shadow py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div
+              id="products-menu-panel"
+              class="products-panel absolute top-full left-0 w-72 bg-white border border-hairline dropdown-shadow py-2 transition-opacity duration-150 z-50"
+            >
               <div class="px-4 py-2 border-b border-hairline bg-product-frame">
                 <span class="text-[11px] tracking-widest text-light-text uppercase block font-medium">Product Categories</span>
               </div>
@@ -97,7 +112,7 @@ const dropdownItem =
         <div class="flex lg:hidden items-center gap-2">
           <LanguagePicker class="lang-picker-compact" />
           <ThemeToggle class="w-11 h-11" />
-          <button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center border border-hairline bg-product-frame text-heading-black focus:outline-none" id="mobile-nav-toggle" type="button">
+          <button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center border border-hairline bg-product-frame text-heading-black" id="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu-drawer">
             <span class="text-xl font-bold" id="mobile-burger-icon">☰</span>
             <span class="text-xl font-bold hidden" id="mobile-close-icon">×</span>
           </button>

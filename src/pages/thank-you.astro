@@ -1,0 +1,63 @@
+---
+/**
+ * Where the three enquiry forms land after a successful submission.
+ *
+ * The forms use a RELATIVE action ("thank-you.html"), so a visitor reading
+ * the Tamil site posts from /ta/contact.html and arrives at
+ * /ta/thank-you.html — the build makes a copy of this page in every locale,
+ * so the confirmation is in the language they were already reading.
+ *
+ * Deliberately says nothing about how fast anyone will reply: no response
+ * time has been confirmed.
+ */
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Unicore Lubricants — Enquiry received"
+  description="Your enquiry has reached the Unicore Lubricants trade desk."
+  active=""
+  bodyClass="bg-page-bg font-sans text-body-text antialiased"
+>
+  <main id="main-content" class="w-full pt-[116px] bg-page-bg min-h-[calc(100vh-116px)]">
+    <section class="w-full bg-page-bg border-b border-hairline">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="max-w-2xl">
+
+          <div class="inline-flex items-center gap-2 mb-6">
+            <span class="w-2 h-2 bg-logo-blue"></span>
+            <span class="font-sans text-xs tracking-widest text-logo-blue uppercase font-semibold">
+              Enquiry received
+            </span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl text-heading-black font-normal leading-tight mb-8">
+            Thank you — your enquiry has reached our trade desk.
+          </h1>
+
+          <p class="font-sans text-base sm:text-lg text-body-text leading-relaxed mb-10">
+            A member of the Unicore trade sales team will read it and reply to the
+            phone number and email address you gave us.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <a
+              class="inline-flex items-center justify-center bg-heading-black hover:bg-logo-blue text-white px-8 py-4 text-xs font-semibold uppercase tracking-wider transition-colors duration-150 rounded-[2px]"
+              data-path="home"
+              href="index.html"
+            >
+              Back to home
+            </a>
+            <a
+              class="inline-flex items-center justify-center bg-white hover:bg-product-frame text-heading-black hover:text-logo-blue px-8 py-4 text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-structural-line rounded-[2px]"
+              data-path="products"
+              href="products.html"
+            >
+              See our products
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>

@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Unicore Lubricants — Dealership" active="dealership" enquiryHref="#dealership-application" bodyClass="bg-page-bg text-body-text font-sans antialiased min-h-screen flex flex-col justify-between">
+<Base description="Become an authorised Unicore Lubricants distributor. Protected district territory, direct factory supply and trade support for regional stockists."
+  title="Unicore Lubricants — Dealership" active="dealership" enquiryHref="#dealership-application" bodyClass="bg-page-bg text-body-text font-sans antialiased min-h-screen flex flex-col justify-between">
 
-  <main class="flex-grow pt-[116px]">
+  <main id="main-content" class="flex-grow pt-[116px]">
 
     <!-- Breadcrumb -->
     <div class="w-full bg-white border-b border-hairline">
@@ -258,7 +259,23 @@ import Base from '../layouts/Base.astro';
           </p>
 
           <!-- Dealership Form -->
-          <form class="mt-12 space-y-10" onsubmit="return false;">
+          <form
+            name="dealership"
+            method="POST"
+            action="thank-you.html"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            class="mt-12 space-y-10"
+          >
+              {/* Netlify Forms: the attributes below are what make this live.
+                  `name` is the form's name in the Netlify dashboard, the hidden
+                  form-name field is what the POST is matched on, and bot-field
+                  is a honeypot a human never sees. The action is relative, so a
+                  visitor on /ta/ lands on /ta/thank-you.html. */}
+            <input type="hidden" name="form-name" value="dealership" />
+            <p class="hidden">
+              <label>Leave this field empty<input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10">
               
               <!-- Firm Name -->
@@ -266,7 +283,7 @@ import Base from '../layouts/Base.astro';
                 <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="firm_name">
                   Trading Firm / Company Name *
                 </label>
-                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="firm_name" name="firm_name" placeholder="e.g. Shree Balaji Auto Spares &amp; Lubricants" type="text">
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="firm_name" name="firm_name" required placeholder="e.g. Shree Balaji Auto Spares &amp; Lubricants" type="text">
               </div>
 
               <!-- Contact Person -->
@@ -274,7 +291,7 @@ import Base from '../layouts/Base.astro';
                 <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="contact_person">
                   Contact Person Name *
                 </label>
-                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="contact_person" name="contact_person" placeholder="Full name of proprietor or partner" type="text">
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="contact_person" name="contact_person" required placeholder="Full name of proprietor or partner" type="text">
               </div>
 
               <!-- Phone Number -->
@@ -282,7 +299,7 @@ import Base from '../layouts/Base.astro';
                 <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="phone_number">
                   Phone Number (Mobile / WhatsApp) *
                 </label>
-                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="phone_number" name="phone_number" placeholder="10-digit mobile number" type="tel">
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="phone_number" name="phone_number" required placeholder="10-digit mobile number" type="tel">
               </div>
 
               <!-- City / Town -->
@@ -290,7 +307,7 @@ import Base from '../layouts/Base.astro';
                 <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="city">
                   City / Town *
                 </label>
-                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="city" name="city" placeholder="e.g. Pune, Jaipur, Raipur, Hubli" type="text">
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="city" name="city" required placeholder="e.g. Pune, Jaipur, Raipur, Hubli" type="text">
               </div>
 
               <!-- District -->
@@ -298,7 +315,7 @@ import Base from '../layouts/Base.astro';
                 <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="district">
                   Primary District Requested *
                 </label>
-                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="district" name="district" placeholder="District where dealership rights are sought" type="text">
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="district" name="district" required placeholder="District where dealership rights are sought" type="text">
               </div>
 
               <!-- Current Business Type (Dropdown) -->
@@ -306,7 +323,7 @@ import Base from '../layouts/Base.astro';
                 <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="business_type">
                   Current Business Type *
                 </label>
-                <select class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black rounded-none transition-colors" id="business_type" name="business_type">
+                <select class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black rounded-none transition-colors" id="business_type" name="business_type" required>
                   <option class="text-body-text" value="">Select business structure...</option>
                   <option class="text-body-text" value="retail-counter">Automotive Retail Counter / Shop</option>
                   <option class="text-body-text" value="regional-stockist">Regional Parts Stockist / Wholesaler</option>
@@ -322,7 +339,7 @@ import Base from '../layouts/Base.astro';
                 <label class="block text-[11px] uppercase tracking-wider text-light-text font-semibold mb-2" for="monthly_volume">
                   Expected Monthly Volume / Requirement *
                 </label>
-                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="monthly_volume" name="monthly_volume" placeholder="e.g. Expected initial barrel, bucket, or carton requirement per month" type="text">
+                <input class="w-full bg-transparent border-0 border-b border-structural-line focus:border-logo-blue focus:ring-0 px-0 py-2.5 text-sm text-heading-black placeholder-light-text/60 rounded-none transition-colors" id="monthly_volume" name="monthly_volume" required placeholder="e.g. Expected initial barrel, bucket, or carton requirement per month" type="text">
               </div>
 
             </div>
@@ -332,7 +349,7 @@ import Base from '../layouts/Base.astro';
 
             <!-- Submit Button (2px rounded, zero fake animation) -->
             <div class="pt-4">
-              <button class="w-full sm:w-auto inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-10 py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue focus:outline-none" type="button">
+              <button class="w-full sm:w-auto inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-10 py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue" type="submit">
                 Submit Dealership Application →
               </button>
             </div>

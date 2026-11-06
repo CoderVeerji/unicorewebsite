@@ -11,12 +11,12 @@ const link = (key) => (active === key ? ON : OFF);
 
 const productsBtn =
   active === 'products'
-    ? 'w-full flex items-center justify-between font-serif text-[26px] text-logo-blue border-b border-hairline pb-3 text-left focus:outline-none'
-    : 'w-full flex items-center justify-between font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3 text-left focus:outline-none';
+    ? 'w-full flex items-center justify-between font-serif text-[26px] text-logo-blue border-b border-hairline pb-3 text-left'
+    : 'w-full flex items-center justify-between font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3 text-left';
 const sub = 'mobile-link text-sm font-medium text-body-text hover:text-logo-blue';
 ---
   <!-- MOBILE MENU DRAWER -->
-  <div class="fixed inset-0 top-[116px] bg-white z-40 hidden flex-col overflow-y-auto border-t border-hairline px-6 py-8" id="mobile-menu-drawer">
+  <div class="fixed inset-0 top-[116px] bg-white z-40 hidden flex-col overflow-y-auto border-t border-hairline px-6 py-8" id="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1">
     <div class="flex flex-col space-y-6">
       <a class={link('home')} data-path="home" href="index.html">Home</a>
       <div>
@@ -58,17 +58,50 @@ const sub = 'mobile-link text-sm font-medium text-body-text hover:text-logo-blue
     const productsArrow = document.getElementById('mobile-products-arrow');
     if (!drawer || !burgerIcon || !closeIcon) return;
 
+    const FOCUSABLE = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
+
     function setDrawer(open) {
       if (open) {
         drawer.classList.remove('hidden'); drawer.classList.add('flex');
         burgerIcon.classList.add('hidden'); closeIcon.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
+        // Move focus into the panel, otherwise a keyboard user opens the
+        // drawer and is still parked behind it in the page.
+        drawer.focus();
       } else {
         drawer.classList.add('hidden'); drawer.classList.remove('flex');
         burgerIcon.classList.remove('hidden'); closeIcon.classList.add('hidden');
         document.body.style.overflow = '';
       }
+      // Announce the state instead of leaving it to the icon swap.
+      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
+
+    function isOpen() { return !drawer.classList.contains('hidden'); }
+
+    // Escape closes it and hands focus back to the button that opened it.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) {
+        e.preventDefault();
+        setDrawer(false);
+        if (toggleBtn) toggleBtn.focus();
+      }
+    });
+
+    // Keep Tab inside the open drawer. Without this the thirty tab stops of
+    // the page behind it are still reachable while it covers the screen.
+    drawer.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab' || !isOpen()) return;
+      const items = [...drawer.querySelectorAll(FOCUSABLE)].filter((el) => el.offsetParent !== null);
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && (document.activeElement === first || document.activeElement === drawer)) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    });
     if (toggleBtn) {
       toggleBtn.addEventListener('click', () => {
         const isOpen = !drawer.classList.contains('hidden');
@@ -76,8 +109,11 @@ const sub = 'mobile-link text-sm font-medium text-body-text hover:text-logo-blue
       });
     }
     if (productsToggle && productsMenu && productsArrow) {
+      productsToggle.setAttribute('aria-expanded', 'false');
+      productsToggle.setAttribute('aria-controls', 'mobile-products-menu');
       productsToggle.addEventListener('click', () => {
         const isProdOpen = !productsMenu.classList.contains('hidden');
+        productsToggle.setAttribute('aria-expanded', isProdOpen ? 'false' : 'true');
         if (isProdOpen) {
           productsMenu.classList.add('hidden'); productsMenu.classList.remove('flex');
           productsArrow.classList.remove('rotate-180');
