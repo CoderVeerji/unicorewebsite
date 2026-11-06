@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import HeroToran from '../components/HeroToran.astro';
+import Antigravity from '../components/Antigravity.astro';
 ---
 <Base title="Unicore Lubricants" active="home" htmlClass="scroll-smooth" bodyClass="bg-page-bg font-sans text-body-text antialiased">
 
@@ -8,8 +9,9 @@ import HeroToran from '../components/HeroToran.astro';
 <div class="flex flex-col w-full">
 <!-- SECTION 1: HERO SECTION -->
 <section class="w-full bg-page-bg border-b border-hairline relative overflow-hidden">
+<Antigravity />
 <HeroToran />
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 <!-- Left Column -->
 <div class="lg:col-span-8 flex flex-col justify-center pr-0 lg:pr-8">

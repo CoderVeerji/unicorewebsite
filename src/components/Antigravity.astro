@@ -1,0 +1,123 @@
+---
+/**
+ * Antigravity particle field — a WebGL2 canvas that fills its parent.
+ *
+ * Vanilla port of the React Bits component (see src/scripts/antigravity.js).
+ * No React, no hydration directive, no extra dependency.
+ *
+ * Defaults are tuned for this site: brand blues only, low ambient and low
+ * opacity so it reads as a faint engineered field behind the headline rather
+ * than decoration. Pass `options` to override any of the original's props.
+ *
+ * It never runs under prefers-reduced-motion or <html data-motion="off">, and
+ * the canvas is pointer-events:none so it cannot intercept clicks — the engine
+ * tracks the pointer on `window` instead.
+ *
+ * TO REMOVE IT: delete the single <Antigravity /> line from the page.
+ */
+
+// Brand palette only (docs/DESIGN.md): logo-blue, deep-navy, light-text.
+const DEFAULTS = {
+  colors: ['#1B4FA0', '#143A78', '#737783'],
+  count: 1100,
+  magnetRadius: 9,
+  ringRadius: 7,
+  particleSize: 0.75,
+  autoAnimate: true,
+  colorMode: 'conic',
+  colorSpeed: 0.04,
+  particleShape: 'capsule',
+  particleVariance: 1,
+  fieldStrength: 10,
+  waveAmplitude: 1,
+  waveCount: 3,
+  waveSpeed: 0.4,
+  rotationSpeed: 0,
+  pulseSpeed: 3,
+  depthFactor: 1,
+  ambient: 0.14,
+  lerpSpeed: 0.05,
+  interactive: true,
+  clickBurst: true,
+  intro: true,
+  lightMode: true, // the site sits on #FAFAF8
+  opacity: 0.5,
+  maxDevicePixelRatio: 2,
+};
+
+const { options = {}, class: className = '', mobileCount = 550 } = Astro.props;
+const config = { ...DEFAULTS, ...options };
+---
+
+<div
+  class:list={['antigravity', className]}
+  data-antigravity
+  data-config={JSON.stringify(config)}
+  data-mobile-count={mobileCount}
+>
+  <canvas aria-hidden="true"></canvas>
+</div>
+
+<style>
+  .antigravity {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    /* Decorative only: never swallow a click meant for the headline or a CTA.
+       The engine reads pointer position from window, so this costs nothing. */
+    pointer-events: none;
+  }
+  .antigravity canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  /* Motion rules (see PROJECT.md): off entirely, not merely slowed. */
+  @media (prefers-reduced-motion: reduce) {
+    .antigravity { display: none; }
+  }
+</style>
+
+<script>
+  import { createAntigravity } from '../scripts/antigravity.js';
+
+  let instances = [];
+
+  function motionOff() {
+    return (
+      document.documentElement.dataset.motion === 'off' ||
+      (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    );
+  }
+
+  function initAntigravity() {
+    teardownAntigravity();
+    if (motionOff()) return;
+
+    document.querySelectorAll('[data-antigravity]').forEach((el) => {
+      let config;
+      try {
+        config = JSON.parse(el.dataset.config || '{}');
+      } catch (e) {
+        return;
+      }
+      // Fewer particles on phones: the engine already caps DPR and total
+      // pixels, but the per-frame simulation is CPU-side and O(count).
+      if (window.matchMedia('(max-width: 767.98px)').matches) {
+        const mobile = Number(el.dataset.mobileCount);
+        if (Number.isFinite(mobile) && mobile > 0) config.count = mobile;
+      }
+      instances.push(createAntigravity(el, config));
+    });
+  }
+
+  function teardownAntigravity() {
+    instances.forEach((instance) => instance.destroy());
+    instances = [];
+  }
+
+  document.addEventListener('astro:page-load', initAntigravity);
+  document.addEventListener('astro:before-swap', teardownAntigravity);
+</script>

@@ -32,6 +32,7 @@ src/
   components/Footer.astro     canonical four-column footer    (prop: active)
   components/AnnouncementStrip.astro  dismissible strip above the navy bar (copy lives here)
   components/HeroToran.astro  seasonal hero toran, homepage only, same date window
+  components/Antigravity.astro  WebGL particle field (homepage hero background)
   config/announcement.js      ← the dates and storage key for BOTH seasonal elements
   assets/unicore-logo.png     logo master; Astro derives 1x/2x PNG + WebP at build
   pages/                      one file per page, each holding only that page's <main>
@@ -43,6 +44,7 @@ src/
   scripts/motion.js           animation JS (see below)
   scripts/cursor.js           custom cursor JS (see below)
   scripts/accent-rotator.js   rotating hero phrase, homepage only (see below)
+  scripts/antigravity.js      WebGL particle engine, vanilla port (see below)
 public/favicon-32.png         favicon, cropped from the real logo mark
 public/favicon-180.png        apple-touch-icon, same mark
 tailwind.config.mjs           the ten brand colours + two font families
@@ -172,6 +174,7 @@ Vanilla JS and CSS only. No GSAP, no AOS, no library. It animates **opacity and 
 | Grade marquee | The viscosity strip under the homepage hero scrolls right to left, one pass per 40s, linear and seamless. Pauses on hover. See below. |
 | Section headings | As a section reaches the viewport, the small brand-blue square before its eyebrow label scales from 0 over 300ms, and a large Instrument Serif index numeral (`01`…`06`) fades in over 500ms. Once only, with the block they belong to. Driven from `motion.js` by matching the authored Tailwind classes, so no page markup changed. |
 | Page transitions | Astro `ClientRouter` (view transitions), 200ms crossfade. |
+| Particle field | Homepage hero background only. A WebGL2 field of ~1100 brand-blue capsules that gathers into a ring around a drifting focus point and follows the pointer. See below. |
 | Custom cursor | Desktop only. A 24px ring with a 1px logo-blue border at 35% opacity follows the pointer with a lag, and a 4px solid dot tracks it exactly. Over links, buttons, product cards and the burger the ring scales to 40px and the border goes solid; over inputs and textareas both hide so the native caret shows. rAF and transforms only. |
 
 Never animated: header, footer, mobile drawer, the sticky product rail (`aside` / `.sticky`), anything inside a `<form>`, the breadcrumb bar, and the tyre sealant dosage table (marked `data-no-motion`). Any element can be opted out by adding `data-no-motion`. The announcement strip's collapse is the one place a layout property is transitioned, because that is what "collapses smoothly" requires.
@@ -236,6 +239,34 @@ Because the site uses view transitions, page scripts must run on `astro:page-loa
 Otherwise it retires by itself. It is gated by `isAnnouncementActive()` from `src/config/announcement.js` — the **same window as the announcement strip** — evaluated at build time, so outside the window it emits no markup at all. Change the dates in that one file and both seasonal elements move together.
 
 The circle positions come from a fixed seed (`20261108`), so every build produces identical output rather than reshuffling the dots on each deploy. Under reduced motion the breathing freezes and the circles simply hold at their resting opacity.
+
+### The hero particle field (Antigravity)
+
+A WebGL2 particle field behind the homepage headline. `src/components/Antigravity.astro` plus the engine in `src/scripts/antigravity.js`.
+
+**To remove it: delete the single `<Antigravity />` line from `src/pages/index.astro`.** To move it elsewhere, drop that line into any `position: relative` container — the component is absolutely positioned and fills its parent.
+
+To tune it, pass `options`, which override the defaults at the top of the component:
+
+```astro
+<Antigravity options={{ count: 1600, ambient: 0.2, opacity: 0.65 }} />
+```
+
+Three decisions worth recording, because each departs from what was supplied:
+
+- **Ported from React to vanilla JS.** The source is a React Bits component, and `npx shadcn@latest add` would not have worked here: shadcn targets React projects and this one has no framework integration and no `components.json`. The WebGL, shaders, Oklab palette maths and spring simulation are the original's, unchanged; only `useRef`/`useEffect`/`useState` were replaced by `createAntigravity()` and `destroy()`. **No React, no `@astrojs/react`, no new dependency, no hydration** — the dependency list is still the six packages it was.
+- **Recoloured to the brand palette.** The supplied `#5227FF` / `#FF9FFC` / `#B497CF` are not among the ten brand colours. It now runs on `#1B4FA0`, `#143A78` and `#737783`, with `lightMode: true` because the hero sits on `#FAFAF8`. `docs/DESIGN.md` is intact.
+- **Toned down.** `ambient` 0.25 → 0.14, `particleSize` 0.9 → 0.75, `opacity` 1 → 0.5, `count` 1500 → 1100 (550 under 768px, since the simulation is CPU-side and O(count)). Measured behind the H1: background luminance holds at 244–246 against a plain-page 249, with particles covering 2.5–5% of the headline band, so text contrast is untouched.
+
+Note this is the one place the site uses particles, which the earlier motion brief ruled out — added on explicit request. It is also the only GPU-driven effect; everything else is CSS and small vanilla scripts.
+
+Safety rails:
+
+- `pointer-events: none` on the container, so it can never intercept a click meant for the headline or a CTA. The engine reads the pointer from `window`, so it loses nothing. Verified: `elementFromPoint` over the primary CTA returns the link, not the canvas.
+- Hidden entirely under `prefers-reduced-motion: reduce` and under `data-motion="off"` — not merely slowed, matching the rest of the motion system.
+- Pauses off-screen (IntersectionObserver) and when the tab is hidden.
+- Rebuilt on `astro:page-load` and torn down on `astro:before-swap`, so a view transition leaves exactly one canvas behind, not a stack of them.
+- Falls back to nothing if WebGL2 is unavailable: the hero renders as it did before.
 
 ## Known issues
 
