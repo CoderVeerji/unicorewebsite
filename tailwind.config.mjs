@@ -8,17 +8,26 @@ export default {
   theme: {
     extend: {
       // The ten brand colours. Nothing else is allowed (see docs/DESIGN.md).
+      //
+      // Each one resolves to a CSS variable rather than a literal hex, so the
+      // whole site flips between light and dark by swapping ten variables in
+      // src/styles/global.css — no `dark:` class anywhere in the markup. The
+      // light values are exactly the ten brand hexes; the dark values are
+      // tints and shades of those same ten, no new hues.
+      //
+      // The `<alpha-value>` placeholder keeps the opacity modifiers working
+      // (text-white/80, border-hairline/20, placeholder-light-text/60 ...).
       colors: {
-        white: '#FFFFFF',
-        'page-bg': '#FAFAF8',
-        'product-frame': '#F3F3F0',
-        hairline: '#E6E6E2',
-        'structural-line': '#D8D8D3',
-        'heading-black': '#0B0B0C',
-        'body-text': '#434751',
-        'light-text': '#737783',
-        'logo-blue': '#1B4FA0',
-        'deep-navy': '#143A78',
+        white: 'rgb(var(--c-white) / <alpha-value>)',
+        'page-bg': 'rgb(var(--c-page-bg) / <alpha-value>)',
+        'product-frame': 'rgb(var(--c-product-frame) / <alpha-value>)',
+        hairline: 'rgb(var(--c-hairline) / <alpha-value>)',
+        'structural-line': 'rgb(var(--c-structural-line) / <alpha-value>)',
+        'heading-black': 'rgb(var(--c-heading-black) / <alpha-value>)',
+        'body-text': 'rgb(var(--c-body-text) / <alpha-value>)',
+        'light-text': 'rgb(var(--c-light-text) / <alpha-value>)',
+        'logo-blue': 'rgb(var(--c-logo-blue) / <alpha-value>)',
+        'deep-navy': 'rgb(var(--c-deep-navy) / <alpha-value>)',
       },
       // Two families: Instrument Serif (display) and Inter (body/UI).
       fontFamily: {

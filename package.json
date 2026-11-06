@@ -10,7 +10,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "i18n:extract": "node scripts/i18n-extract.mjs",
+    "i18n:report": "node scripts/i18n-report.mjs"
   },
   "dependencies": {
     "@tailwindcss/container-queries": "^0.1.1",

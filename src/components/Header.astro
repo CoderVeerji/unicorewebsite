@@ -8,6 +8,8 @@
  *   enquiryHref  target of the "Enquiry Now" button (a page may point it at its own anchor)
  */
 import { Picture } from 'astro:assets';
+import ThemeToggle from './ThemeToggle.astro';
+import LanguagePicker from './LanguagePicker.astro';
 import logo from '../assets/unicore-logo.png';
 
 const { active = '', enquiryHref = 'contact.html' } = Astro.props;
@@ -56,7 +58,7 @@ const dropdownItem =
             loading="eager"
             decoding="async"
             class="h-7 w-auto lg:h-[34px]"
-            pictureAttributes={{ class: 'block' }}
+            pictureAttributes={{ class: 'block site-logo' }}
           />
         </a>
         <nav class="hidden lg:flex items-center gap-7">
@@ -87,10 +89,14 @@ const dropdownItem =
           <a class={link('dealership')} aria-current={current('dealership')} data-path="dealership" href="dealership.html">Dealership</a>
           <a class={link('contact')} aria-current={current('contact')} data-path="contact" href="contact.html">Contact</a>
         </nav>
-        <div class="hidden lg:flex items-center">
+        <div class="hidden lg:flex items-center gap-2">
+          <LanguagePicker />
+          <ThemeToggle class="w-9 h-9" />
           <a class="inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue" data-path="enquiry" href={enquiryHref}>Enquiry Now</a>
         </div>
-        <div class="flex lg:hidden items-center">
+        <div class="flex lg:hidden items-center gap-2">
+          <LanguagePicker class="lang-picker-compact" />
+          <ThemeToggle class="w-11 h-11" />
           <button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center border border-hairline bg-product-frame text-heading-black focus:outline-none" id="mobile-nav-toggle" type="button">
             <span class="text-xl font-bold" id="mobile-burger-icon">☰</span>
             <span class="text-xl font-bold hidden" id="mobile-close-icon">×</span>

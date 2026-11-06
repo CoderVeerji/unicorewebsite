@@ -2,8 +2,132 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme tokens: the ten brand colours, light and dark ───────────────────
+ * tailwind.config.mjs points every colour utility at one of these variables,
+ * so the entire site changes theme by swapping the ten values below. There is
+ * no `dark:` class anywhere in the page markup.
+ *
+ * The light column is the ten brand hexes, unchanged. The dark column is
+ * tints and shades of those same ten — no new hue is introduced. Roles are
+ * preserved, not inverted blindly: `white` is "the raised surface", not
+ * literal white, and `heading-black` is "the ink", not literal black.
+ *
+ * Values are space-separated RGB channels so Tailwind's opacity modifiers
+ * (text-white/80, border-hairline/20) keep working.
+ *
+ * Dark-mode contrast against --c-page-bg, all WCAG AA or better:
+ *   heading-black 17.1   body-text 11.6   light-text 6.5
+ *   logo-blue      8.2   deep-navy 10.1
+ */
+:root {
+  --c-white:            255 255 255;   /* #FFFFFF */
+  --c-page-bg:          250 250 248;   /* #FAFAF8 */
+  --c-product-frame:    243 243 240;   /* #F3F3F0 */
+  --c-hairline:         230 230 226;   /* #E6E6E2 */
+  --c-structural-line:  216 216 211;   /* #D8D8D3 */
+  --c-heading-black:     11  11  12;   /* #0B0B0C */
+  --c-body-text:         67  71  81;   /* #434751 */
+  --c-light-text:       115 119 131;   /* #737783 */
+  --c-logo-blue:         27  79 160;   /* #1B4FA0 */
+  --c-deep-navy:         20  58 120;   /* #143A78 */
+  color-scheme: light;
+}
+
+html.dark {
+  --c-white:             22  24  29;   /* #16181D  raised surface  */
+  --c-page-bg:           13  14  17;   /* #0D0E11  page canvas     */
+  --c-product-frame:     28  31  37;   /* #1C1F25  inset frame     */
+  --c-hairline:          41  44  51;   /* #292C33  faint border    */
+  --c-structural-line:   58  62  71;   /* #3A3E47  stronger border */
+  --c-heading-black:    244 244 242;   /* #F4F4F2  ink             */
+  --c-body-text:        200 203 211;   /* #C8CBD3                  */
+  --c-light-text:       150 155 166;   /* #969BA6                  */
+  --c-logo-blue:        127 169 242;   /* #7FA9F2  accent          */
+  --c-deep-navy:        157 189 245;   /* #9DBDF5  deeper accent   */
+  color-scheme: dark;
+}
+
+/* Emphasis bands (`bg-deep-navy text-white` sections, the utility bar, the
+ * footer) keep their light-mode colours in dark mode. A deep navy block still
+ * reads as a band against a near-black page, and this avoids flipping a
+ * full-width section into a glaring light band.
+ *
+ * The band is therefore a light-mode island: all ten tokens are re-pinned to
+ * their light values *on the band itself*, so everything inside behaves
+ * exactly as it does in light mode. That covers the opacity variants
+ * (text-white/80, border-hairline/20) for free, and — the reason it has to
+ * be all ten and not just two — it keeps `bg-white text-heading-black`
+ * buttons inside the band readable instead of white-on-white.
+ */
+html.dark .bg-deep-navy {
+  --c-white:            255 255 255;
+  --c-page-bg:          250 250 248;
+  --c-product-frame:    243 243 240;
+  --c-hairline:         230 230 226;
+  --c-structural-line:  216 216 211;
+  --c-heading-black:     11  11  12;
+  --c-body-text:         67  71  81;
+  --c-light-text:       115 119 131;
+  --c-logo-blue:         27  79 160;
+  --c-deep-navy:         20  58 120;
+  background-color: #143A78;
+  color-scheme: light;
+}
+
+/* The logo asset (src/assets/unicore-logo.png) has an opaque white
+ * background baked in — every pixel is alpha 255 — so on a dark header it
+ * would read as a stray white rectangle butted against the edges. Make it a
+ * deliberate plaque instead: white padding and the same 2px radius the
+ * buttons use. Delete this rule the day there is a transparent logo. */
+html.dark .site-logo {
+  background-color: #FFFFFF;
+  padding: 5px 8px;
+  border-radius: 2px;
+}
+
+/* The one permitted shadow needs more weight to read on a dark surface. */
+html.dark .dropdown-shadow {
+  box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.7), 0 8px 12px -6px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ── Indic typography ─────────────────────────────────────────────────────
+ * The two brand fonts cover Latin only, so on a translated page the browser
+ * falls back to the reader's system face for Devanagari, Tamil, Telugu,
+ * Kannada, Bengali, Gujarati and Gurmukhi. (Deliberate: shipping webfonts
+ * for eight scripts would cost more than the whole site weighs today, and
+ * the brand is two fonts.)
+ *
+ * Those scripts carry marks above and below the baseline, so the Latin
+ * leading collides. These rules give every non-English page more room and
+ * pull the display sizes back — a Devanagari headline at text-6xl wraps into
+ * a wall. English is untouched: the selector cannot match lang="en".
+ */
+html:not([lang="en"]) .font-serif,
+html:not([lang="en"]) h1,
+html:not([lang="en"]) h2,
+html:not([lang="en"]) h3 { line-height: 1.5; }
+
+html:not([lang="en"]) main h1 {
+  font-size: clamp(1.6rem, 3.1vw, 2.6rem);
+  line-height: 1.55;
+}
+
+/* Body copy needs a little more air too, but far less. */
+html:not([lang="en"]) p,
+html:not([lang="en"]) li { line-height: 1.75; }
+
+/* The rotating hero accent reserves the width of its longest alternate.
+   In a script with wider glyphs that reservation can push the rest of the
+   headline onto another line, so let it wrap inside its own box. */
+html:not([lang="en"]) .hero-accent.is-rotating > .hero-phrase { white-space: normal; }
+
+/* Theme change should be instant, not a slow colour crossfade on every
+ * element. Only the page canvas eases, and only when the user clicks. */
+html.theme-ready body { transition: background-color 180ms ease, color 180ms ease; }
+@media (prefers-reduced-motion: reduce) { html.theme-ready body { transition: none; } }
+
 @layer base {
-  html, body { margin:0; padding:0; background-color:#FAFAF8; color:#434751; font-family:'Inter', sans-serif; }
+  html, body { margin:0; padding:0; background-color:rgb(var(--c-page-bg)); color:rgb(var(--c-body-text)); font-family:'Inter', sans-serif; }
   body { overscroll-behavior: none; }
   /* All box shadows are forbidden except the desktop Products dropdown. */
   * { box-shadow: none !important; }

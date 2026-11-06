@@ -20,6 +20,7 @@ import Header from '../components/Header.astro';
 import MobileDrawer from '../components/MobileDrawer.astro';
 import Footer from '../components/Footer.astro';
 import AnnouncementStrip from '../components/AnnouncementStrip.astro';
+import CurtainReveal from '../components/CurtainReveal.astro';
 import { STORAGE_KEY, isAnnouncementActive } from '../config/announcement.js';
 import '../styles/global.css';
 import '../styles/motion.css';
@@ -59,9 +60,35 @@ const {
         } catch (e) { /* blocked storage: just show the strip */ }
       </script>
     )}
+    <script is:inline>
+      // Theme, before the first paint, so there is no flash of the wrong one.
+      // An explicit choice in localStorage wins; otherwise follow the OS.
+      // The rest of the behaviour lives in src/scripts/theme.js.
+      try {
+        var t = localStorage.getItem('unicore:theme');
+        var dark = t === 'dark' || t === 'light'
+          ? t === 'dark'
+          : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) document.documentElement.classList.add('dark');
+      } catch (e) { /* blocked storage: light, or whatever the OS says */ }
+    </script>
+    <script is:inline>
+      // Curtain reveal: play it on the first page of a session only. The
+      // curtain itself is pure CSS and opens with or without this script;
+      // all this does is suppress a repeat. See CurtainReveal.astro.
+      try {
+        if (sessionStorage.getItem('unicore:curtain') === '1') {
+          document.documentElement.classList.add('curtain-seen');
+        } else {
+          sessionStorage.setItem('unicore:curtain', '1');
+        }
+      } catch (e) { /* blocked storage: the curtain simply plays again */ }
+    </script>
     <slot name="head" />
   </head>
   <body class={bodyClass}>
+
+    <CurtainReveal />
 
     <AnnouncementStrip />
 
@@ -74,6 +101,8 @@ const {
     <Footer active={active} />
 
     <script>
+      import '../scripts/theme.js';
+      import '../scripts/lang.js';
       import '../scripts/motion.js';
       import '../scripts/cursor.js';
       import '../scripts/accent-rotator.js';

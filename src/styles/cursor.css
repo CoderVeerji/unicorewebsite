@@ -34,7 +34,7 @@
   width: 4px;
   height: 4px;
   margin: -2px 0 0 -2px;
-  background-color: #1b4fa0; /* logo-blue */
+  background-color: rgb(var(--c-logo-blue));
 }
 
 /* Shown once the pointer has actually moved. */
@@ -46,7 +46,7 @@ html.cursor-visible .cursor-dot {
 /* Over an interactive target the border goes solid (the growth to 40px is the
    scale applied in rAF). */
 .cursor-ring.is-hot {
-  border-color: #1b4fa0;
+  border-color: rgb(var(--c-logo-blue));
 }
 
 /* Over text inputs: hide both so the native caret is the only cursor. */

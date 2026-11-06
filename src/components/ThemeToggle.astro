@@ -1,0 +1,52 @@
+---
+/**
+ * Light / dark theme toggle.
+ *
+ * The theme is a single `dark` class on <html>; every colour on the site
+ * comes from the ten CSS variables redefined under that class in
+ * src/styles/global.css, so nothing else has to change.
+ *
+ * Behaviour
+ *   - With no stored choice, the site follows the operating system and keeps
+ *     following it if the user changes it while the tab is open.
+ *   - Clicking the button stores an explicit choice, which then wins over the
+ *     operating system until the visitor clears their storage.
+ *   - The class is applied by an inline script in <head> (see Base.astro)
+ *     before the first paint, so there is no flash of the wrong theme.
+ *
+ * Props
+ *   class  extra classes on the button (sizing differs in the drawer)
+ */
+const { class: className = '' } = Astro.props;
+---
+<button
+  type="button"
+  class:list={[
+    'theme-toggle inline-flex items-center justify-center shrink-0 border border-hairline bg-white text-heading-black hover:text-logo-blue hover:border-logo-blue transition-colors rounded-[2px]',
+    className,
+  ]}
+  data-theme-toggle
+  aria-pressed="false"
+  aria-label="Switch to dark theme"
+  data-label-dark="Switch to dark theme"
+  data-label-light="Switch to light theme"
+>
+  {/* Shown in light mode: click for dark. */}
+  <svg class="theme-icon theme-icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M20.3 14.6A8.5 8.5 0 0 1 9.4 3.7a8.5 8.5 0 1 0 10.9 10.9Z"
+          stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </svg>
+  {/* Shown in dark mode: click for light. */}
+  <svg class="theme-icon theme-icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="4.1" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M12 2.2v2.4M12 19.4v2.4M2.2 12h2.4M19.4 12h2.4M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"
+          stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </svg>
+</button>
+
+<style>
+  /* Only one of the two icons is ever in the box. */
+  .theme-icon-sun  { display: none; }
+  :global(html.dark) .theme-icon-moon { display: none; }
+  :global(html.dark) .theme-icon-sun  { display: block; }
+</style>

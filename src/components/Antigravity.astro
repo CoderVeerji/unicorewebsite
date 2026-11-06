@@ -92,15 +92,35 @@ const {
   fade = '58%',
 } = Astro.props;
 
+/*
+ * Dark theme. The palette is baked into a GPU texture when the engine starts,
+ * so it cannot simply be restyled — the field is destroyed and rebuilt when
+ * the theme changes (see the script below).
+ *
+ * These are the dark values of the same three tokens the light field uses —
+ * logo-blue, deep-navy and light-text — as defined in src/styles/global.css.
+ * `lightMode` tells the shader it is now compositing on a dark canvas.
+ */
+const DARK_DEFAULTS = {
+  colors: ['#7FA9F2', '#9DBDF5', '#969BA6'],
+  lightMode: false,
+  ambient: 0.11,
+  opacity: 0.4,
+};
+
 const config = { ...DEFAULTS, ...options };
 const mobileConfig = { ...config, ...MOBILE_DEFAULTS, ...mobileOptions };
+const darkConfig = { ...config, ...DARK_DEFAULTS };
+const mobileDarkConfig = { ...mobileConfig, ...DARK_DEFAULTS, ambient: 0.08, opacity: 0.3 };
 ---
 
 <div
   class:list={['antigravity', className]}
   data-antigravity
   data-config={JSON.stringify(config)}
+  data-dark-config={JSON.stringify(darkConfig)}
   data-mobile-config={mobile ? JSON.stringify(mobileConfig) : undefined}
+  data-mobile-dark-config={mobile ? JSON.stringify(mobileDarkConfig) : undefined}
   style={`--ag-fade:${fade}`}
 >
   <canvas aria-hidden="true"></canvas>
@@ -156,7 +176,10 @@ const mobileConfig = { ...config, ...MOBILE_DEFAULTS, ...mobileOptions };
       // No mobile config means this field does not run on phones at all:
       // nothing is created, so no simulation and no GPU work.
       if (small && !el.dataset.mobileConfig) return;
-      const raw = small ? el.dataset.mobileConfig : el.dataset.config;
+      const dark = document.documentElement.classList.contains('dark');
+      const raw = small
+        ? (dark ? el.dataset.mobileDarkConfig : el.dataset.mobileConfig)
+        : (dark ? el.dataset.darkConfig : el.dataset.config);
       let config;
       try {
         config = JSON.parse(raw || '{}');
@@ -178,17 +201,25 @@ const mobileConfig = { ...config, ...MOBILE_DEFAULTS, ...mobileOptions };
     build();
   }
 
+  // Same story for the theme: the palette is a GPU texture built at startup.
+  function onThemeChange() {
+    clear();
+    build();
+  }
+
   function initAntigravity() {
     teardownAntigravity();
     build();
     mq = window.matchMedia(MOBILE);
     mq.addEventListener('change', onBreakpoint);
+    document.addEventListener('unicore:themechange', onThemeChange);
   }
 
   function teardownAntigravity() {
     clear();
     if (mq) mq.removeEventListener('change', onBreakpoint);
     mq = null;
+    document.removeEventListener('unicore:themechange', onThemeChange);
   }
 
   document.addEventListener('astro:page-load', initAntigravity);

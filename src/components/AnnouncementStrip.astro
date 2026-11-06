@@ -1,34 +1,69 @@
 ---
 /**
- * Dismissible announcement strip, above the deep-navy utility bar.
+ * Dismissible Diwali banner, above the deep-navy utility bar.
  *
- * The dates and the storage key live in src/config/announcement.js — edit
- * them there. Only the copy lives in this file (the two spans below).
+ * The dates, the occasion and the storage key live in
+ * src/config/announcement.js — edit them there. Only the copy lives in this
+ * file.
  *
  * Outside the window this renders nothing at all: the markup never reaches
  * the HTML, it is not hidden with CSS.
+ *
+ * The strip is 40px tall and the rest of the header stack offsets from that
+ * number (--strip-h in src/styles/global.css). Keep the row to one line.
+ *
+ * Nothing here states an offer, a discount or any other commercial term —
+ * only the greeting and a link to the dealership page, which already exists.
  */
-import { STORAGE_KEY, isAnnouncementActive } from '../config/announcement.js';
+import { STORAGE_KEY, OCCASION_AT, isAnnouncementActive, countdownLabel } from '../config/announcement.js';
 
 const show = isAnnouncementActive();
+// Rendered at build time so the line is right with JavaScript off; the script
+// below refreshes it on load in case the page was built or cached earlier.
+const countdown = countdownLabel();
 ---
 {show && (
   <div
     id="announcement-strip"
     class="w-full bg-white border-b border-hairline overflow-hidden"
     data-storage-key={STORAGE_KEY}
+    data-occasion-at={OCCASION_AT}
+    data-cd-today="Happy Diwali"
+    data-cd-tomorrow="Diwali tomorrow"
+    data-cd-days="Diwali in {n} days"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-10 flex items-center justify-center relative">
-      <p class="flex items-center gap-2 text-[12px] text-logo-blue font-medium text-center pr-7">
-        <span class="inline-block w-1.5 h-1.5 bg-logo-blue shrink-0"></span>
-        <span class="hidden sm:inline">Unicore Lubricants wishes our trade partners a safe and prosperous Diwali · Dealership enquiries open</span>
-        <span class="sm:hidden">A prosperous Diwali · Dealership enquiries open</span>
+      <p class="flex items-center gap-2 sm:gap-3 text-[12px] text-logo-blue font-medium pr-7 min-w-0">
+
+        {/* A diya in the two brand blues: navy bowl, blue flame. No gold,
+            no orange — the lamp reads from its silhouette. */}
+        <svg class="shrink-0" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3.2c2.4 2 2.4 3.9 1.2 5.2-.8.9-1.2 1.6-1.2 2.3 0-.7-.4-1.4-1.2-2.3C9.6 7.1 9.6 5.2 12 3.2Z" style="fill:rgb(var(--c-logo-blue))"/>
+          <path d="M3.6 13.4h16.8c-.6 3.6-3.9 5.9-8.4 5.9s-7.8-2.3-8.4-5.9Z" style="fill:rgb(var(--c-deep-navy))"/>
+          <path d="M2.2 13.4h19.6" style="stroke:rgb(var(--c-logo-blue))" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+
+        <span class="hidden sm:inline truncate">Unicore Lubricants wishes our trade partners a safe and prosperous Diwali</span>
+        <span class="sm:hidden truncate">A safe and prosperous Diwali</span>
+
+        <span class="hidden sm:inline text-structural-line" aria-hidden="true">·</span>
+        <span id="announcement-countdown" class="shrink-0 tabular-nums text-deep-navy font-semibold">{countdown}</span>
+
+        <span class="hidden lg:inline text-structural-line" aria-hidden="true">·</span>
+        <a
+          href="dealership.html"
+          data-path="dealership"
+          class="hidden lg:inline-flex items-center gap-1 shrink-0 underline underline-offset-2 decoration-hairline hover:decoration-logo-blue hover:text-deep-navy transition-colors"
+        >
+          Dealership enquiries
+          <span aria-hidden="true">&rarr;</span>
+        </a>
       </p>
       <button
         type="button"
         id="announcement-dismiss"
         aria-label="Dismiss announcement"
-        class="absolute right-4 sm:right-6 lg:right-8 w-7 h-7 flex items-center justify-center text-logo-blue hover:text-deep-navy transition-colors focus:outline-none"
+        class="absolute right-4 sm:right-6 lg:right-8 w-7 h-7 flex items-center justify-center text-logo-blue hover:text-deep-navy transition-colors"
       >
         <span class="text-base leading-none font-medium" aria-hidden="true">×</span>
       </button>
@@ -56,11 +91,34 @@ const show = isAnnouncementActive();
       }
     });
 
+    // Same rule as countdownLabel() in src/config/announcement.js. Kept in
+    // step by hand: this copy runs in the browser, that one at build time.
+    //
+    // The three wordings come from data-cd-* on the strip rather than from
+    // here, so the build-time translator can reach them (see
+    // integrations/i18n.mjs) and a Hindi page counts down in Hindi.
+    function label(strip, at) {
+      const days = Math.ceil((Date.parse(at) - Date.now()) / 86400000);
+      const d = strip.dataset;
+      if (days <= 0) return d.cdToday || 'Happy Diwali';
+      if (days === 1) return d.cdTomorrow || 'Diwali tomorrow';
+      return (d.cdDays || 'Diwali in {n} days').replace('{n}', String(days));
+    }
+
     function initStrip() {
       const strip = document.getElementById('announcement-strip');
       const btn = document.getElementById('announcement-dismiss');
       const root = document.documentElement;
       if (!strip || !btn) return;
+
+      // Correct the build-time countdown for a page that was built, cached or
+      // left open on an earlier day.
+      const out = document.getElementById('announcement-countdown');
+      const at = strip.dataset.occasionAt;
+      if (out && at) {
+        const now = label(strip, at);
+        if (out.textContent !== now) out.textContent = now;
+      }
 
       // Arm the transitions only after the first paint, so the no-flash path in
       // Base.astro collapses instantly and only a real click animates.

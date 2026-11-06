@@ -1,0 +1,103 @@
+---
+/**
+ * Language picker.
+ *
+ * Lists every locale in src/i18n/locales.mjs and links to this same page in
+ * that language. The links are absolute and identical in every built copy of
+ * the page, so the integration does not have to rewrite them — it only
+ * swaps the button label and moves aria-current (see integrations/i18n.mjs).
+ *
+ * Unlike the Products dropdown this one is operable from the keyboard:
+ * a real button with aria-expanded, Enter/Space to open, Escape to close
+ * and return focus, arrow keys to move through the list, and a click
+ * outside to dismiss. It is not a hover menu.
+ *
+ * With JavaScript off the panel is a plain list that is always in the page
+ * and reachable by Tab — the script only adds the collapsing.
+ */
+import { LOCALES, DEFAULT_LOCALE } from '../i18n/locales.mjs';
+
+const { class: className = '' } = Astro.props;
+
+// "/products.html" -> "products.html". The site builds with
+// build.format:'file', so every page is a file at the root.
+const page = Astro.url.pathname.replace(/^\/+/, '') || 'index.html';
+
+const href = (code) => (code === DEFAULT_LOCALE ? `/${page}` : `/${code}/${page}`);
+---
+<div class:list={['lang-picker relative', className]} data-lang-picker>
+  <button
+    type="button"
+    class="lang-trigger inline-flex items-center gap-1.5 h-9 px-2.5 border border-hairline bg-white text-heading-black hover:text-logo-blue hover:border-logo-blue transition-colors rounded-[2px] text-xs font-medium"
+    data-lang-trigger
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-controls="lang-panel"
+  >
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"
+            stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+    <span data-locale-label data-i18n-skip>English</span>
+    <span class="lang-caret text-[9px] leading-none" aria-hidden="true">▼</span>
+  </button>
+
+  <div
+    id="lang-panel"
+    data-i18n-skip
+    class="lang-panel absolute right-0 top-full mt-1 w-[300px] bg-white border border-hairline dropdown-shadow py-1.5 z-50 grid grid-cols-2 gap-x-1"
+    data-lang-panel
+  >
+    {LOCALES.map((l) => (
+      <a
+        href={href(l.code)}
+        hreflang={l.code}
+        lang={l.code}
+        data-locale={l.code}
+        class="lang-option flex items-center justify-between gap-2 px-3 py-2 text-sm text-body-text hover:bg-product-frame hover:text-logo-blue border-l-2 border-transparent transition-colors"
+      >
+        <span>{l.native}</span>
+        <span class="text-[10px] uppercase tracking-wider text-light-text">{l.code}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  /* Collapsed only once the script has taken over, so a no-JS visitor gets a
+     plain always-visible list rather than a dead button. */
+  :global(html.js) .lang-panel { display: none; }
+  :global(html.js) .lang-picker[data-open] .lang-panel { display: grid; }
+  .lang-picker[data-open] .lang-caret { transform: rotate(180deg); }
+  .lang-caret { display: inline-block; transition: transform 150ms ease; }
+
+  /* Next to the 44px burger on mobile the trigger has to match its height. */
+  .lang-picker-compact .lang-trigger { height: 2.75rem; }
+
+  /* On a phone the trigger sits near the right edge, so a panel anchored to
+     it runs off the left of the screen. Pin it to the viewport instead, one
+     column so the native names are never clipped, and let it scroll if the
+     list ever outgrows the screen. The top offset clears the fixed header
+     (116px) plus the announcement strip when it is rendered. */
+  @media (max-width: 520px) {
+    .lang-picker-compact .lang-panel {
+      position: fixed;
+      top: calc(var(--strip-h, 0px) + 121px);
+      left: 1rem;
+      right: 1rem;
+      width: auto;
+      grid-template-columns: 1fr;
+      max-height: calc(100vh - var(--strip-h, 0px) - 140px);
+      overflow-y: auto;
+    }
+    .lang-picker-compact .lang-option { padding-top: 0.6rem; padding-bottom: 0.6rem; }
+  }
+
+  /* The language this page is already in. */
+  .lang-option[aria-current='true'] {
+    color: rgb(var(--c-logo-blue));
+    border-left-color: rgb(var(--c-logo-blue));
+    font-weight: 600;
+  }
+</style>

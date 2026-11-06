@@ -1,10 +1,16 @@
 ---
 /**
- * A quiet seasonal toran for the homepage hero: one horizontal string of small
- * circles hanging from a 1px hairline across the top edge of the hero.
+ * A seasonal toran across the top edge of the homepage hero: a 1px hairline
+ * with small circles strung along it, and a handful of diyas hanging from it
+ * on threads, swaying slowly.
  *
- * Deliberately plain — two brand blues at low opacity, nothing else. No diyas,
- * flames, gold, orange, sparks or particles.
+ * Palette: the two brand blues only, at low opacity. No gold, no orange, no
+ * new colour — the lamps read from their silhouette, like the one in the
+ * announcement strip.
+ *
+ * The hanging diyas are desktop only (lg and up). On a phone the hero copy
+ * starts about 64px below this line and the lamps would sit on top of it, so
+ * below lg only the strung circles remain.
  *
  * It is gated by the SAME date window as the announcement strip
  * (src/config/announcement.js), evaluated at build time, so it disappears on
@@ -12,7 +18,7 @@
  *
  * TO REMOVE IT: delete the single <HeroToran /> line in src/pages/index.astro.
  *
- * The circle positions come from a fixed seed, so every build is identical.
+ * All positions come from a fixed seed, so every build is identical.
  */
 import { isAnnouncementActive } from '../config/announcement.js';
 
@@ -31,20 +37,36 @@ function rng(seed) {
 }
 
 const dots = [];
+const lamps = [];
 if (show) {
   const rand = rng(20261108); // Diwali 2026, as the seed
+
   let x = 1.2;
   while (x < 99) {
     const r = rand();
     dots.push({
       left: +x.toFixed(2),
       size: 3 + Math.round(r * 3),                       // 3px – 6px
-      colour: rand() > 0.5 ? '#1B4FA0' : '#143A78',      // the two brand blues
+      colour: rand() > 0.5 ? 'rgb(var(--c-logo-blue))' : 'rgb(var(--c-deep-navy))',
       opacity: +(0.15 + rand() * 0.25).toFixed(3),       // 0.15 – 0.40
       delay: +(-(rand() * 4)).toFixed(2),                // offset so the line breathes
       drop: 3 + Math.round(rand() * 5),                  // how far it hangs below the line
     });
     x += 1.9 + rand() * 2.6;                             // irregular spacing
+  }
+
+  // Seven lamps, evenly spread then nudged, so they never bunch up and never
+  // land dead centre over the headline.
+  for (let i = 0; i < 7; i++) {
+    const base = 6 + i * 14.5;
+    lamps.push({
+      left: +(base + (rand() - 0.5) * 5).toFixed(2),
+      thread: 26 + Math.round(rand() * 42),              // 26px – 68px of thread
+      size: 16 + Math.round(rand() * 8),                 // bowl width 16px – 24px
+      opacity: +(0.2 + rand() * 0.22).toFixed(3),        // 0.20 – 0.42
+      sway: +(5.5 + rand() * 3.5).toFixed(2),            // 5.5s – 9s per sway
+      delay: +(-(rand() * 6)).toFixed(2),
+    });
   }
 }
 ---
@@ -55,6 +77,14 @@ if (show) {
         class="hero-toran-dot"
         style={`left:${d.left}%;top:${d.drop}px;width:${d.size}px;height:${d.size}px;background:${d.colour};--toran-o:${d.opacity};animation-delay:${d.delay}s`}
       ></span>
+    ))}
+    {lamps.map((l) => (
+      <span
+        class="hero-toran-hang"
+        style={`left:${l.left}%;--thread:${l.thread}px;--lamp-w:${l.size}px;--toran-o:${l.opacity};animation-duration:${l.sway}s;animation-delay:${l.delay}s`}
+      >
+        <span class="hero-toran-lamp"></span>
+      </span>
     ))}
   </div>
 )}

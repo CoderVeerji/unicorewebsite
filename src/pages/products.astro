@@ -57,27 +57,27 @@ import Base from '../layouts/Base.astro';
 <div>
 <span class="text-[11px] font-semibold uppercase tracking-widest text-light-text mb-4 block">PORTFOLIO INDEX</span>
 <nav class="flex flex-col space-y-1" id="catalog-sidebar-nav">
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-logo-blue border-logo-blue bg-[#f4f4f2] border-l-2 transition-colors" href="#engine-oils">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-logo-blue border-logo-blue bg-product-frame border-l-2 transition-colors" href="#engine-oils">
 <span class="text-sm font-semibold text-logo-blue">Engine Oils</span>
 <span class="font-serif text-xl text-logo-blue font-normal">01</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#gear-oils">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-product-frame border-l-2 transition-colors" href="#gear-oils">
 <span class="text-sm">Gear Oils</span>
 <span class="font-serif text-xl text-light-text font-normal">02</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#coolants">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-product-frame border-l-2 transition-colors" href="#coolants">
 <span class="text-sm">Coolants</span>
 <span class="font-serif text-xl text-light-text font-normal">03</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#greases">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-product-frame border-l-2 transition-colors" href="#greases">
 <span class="text-sm">Greases</span>
 <span class="font-serif text-xl text-light-text font-normal">04</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#agricultural-oils">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-product-frame border-l-2 transition-colors" href="#agricultural-oils">
 <span class="text-sm">Agricultural Oils</span>
 <span class="font-serif text-xl text-light-text font-normal">05</span>
 </a>
-<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-[#f4f4f2] border-l-2 transition-colors" href="#industrial-hydraulic-oils">
+<a class="nav-item group flex items-center justify-between py-2 px-3 text-body-text border-transparent hover:text-heading-black hover:bg-product-frame border-l-2 transition-colors" href="#industrial-hydraulic-oils">
 <span class="text-sm">Industrial &amp; Hydraulic Oils</span>
 <span class="font-serif text-xl text-light-text font-normal">06</span>
 </a>
@@ -604,7 +604,7 @@ import Base from '../layouts/Base.astro';
           const spanText = link.querySelector('span:first-child');
           const spanNum = link.querySelector('span:last-child');
           if (href === currentId) {
-            link.classList.add('text-logo-blue', 'border-logo-blue', 'bg-[#f4f4f2]');
+            link.classList.add('text-logo-blue', 'border-logo-blue', 'bg-product-frame');
             link.classList.remove('text-body-text', 'border-transparent');
             if (spanText) spanText.classList.add('text-logo-blue', 'font-semibold');
             if (spanNum) {
@@ -612,7 +612,7 @@ import Base from '../layouts/Base.astro';
               spanNum.classList.add('text-logo-blue');
             }
           } else {
-            link.classList.remove('text-logo-blue', 'border-logo-blue', 'bg-[#f4f4f2]');
+            link.classList.remove('text-logo-blue', 'border-logo-blue', 'bg-product-frame');
             link.classList.add('text-body-text', 'border-transparent');
             if (spanText) spanText.classList.remove('text-logo-blue', 'font-semibold');
             if (spanNum) {

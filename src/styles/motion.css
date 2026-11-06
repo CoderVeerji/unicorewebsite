@@ -100,7 +100,7 @@ main h1 .italic {
   right: 0;
   height: 14px;
   pointer-events: none;
-  border-top: 1px solid theme('colors.hairline');
+  border-top: 1px solid rgb(var(--c-hairline));
 }
 .hero-toran-dot {
   position: absolute;
@@ -113,6 +113,61 @@ main h1 .italic {
   to   { opacity: var(--toran-o, 0.25); }
 }
 
+/* Diyas hanging from the toran on threads, swaying from the point where the
+   thread meets the line. Desktop only: below lg the hero copy starts about
+   64px under this line and the lamps would sit on top of it. */
+.hero-toran-hang { display: none; }
+@media (min-width: 1024px) {
+  .hero-toran-hang {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: var(--thread, 40px);
+    background: linear-gradient(to bottom, rgb(var(--c-structural-line)), rgb(var(--c-hairline)));
+    transform-origin: top center;
+    animation-name: toran-sway;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+}
+/* The bowl: a half-ellipse under the thread, with the flame above it. Both
+   shapes are plain brand blue — the silhouette does the work. */
+.hero-toran-lamp {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: var(--lamp-w, 20px);
+  height: calc(var(--lamp-w, 20px) * 0.46);
+  margin-left: calc(var(--lamp-w, 20px) / -2);
+  border-radius: 0 0 9999px 9999px;
+  background: rgb(var(--c-deep-navy));
+  opacity: var(--toran-o, 0.3);
+}
+.hero-toran-lamp::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: calc(var(--lamp-w, 20px) * 0.2);
+  height: calc(var(--lamp-w, 20px) * 0.34);
+  margin-left: calc(var(--lamp-w, 20px) * -0.1);
+  margin-bottom: 1px;
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  background: rgb(var(--c-logo-blue));
+  transform-origin: bottom center;
+  animation: toran-flicker 2.4s ease-in-out infinite alternate;
+}
+@keyframes toran-sway {
+  from { transform: rotate(-2.4deg); }
+  to   { transform: rotate(2.4deg); }
+}
+@keyframes toran-flicker {
+  from { opacity: 0.55; transform: scaleY(0.9); }
+  to   { opacity: 1;    transform: scaleY(1.06); }
+}
+
 /* ---- Card hover: border hairline -> logo blue, background white -> page-bg, 150ms.
    Nothing else: no lift, no scale, no shadow. ---- */
 .m-card {
@@ -121,8 +176,8 @@ main h1 .italic {
               border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .m-card:hover {
-  border-color: theme('colors.logo-blue');
-  background-color: theme('colors.page-bg');
+  border-color: rgb(var(--c-logo-blue));
+  background-color: rgb(var(--c-page-bg));
 }
 
 /* ---- Page transitions: 200ms crossfade between pages (Astro ClientRouter) ---- */
@@ -171,3 +226,97 @@ html[data-motion="off"]::view-transition-new(*) { animation: none !important; }
 }
 html[data-motion="off"] .marquee-track { width: 100%; justify-content: center; }
 html[data-motion="off"] .marquee-track > :nth-child(2) { display: none; }
+
+/* ---- Curtain reveal (first load of a session) ----------------------------
+   Two deep-navy panels part left and right like a stage curtain, with the
+   wordmark fading out between them first. See src/components/CurtainReveal.astro.
+
+   The whole thing is CSS with `animation-fill-mode: both`, so it opens on its
+   own even with JavaScript switched off — the curtain can never stick shut.
+
+   Beat sheet (desktop):
+     0 – 420ms    wordmark fades in, holds, fades out; panels held closed
+     430 – 1250ms panels slide apart
+     1300ms       the layer is taken out of the page                        */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;          /* never swallows a click, even if it lingers */
+  animation: curtain-clear 0s linear 1300ms forwards;
+}
+@keyframes curtain-clear { to { visibility: hidden; } }
+
+.curtain-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(50% + 1px);        /* the +1px hides a sub-pixel seam at the join */
+  /* Soft vertical pleats in the two brand blues — reads as hanging fabric
+     without introducing a colour or a gradient outside the palette. */
+  background: repeating-linear-gradient(
+    90deg,
+    #143A78 0 26px,
+    #1B4FA0 26px 28px,
+    #143A78 28px 54px
+  );
+  animation-duration: 820ms;
+  animation-delay: 430ms;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  animation-fill-mode: both;
+}
+.curtain-panel-l {
+  left: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.38);
+  animation-name: curtain-part-l;
+}
+.curtain-panel-r {
+  right: 0;
+  animation-name: curtain-part-r;
+}
+@keyframes curtain-part-l {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-100%, 0, 0); }
+}
+@keyframes curtain-part-r {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(100%, 0, 0); }
+}
+
+.curtain-mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(26px, 5vw, 58px);
+  line-height: 1;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;            /* balances the trailing letter-space */
+  white-space: nowrap;
+  color: #FFFFFF;
+  animation: curtain-mark 420ms ease-out both;
+}
+@keyframes curtain-mark {
+  0%   { opacity: 0; }
+  26%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Phones: the same beat, roughly a third quicker, so it never feels like a
+   loading screen on a slow connection. */
+@media (max-width: 767.98px) {
+  .curtain        { animation-delay: 1000ms; }
+  .curtain-panel  { animation-duration: 620ms; animation-delay: 360ms; }
+  .curtain-mark   { animation-duration: 350ms; }
+}
+
+/* Reduced motion and the kill switch hide the curtain outright. They must NOT
+   fall through to the blanket `animation: none` above, which would freeze the
+   panels closed over the site. */
+@media (prefers-reduced-motion: reduce) { .curtain { display: none; } }
+html[data-motion="off"] .curtain { display: none; }
+/* Second and later page loads in the same session (set in Base.astro). */
+html.curtain-seen .curtain { display: none; }
+@media print { .curtain { display: none; } }

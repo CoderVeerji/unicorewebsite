@@ -1,0 +1,40 @@
+---
+/**
+ * Stage-curtain reveal, shown once per browser session on the first page the
+ * visitor lands on.
+ *
+ * Two deep-navy panels sit closed over the viewport, the wordmark fades up
+ * between them, then the panels part left and right like a stage curtain and
+ * the layer takes itself out of the page.
+ *
+ * HOW IT IS SAFE
+ *   - The parting is a pure CSS animation with `both` fill, so it plays and
+ *     finishes even if no JavaScript ever runs. There is no way for the
+ *     curtain to get stuck closed over the site.
+ *   - prefers-reduced-motion and <html data-motion="off"> hide it outright
+ *     (display:none, see src/styles/motion.css) rather than freezing it shut.
+ *   - A one-line inline script in src/layouts/Base.astro's <head> adds
+ *     html.curtain-seen after the first load of a session, which hides it for
+ *     the rest of that session. If sessionStorage is blocked the curtain just
+ *     plays again — no breakage.
+ *
+ * TO REMOVE IT: delete the <CurtainReveal /> line and the curtain <script>
+ * block in src/layouts/Base.astro. The CSS can stay or go with it.
+ *
+ * Timing and colours live in src/styles/motion.css under "Curtain reveal".
+ */
+---
+<div class="curtain" aria-hidden="true">
+  <div class="curtain-panel curtain-panel-l"></div>
+  <div class="curtain-panel curtain-panel-r"></div>
+  <span class="curtain-mark">UNICORE</span>
+</div>
+
+<script>
+  // A view transition swaps in the next document's <html>, which drops the
+  // class the head script set — so the curtain markup on the new page would
+  // play again on every internal link. Put the class back before paint.
+  document.addEventListener('astro:after-swap', () => {
+    document.documentElement.classList.add('curtain-seen');
+  });
+</script>
