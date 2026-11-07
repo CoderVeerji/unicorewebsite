@@ -3,38 +3,102 @@
  * Welcome intro, shown on every full page load and refresh. Moving between
  * pages by clicking a link does not replay it (see the script below).
  *
- * A navy layer: the UNICORE wordmark fills from the bottom like a tank
- * while a counter runs to 100, then the layer lifts away upward.
+ * A navy sheet. A lotus of gold petals opens behind a pair of hands in
+ * namaste; the hands are revealed from the wrists up and a band of light
+ * passes over them; gold dust drifts upward; then "नमस्ते" and
+ * "Welcome to Unicore" appear and the sheet lifts away.
+ *
+ * The hands are the "hands-praying" icon from Phosphor Icons (MIT licence,
+ * (c) Phosphor Icons), kept in src/assets/namaste-hands-phosphor-light.svg.
  *
  * HOW IT IS SAFE
  *   - It is a pure CSS animation with `both` fill, so it plays and finishes
  *     even if no JavaScript ever runs. It cannot get stuck over the site.
  *   - prefers-reduced-motion and <html data-motion="off"> hide it outright
- *     (display:none, see src/styles/motion.css) rather than freezing it shut.
+ *     (display:none, see src/styles/welcome.css) rather than freezing it shut.
  *
- * TO REMOVE IT: delete the CurtainReveal line in src/layouts/Base.astro. The CSS can stay or go with it.
- *
- * Timing and colours live in src/styles/motion.css under "Welcome intro".
+ * TO REMOVE IT: delete the CurtainReveal line in src/layouts/Base.astro.
+ * Timings and colours live in src/styles/welcome.css.
  */
+import iconSvg from '../assets/namaste-hands-phosphor-light.svg?raw';
+
+const handsPath = (iconSvg.match(/ d="([^"]+)"/) || [])[1] || '';
+const petals = Array.from({ length: 12 }, (_, i) => i);
+const rays = Array.from({ length: 28 }, (_, i) => i);
+// Gold dust: fixed values, so every build is identical.
+const dust = [
+  [12, 0.0, 7], [24, 0.7, 5], [33, 1.4, 8], [41, 0.3, 4], [49, 1.9, 6], [57, 0.9, 5],
+  [64, 1.6, 8], [71, 0.2, 4], [79, 1.1, 6], [87, 2.2, 5], [18, 2.4, 4], [93, 0.5, 7],
+];
 ---
 <div class="curtain" aria-hidden="true">
   <div class="curtain-sheet"></div>
   <div class="curtain-navy"></div>
+  <div class="nm-dust">
+    {dust.map(([x, d, s]) => <span style={`--x:${x}%;--d:${d}s;--s:${s}px`}></span>)}
+  </div>
   <div class="curtain-stage">
-    <div class="curtain-mark">
-      <span class="curtain-mark-outline">UNICORE</span>
-      <span class="curtain-mark-fill">UNICORE</span>
+    <div class="nm">
+      <span class="nm-ring nm-ring-1"></span>
+      <span class="nm-ring nm-ring-2"></span>
+      <span class="nm-ring nm-ring-3"></span>
+      <span class="nm-halo"></span>
+      <svg class="nm-svg" viewBox="0 0 300 300" fill="none">
+        <defs>
+          <linearGradient id="nm-gold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFF1C2"/>
+            <stop offset="0.55" stop-color="#F2C86B"/>
+            <stop offset="1" stop-color="#D9962F"/>
+          </linearGradient>
+          <linearGradient id="nm-sweep" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+            <stop offset="0.5" stop-color="#fff" stop-opacity="0.95"/>
+            <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <mask id="nm-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="300" height="300">
+            <rect class="nm-wipe" x="0" y="0" width="300" height="300" fill="#fff"/>
+          </mask>
+          <clipPath id="nm-hands-clip"><path d={handsPath} transform="translate(46 48) scale(0.82)"/></clipPath>
+        </defs>
+
+        <!-- slowly turning rays -->
+        <g class="nm-rays">
+          {rays.map((i) => {
+            const a = (i * 360) / rays.length;
+            const long = i % 2 === 0;
+            return <path d={`M150 ${long ? 6 : 14} L150 ${long ? 34 : 28}`} transform={`rotate(${a} 150 150)`} style={`--i:${i}`} />;
+          })}
+        </g>
+
+        <!-- the lotus: twelve petals opening one after another -->
+        <g class="nm-petals">
+          {petals.map((i) => (
+            <g transform={`rotate(${i * 30} 150 150)`}><path class="nm-petal" d="M150 150 C128 118 130 74 150 40 C170 74 172 118 150 150Z" style={`--i:${i}`} /></g>
+          ))}
+        </g>
+
+        <!-- the hands, revealed from the wrists up -->
+        <g mask="url(#nm-mask)">
+          <g class="nm-hands">
+            <path class="nm-hands-fill" d={handsPath} transform="translate(46 48) scale(0.82)" fill="url(#nm-gold)"/>
+            <!-- a band of light passing over them -->
+            <g clip-path="url(#nm-hands-clip)">
+              <rect class="nm-shine" x="-60" y="40" width="46" height="230" fill="url(#nm-sweep)" transform="skewX(-18)"/>
+            </g>
+          </g>
+        </g>
+      </svg>
     </div>
-    <div class="curtain-line"></div>
-    <div class="curtain-welcome">Welcome</div>
+    <div class="nm-hi" lang="hi">नमस्ते</div>
+    <div class="nm-line-h"></div>
+    <div class="nm-welcome">Welcome to Unicore</div>
   </div>
   <span class="curtain-tag">Industrial Lubricants</span>
-  <span class="curtain-count"></span>
 </div>
 
 <script>
   // A view transition swaps in the next document's <html>, which drops the
-  // class the head script set — so the intro markup on the new page would
+  // class the head script set, so the intro markup on the new page would
   // play again on every internal link. Put the class back before paint.
   document.addEventListener('astro:after-swap', () => {
     document.documentElement.classList.add('curtain-seen');

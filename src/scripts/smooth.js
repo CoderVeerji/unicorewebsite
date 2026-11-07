@@ -25,8 +25,10 @@ function off() {
 }
 
 function headerOffset() {
+  const h = document.querySelector('header.fixed');
+  const real = h ? h.getBoundingClientRect().bottom : 0;
   const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr'));
-  return Number.isFinite(v) ? v : 116;
+  return Math.max(real, Number.isFinite(v) ? v : 116);
 }
 
 window.unicoreScrollTo = (y, opts = {}) => {
@@ -60,7 +62,8 @@ function init() {
     const el = document.getElementById(decodeURIComponent(url.hash.slice(1)));
     if (!el) return;
     e.preventDefault();
-    lenis.scrollTo(el, { offset: -headerOffset() - 8, duration: 1.2, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    const extra = el.closest('.products-sec') && window.innerWidth < 1024 ? 64 : 0;
+    lenis.scrollTo(el, { offset: -headerOffset() - 8 - extra, duration: 1.2, easing: (t) => 1 - Math.pow(1 - t, 4) });
     history.pushState(null, '', url.hash);
   };
   document.addEventListener('click', clickHandler);

@@ -222,7 +222,7 @@ Hovering pauses it. Under reduced motion it freezes, the duplicate is hidden and
 The custom cursor (ring and dot) was removed on request. Native cursor everywhere.
 
 ### Welcome intro
-`CurtainReveal.astro` + the "Welcome intro" block in `motion.css`. Plays on every full load and refresh, not when clicking between pages (about 2.8s): the UNICORE wordmark fills from the bottom while a counter runs 00 to 100, then the navy layer lifts away. Hero copy is delayed by `--intro` so it animates in after it. Hidden under reduced motion.
+`CurtainReveal.astro` + the "Welcome intro" block in `motion.css`. Replaced by the namaste welcome (see below). Hidden under reduced motion.
 
 ### Vehicle brand strip and product carousel (homepage)
 The viscosity-grade strip was replaced by a marquee of vehicle/machinery makes, set as text wordmarks (not logos, which are trademarks). **Confirm with Unicore which makes may be named.** The product range is now a scroll-snap carousel (`carousel.css`, `carousel.js`) with line icons in place of the photo placeholders.
@@ -364,3 +364,9 @@ Done: `products` rebuilt; header, footer and script shared; scroll and hover ani
 - **Oil drops** (`HeroDrips.astro`) hang along the top of the hero outside the Diwali window; the diyas replace them during it.
 - **Brand logos** now show in colour; on the dark theme each sits on a light tile.
 - **Diwali strip on phones**: the greeting scrolls past (marquee) next to the countdown.
+
+## Welcome, hero and applications (latest)
+
+- **Welcome intro** (`CurtainReveal.astro`, `welcome.css`): a pair of hands in namaste is drawn in gold line art on the navy sheet, rings of light and a few sparks open behind it, then "नमस्ते" and "Welcome to Unicore" appear and the sheet lifts away (about 3.8s; hero copy waits for it via `--intro`). It plays on every full load and refresh, not when clicking between pages. The hands are hand-built SVG paths; the Devanagari text uses Noto Sans Devanagari (self-hosted, loaded only when those characters are on the page).
+- **Hero word box**: the navy box is always the same size and every phrase is on one line; `hero-rotator.js` sizes the type once so the longest phrase just fits. Pills under the picture (and the picture itself) choose a range directly; auto-change continues after a click. Ideas from the client's KICK-4T demo page that we kept: rings behind the picture, "Currently viewing" card, index counter, selector buttons. Not used: the drawn cartoon bike and concept bottles; the demo needs `kick-20w40-cutout.png` and real photos of the other packs and a bike, which we do not have.
+- **Applications** (`apps.css`, `apps.js`): tabs on top and one large card in the middle with neighbours peeking, like the Squarespace product tabs. Changes by itself every 6 s (the active tab fills like a timer); a tab, swipe/drag, arrow keys or a click on a neighbouring card choose directly. Pauses on hover/focus and off screen. The card pictures are the colour-shifted oil photos (see the hero pictures note above); replace with real photography when available.

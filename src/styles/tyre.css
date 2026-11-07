@@ -117,3 +117,33 @@ html.dark .tyre-frame { background: radial-gradient(85% 75% at 55% 55%, rgba(80,
 .has-scenes .scene-tyre.is-in .tyre-feats li { opacity: 1; transform: none; transition: opacity 600ms ease calc(500ms + var(--d, 0ms)), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(500ms + var(--d, 0ms)); }
 
 @media (prefers-reduced-motion: reduce) { .tyre-glow, .tyre-bottle img, .tyre-frame-glow, .tyre-frame-bottle img { animation: none; } }
+
+/* ---- Phones: the size badge must not sit on the bottles ---------------------------- */
+@media (max-width: 1023.98px) {
+  .scene-tyre .tyre-badge {
+    position: relative; right: auto; top: auto; z-index: 2;
+    width: auto; aspect-ratio: auto; margin: 14px auto 0;
+    flex-direction: row; gap: 8px; padding: 9px 18px; border-radius: 9999px; outline-offset: 3px;
+  }
+  .scene-tyre .tyre-badge small { font-size: 10px; }
+  .scene-tyre .tyre-badge strong { font-size: 14px; }
+  .scene-tyre .tyre-badge i { display: none; }
+  .scene-tyre .tyre-stage { display: flex; flex-direction: column; align-items: center; }
+  .scene-tyre .tyre-stage .tyre-bottle { order: 1; }
+  .scene-tyre .tyre-stage .tyre-badge { order: 2; }
+  .tyre-frame .tyre-badge { width: 76px; right: 8px; top: 8px; }
+  .tyre-frame .tyre-badge small { font-size: 7px; }
+  .tyre-frame .tyre-badge strong { font-size: 11px; }
+  .tyre-frame-bottle { height: 76%; margin-top: 14%; }
+}
+@media (max-width: 1023.98px) {
+  .tyre-frame-bottle { height: 70%; margin-top: 20%; }
+  .tyre-frame .tyre-badge { width: 68px; }
+}
+
+/* Desktop home block: lift the badge clear of the small bottle's cap. */
+@media (min-width: 1024px) {
+  .scene-tyre .tyre-badge { width: clamp(96px, 9vw, 124px); right: -13%; top: -7%; }
+  .scene-tyre .tyre-badge small { font-size: 8px; }
+  .scene-tyre .tyre-badge strong { font-size: clamp(12px, 1.3vw, 16px); }
+}

@@ -1,20 +1,25 @@
 /*
  * Homepage hero: the word in the highlighted box and the picture beside it
- * change together, every few seconds.
+ * change together, every few seconds, or when a visitor picks one of the pills
+ * under the picture.
  *
  *   LUBRICANTS -> AUTOMOTIVE & INDUSTRIAL OIL -> COOLANTS -> SHOCKER & BRAKE
  *   FLUIDS -> HIGH TEMP. GREASE -> TYRE SEALANT LIQUID -> (back to the start)
  *
  * The first word is the one in the HTML, so a crawler (and anyone without
  * JavaScript) reads "High-performance lubricants for a smoother, longer life".
- * The box is measured for every phrase up front, so it slides to the width
- * of the next word and its height never changes (no page jump). The rest of
- * the headline sits on its own lines, so it never reflows.
  *
+ * The navy box is always the same size and every phrase sits on ONE line: the
+ * type is sized once so the longest phrase just fits the box, so nothing
+ * wraps, grows or shrinks as the words change. The rest of the headline sits
+ * on its own lines, so it never reflows.
+ *
+ * Choosing a pill (or tapping it) jumps to that range and restarts the clock.
  * Pauses when the hero is off screen or the tab is hidden. Under
- * prefers-reduced-motion it does nothing: the first word and picture stay.
+ * prefers-reduced-motion the words and picture do not auto-change, but the
+ * pills still work.
  */
-const HOLD = 3600; // ms each phrase stays
+const HOLD = 3800; // ms each phrase stays
 let timer = 0;
 let cleanup = [];
 
@@ -31,7 +36,10 @@ function init() {
   const box = h1 && h1.querySelector('[data-hl-box]');
   const first = box && box.querySelector('.hl-first');
   const pics = [...document.querySelectorAll('[data-hero-visual] .hero-slide')];
-  if (!h1 || !box || !first || off()) return;
+  const pills = [...document.querySelectorAll('[data-hero-pill]')];
+  const capEl = document.querySelector('[data-hero-cap]');
+  const idxEl = document.querySelector('[data-hero-index]');
+  if (!h1 || !box || !first) return;
 
   let extra = [];
   try { extra = JSON.parse(h1.dataset.phrases || '[]'); } catch (e) { extra = []; }
@@ -55,29 +63,34 @@ function init() {
   probe.setAttribute('aria-hidden', 'true');
   h1.appendChild(probe);
 
-  let sizes = [];
+  // One size for all phrases: as large as the design wants (0.74 of the
+  // headline), shrunk only as far as the longest phrase needs to fit one line.
   const measure = () => {
-    const cs = getComputedStyle(box);
-    const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-    const maxInner = Math.max(120, h1.clientWidth - padX);
-    probe.style.maxWidth = `${maxInner}px`;
-    sizes = texts.map((t) => {
-      probe.textContent = t;
-      const r = probe.getBoundingClientRect();
-      return { w: Math.ceil(r.width) + padX + 1, h: Math.ceil(r.height) + padY };
+    const h1Size = parseFloat(getComputedStyle(h1).fontSize);
+    const want = h1Size * 0.74;
+    probe.style.fontSize = `${want}px`;
+    let longest = 0;
+    texts.forEach((t) => {
+      probe.textContent = t.toUpperCase();
+      longest = Math.max(longest, probe.getBoundingClientRect().width);
     });
-    const hMax = Math.max(...sizes.map((s) => s.h));
-    box.style.setProperty('--hl-h', `${hMax}px`);
-    box.style.setProperty('--hl-w', `${sizes[idx].w}px`);
+    const padL = want * 0.4;
+    const padR = want * 0.3;
+    const avail = Math.max(120, h1.clientWidth - padL - padR);
+    const k = Math.min(1, avail / longest);
+    const fs = want * k;
+    box.style.setProperty('--hl-fs', `${fs.toFixed(2)}px`);
+    box.style.setProperty('--hl-w', `${Math.ceil(longest * k + (padL + padR) * k)}px`);
+    box.style.setProperty('--hl-h', `${Math.ceil(fs * 1.5)}px`);
     box.classList.add('is-measured');
   };
 
+  const reduce = off();
   let idx = 0;
-  const show = (next) => {
+  const show = (next, user) => {
+    if (next === idx) return;
     const prev = idx;
     idx = next;
-    box.style.setProperty('--hl-w', `${sizes[idx].w}px`);
     els[prev].classList.remove('is-on');
     els[prev].classList.add('is-out');
     els[idx].classList.remove('is-out');
@@ -85,17 +98,28 @@ function init() {
     const old = els[prev];
     setTimeout(() => old.classList.remove('is-out'), 800);
     pics.forEach((p, i) => p.classList.toggle('is-on', i === idx));
+    pills.forEach((b, i) => { b.classList.toggle('is-on', i === idx); b.setAttribute('aria-pressed', String(i === idx)); });
+    if (capEl) capEl.textContent = texts[idx];
+    if (idxEl) idxEl.textContent = String(idx + 1).padStart(2, '0');
+    if (user) restart();
   };
 
   let running = false;
   let visible = true;
-  const tick = () => { show((idx + 1) % n); };
+  const tick = () => show((idx + 1) % n);
   const start = () => {
-    if (running || !visible || document.hidden) return;
+    if (reduce || running || !visible || document.hidden) return;
     running = true;
     timer = window.setInterval(tick, HOLD);
   };
   const stop = () => { running = false; clearInterval(timer); };
+  const restart = () => { stop(); start(); };
+
+  const pillHandlers = pills.map((b, i) => {
+    const fn = () => show(i, true);
+    b.addEventListener('click', fn);
+    return [b, fn];
+  });
 
   const io = 'IntersectionObserver' in window
     ? new IntersectionObserver((es) => { visible = es[0].isIntersecting; visible ? start() : stop(); }, { threshold: 0.15 })
@@ -116,6 +140,7 @@ function init() {
     if (io) io.disconnect();
     document.removeEventListener('visibilitychange', onVis);
     window.removeEventListener('resize', onResize);
+    pillHandlers.forEach(([b, fn]) => b.removeEventListener('click', fn));
     probe.remove();
   });
 }

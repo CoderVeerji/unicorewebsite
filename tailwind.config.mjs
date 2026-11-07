@@ -32,8 +32,8 @@ export default {
       // Montserrat throughout: 'Display' for headings (.font-serif), 'Text' for the
       // rest. Both are the same file at different size-adjust: see src/styles/fonts.css.
       fontFamily: {
-        serif: ['"Montserrat Display"', 'system-ui', 'sans-serif'],
-        sans: ['"Montserrat Text"', 'system-ui', 'sans-serif'],
+        serif: ['"Montserrat Display"', '"Noto Sans Devanagari Variable"', 'system-ui', 'sans-serif'],
+        sans: ['"Montserrat Text"', '"Noto Sans Devanagari Variable"', 'system-ui', 'sans-serif'],
       },
     },
   },

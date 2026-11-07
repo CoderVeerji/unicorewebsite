@@ -313,3 +313,10 @@ html.strip-ready main           { transition: padding-top 300ms ease; }
 .font-serif.italic { font-weight: 600; }
 .font-serif.italic.text-light-text, .font-serif.italic.text-logo-blue.block { font-weight: 500; }
 h1.font-serif { letter-spacing: -0.02em; }
+
+/* Anchored sections must stop BELOW the fixed header (and, on phones, the
+   category strip), or their headings are hidden behind it. --hdr already
+   includes the Diwali strip while it shows. */
+.products-sec { scroll-margin-top: calc(var(--hdr, 116px) + 72px); }
+@media (min-width: 1024px) { .products-sec { scroll-margin-top: calc(var(--hdr, 116px) + 24px); } }
+[id] { scroll-margin-top: calc(var(--hdr, 116px) + 16px); }

@@ -28,7 +28,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </section>
 <!-- Mobile / Tablet Index Rail (Horizontal Scrollable Strip) -->
-<div class="lg:hidden w-full max-w-full min-w-0 bg-white border-b border-hairline sticky top-[116px] z-40 overflow-x-auto py-3 px-4 sm:px-6">
+<div class="products-strip lg:hidden w-full max-w-full min-w-0 bg-white border-b border-hairline sticky top-[116px] z-40 overflow-x-auto py-3 px-4 sm:px-6">
 <div class="flex items-center space-x-6 whitespace-nowrap min-w-max text-xs font-semibold">
 <a class="text-logo-blue border-b-2 border-logo-blue pb-1 flex items-center gap-1.5" href="#engine-oils">
 <span class="font-serif text-lg">01</span> Engine Oils
@@ -95,7 +95,7 @@ import Base from '../layouts/Base.astro';
 <!-- Right Column: Product Sections Stack -->
 <div class="w-full flex-1 flex flex-col text-left lg:pl-8">
 <!-- Section 01: Engine Oils -->
-<section class="w-full py-12 border-b border-hairline scroll-mt-28" id="engine-oils">
+<section class="w-full py-12 border-b border-hairline products-sec" id="engine-oils">
 <div class="mb-8">
 <span class="font-serif text-2xl text-logo-blue block mb-2">01</span>
 <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Engine Oils</h2>
@@ -171,7 +171,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </section>
 <!-- Section 02: Gear Oils -->
-<section class="w-full py-12 border-b border-hairline scroll-mt-28" id="gear-oils">
+<section class="w-full py-12 border-b border-hairline products-sec" id="gear-oils">
 <div class="mb-8">
 <span class="font-serif text-2xl text-logo-blue block mb-2">02</span>
 <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Gear Oils</h2>
@@ -247,7 +247,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </section>
 <!-- Section 03: Coolants -->
-<section class="w-full py-12 border-b border-hairline scroll-mt-28" id="coolants">
+<section class="w-full py-12 border-b border-hairline products-sec" id="coolants">
 <div class="mb-8">
 <span class="font-serif text-2xl text-logo-blue block mb-2">03</span>
 <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Coolants</h2>
@@ -323,7 +323,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </section>
 <!-- Section 04: Greases -->
-<section class="w-full py-12 border-b border-hairline scroll-mt-28" id="greases">
+<section class="w-full py-12 border-b border-hairline products-sec" id="greases">
 <div class="mb-8">
 <span class="font-serif text-2xl text-logo-blue block mb-2">04</span>
 <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Greases</h2>
@@ -399,7 +399,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </section>
 <!-- Section 05: Agricultural Oils -->
-<section class="w-full py-12 border-b border-hairline scroll-mt-28" id="agricultural-oils">
+<section class="w-full py-12 border-b border-hairline products-sec" id="agricultural-oils">
 <div class="mb-8">
 <span class="font-serif text-2xl text-logo-blue block mb-2">05</span>
 <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Agricultural Oils</h2>
@@ -475,7 +475,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </section>
 <!-- Section 06: Industrial & Hydraulic Oils -->
-<section class="w-full py-12 border-b border-hairline scroll-mt-28" id="industrial-hydraulic-oils">
+<section class="w-full py-12 border-b border-hairline products-sec" id="industrial-hydraulic-oils">
 <div class="mb-8">
 <span class="font-serif text-2xl text-logo-blue block mb-2">06</span>
 <h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal leading-tight mb-2">Industrial &amp; Hydraulic Oils</h2>
@@ -575,56 +575,62 @@ import Base from '../layouts/Base.astro';
 </Base>
 
 <script>
-  // Scrollspy for the left rail: highlights the category section in view.
-  // Re-armed on every astro:page-load; the previous scroll listener is removed first.
+  // Scrollspy for the desktop rail AND the phone strip: the category whose
+  // section crosses a line just under the fixed header is the current one.
+  // The phone strip also scrolls sideways to keep the current chip in view.
+  // (The old version compared offsetTop against scrollY, which was measured
+  // from the wrong parent, so the highlight stuck on "Engine Oils".)
   let spyHandler = null;
+  let ticking = false;
 
   function initScrollspy() {
     if (spyHandler) window.removeEventListener('scroll', spyHandler);
     spyHandler = null;
 
-    const sections = document.querySelectorAll('div > section[id]');
-    const navLinks = document.querySelectorAll('#catalog-sidebar-nav a');
-    if (!sections.length || !navLinks.length) return;
+    const sections = [...document.querySelectorAll('section.products-sec[id]')];
+    const railLinks = [...document.querySelectorAll('#catalog-sidebar-nav a')];
+    const stripLinks = [...document.querySelectorAll('.products-strip a')];
+    if (!sections.length) return;
 
-    spyHandler = () => {
-      let currentId = '';
-      const scrollPos = window.scrollY + 180;
+    const setLink = (link, on, strip) => {
+      const first = link.querySelector('span:first-child');
+      const num = strip ? first : link.querySelector('span:last-child');
+      link.classList.toggle('text-logo-blue', on);
+      link.classList.toggle('text-body-text', !on);
+      if (strip) {
+        link.classList.toggle('border-b-2', on);
+        link.classList.toggle('border-logo-blue', on);
+      } else {
+        link.classList.toggle('border-logo-blue', on);
+        link.classList.toggle('border-transparent', !on);
+        link.classList.toggle('bg-product-frame', on);
+        if (first) { first.classList.toggle('text-logo-blue', on); first.classList.toggle('font-semibold', on); }
+      }
+      if (num) { num.classList.toggle('text-logo-blue', on); num.classList.toggle('text-light-text', !on); }
+    };
 
-      sections.forEach((section) => {
-        const top = section.offsetTop;
-        const height = section.offsetHeight;
-        if (scrollPos >= top && scrollPos < top + height) {
-          currentId = section.getAttribute('id');
+    let current = '';
+    const update = () => {
+      ticking = false;
+      const hdr = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr')) || 116;
+      const line = hdr + 90;                     // header + the phone strip + a little
+      let id = sections[0].id;
+      sections.forEach((sec) => { if (sec.getBoundingClientRect().top <= line) id = sec.id; });
+      if (id === current) return;
+      current = id;
+      railLinks.forEach((l) => setLink(l, l.getAttribute('href') === '#' + id, false));
+      stripLinks.forEach((l) => {
+        const on = l.getAttribute('href') === '#' + id;
+        setLink(l, on, true);
+        if (on) {
+          const strip = l.closest('.products-strip');
+          if (strip) strip.scrollTo({ left: l.offsetLeft - 16, behavior: 'smooth' });
         }
       });
-
-      if (currentId) {
-        navLinks.forEach((link) => {
-          const href = link.getAttribute('href').replace('#', '');
-          const spanText = link.querySelector('span:first-child');
-          const spanNum = link.querySelector('span:last-child');
-          if (href === currentId) {
-            link.classList.add('text-logo-blue', 'border-logo-blue', 'bg-product-frame');
-            link.classList.remove('text-body-text', 'border-transparent');
-            if (spanText) spanText.classList.add('text-logo-blue', 'font-semibold');
-            if (spanNum) {
-              spanNum.classList.remove('text-light-text');
-              spanNum.classList.add('text-logo-blue');
-            }
-          } else {
-            link.classList.remove('text-logo-blue', 'border-logo-blue', 'bg-product-frame');
-            link.classList.add('text-body-text', 'border-transparent');
-            if (spanText) spanText.classList.remove('text-logo-blue', 'font-semibold');
-            if (spanNum) {
-              spanNum.classList.remove('text-logo-blue');
-              spanNum.classList.add('text-light-text');
-            }
-          }
-        });
-      }
     };
-    window.addEventListener('scroll', spyHandler);
+    spyHandler = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', spyHandler, { passive: true });
+    update();
   }
 
   document.addEventListener('astro:page-load', initScrollspy);

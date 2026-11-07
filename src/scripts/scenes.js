@@ -19,7 +19,7 @@ function tag(scene) {
   if (scene.matches('.scene-home, .scene-products, .scene-tyre')) return;
   let i = 0;
   scene.querySelectorAll(AUTO).forEach((el) => {
-    if (el.hasAttribute('data-r') || el.closest('[data-r]')) return;
+    if (el.hasAttribute('data-r') || el.closest('[data-r], [data-apps]')) return;
     el.setAttribute('data-r', 'up');
     el.style.setProperty('--d', `${Math.min(i, 8) * 90}ms`);
     i++;
@@ -56,7 +56,9 @@ function init() {
       b.setAttribute('aria-label', label);
       b.innerHTML = `<span class="scene-dot-label">${label}</span>`;
       b.addEventListener('click', () => {
-        const y = s.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(html).getPropertyValue('--hdr')) || 116) + 1;
+        const hh = document.querySelector('header.fixed');
+        const off = Math.max(hh ? hh.getBoundingClientRect().bottom : 0, parseFloat(getComputedStyle(html).getPropertyValue('--hdr')) || 116);
+        const y = s.getBoundingClientRect().top + window.scrollY - off - 4;
         window.unicoreScrollTo ? window.unicoreScrollTo(i === 0 ? 0 : y) : window.scrollTo({ top: i === 0 ? 0 : y, behavior: 'smooth' });
       });
       rail.appendChild(b);

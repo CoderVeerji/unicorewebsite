@@ -105,3 +105,18 @@
   .fest-marquee-track > span:nth-child(2) { display: none; }
   .fest-marquee { overflow: hidden; text-overflow: ellipsis; }
 }
+
+/* ---- Phones: the diyas hang here too (they were switched off below 1024px) ------
+   Shorter threads and smaller lamps, every other one, so they sit in the gap
+   above the headline and never touch the text. */
+@media (max-width: 1023.98px) {
+  .hero-toran-hang {
+    display: block; position: absolute; top: 0; width: 1px;
+    height: min(var(--thread, 40px), 34px);
+    background: linear-gradient(to bottom, rgb(var(--gold) / 0.7), rgb(var(--gold) / 0.15)) !important;
+    transform-origin: top center;
+    animation-name: toran-sway; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-direction: alternate;
+    --lamp-w: 15px;
+  }
+  .hero-toran-hang:nth-last-child(even) { display: none; }
+}

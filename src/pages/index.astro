@@ -15,12 +15,12 @@ import heroTyre from '../assets/hero/tyre-sealant.png';
 // The word in the highlighted box and the picture beside it change together.
 // "Lubricants" is the first state and the only one in the HTML a crawler reads.
 const slides = [
-  { text: 'Lubricants', img: heroLubricants, alt: 'Golden lubricant oil pouring from a metal can into a pool' },
-  { text: 'Automotive & Industrial Oil', img: heroAutomotive, alt: 'Automotive and industrial oil pouring into a pool' },
-  { text: 'Coolants', img: heroCoolants, alt: 'Green engine coolant pouring from a metal can' },
-  { text: 'Shocker & Brake Fluids', img: heroBrake, alt: 'Orange shock absorber and brake fluid pouring from a metal can' },
-  { text: 'High Temp. Grease', img: heroGrease, alt: 'Blue high temperature grease flowing from a metal can' },
-  { text: 'Tyre Sealant Liquid', img: heroTyre, alt: 'Unicore TyreProtect tyre sealant bottles in 250 ml and 500 ml' },
+  { text: 'Lubricants', short: 'Lubricants', img: heroLubricants, alt: 'Golden lubricant oil pouring from a metal can into a pool' },
+  { text: 'Automotive & Industrial Oil', short: 'Auto & Ind.', img: heroAutomotive, alt: 'Automotive and industrial oil pouring into a pool' },
+  { text: 'Coolants', short: 'Coolants', img: heroCoolants, alt: 'Green engine coolant pouring from a metal can' },
+  { text: 'Shocker & Brake Fluids', short: 'Shocker & Brake', img: heroBrake, alt: 'Orange shock absorber and brake fluid pouring from a metal can' },
+  { text: 'High Temp. Grease', short: 'Grease', img: heroGrease, alt: 'Blue high temperature grease flowing from a metal can' },
+  { text: 'Tyre Sealant Liquid', short: 'Tyre Sealant', img: heroTyre, alt: 'Unicore TyreProtect tyre sealant bottles in 250 ml and 500 ml' },
 ];
 const heroFeatures = [
   { label: ['Engine', 'Protection'], icon: '<path d="M4 10h2l2-3h5l2 3h3v6h-2l-1 2H9l-2-2H4z"/><path d="M2 12v4M22 12v4M10 7V5h4v2"/>' },
@@ -48,6 +48,13 @@ const products = [
     icon: '<path d="M32 58V20"/><path d="M32 20c-5-3-5-9 0-13 5 4 5 10 0 13Z"/><path d="M32 32c-8 0-12-5-12-10 7 0 12 3 12 10ZM32 32c8 0 12-5 12-10-7 0-12 3-12 10ZM32 46c-8 0-12-5-12-10 7 0 12 3 12 10ZM32 46c8 0 12-5 12-10-7 0-12 3-12 10Z"/>' },
   { name: 'Hydraulic Oils', text: 'Industrial fluids that keep hydraulic pumps and factory machinery operating smoothly without power loss.', path: 'products-industrial-hydraulic-oils', href: 'products.html#industrial-hydraulic-oils',
     icon: '<rect x="6" y="22" width="30" height="20" rx="2"/><path d="M36 32h22M58 24v16M14 22v-6M28 22v-6M14 42v6M28 42v6"/><path d="M12 32h18"/>' },
+];
+const apps = [
+  { tab: 'Two-Wheelers', tag: '01 / Mobility', title: 'Two-Wheelers', text: 'Smooth clutch grip and engine protection for high-mileage motorcycles and automatic scooters.', runs: ['Motorcycles', 'Automatic scooters'], img: heroLubricants, theme: 'gold' },
+  { tab: 'Commercial Fleets', tag: '02 / Logistics', title: 'Commercial Fleets', text: 'Durable lubricants engineered for long-haul trucks and bus fleets running continuous routes.', runs: ['Long-haul trucks', 'Bus fleets'], img: heroGrease, theme: 'blue' },
+  { tab: 'Agricultural Machinery', tag: '03 / Agronomy', title: 'Agricultural Machinery', text: 'Reliable protection for tractors, pumps, and harvesters operating in muddy and dusty soil.', runs: ['Tractors', 'Pumps', 'Harvesters'], img: heroCoolants, theme: 'green' },
+  { tab: 'Off-Highway Equipment', tag: '04 / Earthmoving', title: 'Off-Highway Equipment', text: 'Heavy hydraulic oils and greases designed for excavators, cranes, and quarry machinery.', runs: ['Excavators', 'Cranes', 'Quarry machinery'], img: heroBrake, theme: 'orange' },
+  { tab: 'Industrial Plants', tag: '05 / Manufacturing', title: 'Industrial Plants', text: 'Continuous protection for factory power presses, gear units, and manufacturing assembly lines.', runs: ['Power presses', 'Gear units', 'Assembly lines'], img: heroAutomotive, theme: 'steel' },
 ];
 const brands = [
   { name: 'Tata', file: 'tata', h: 30 },
@@ -82,8 +89,8 @@ const brands = [
 <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
 <!-- Left Column -->
-<div class="lg:col-span-7 flex flex-col justify-center pr-0 lg:pr-6">
-<div class="inline-flex items-center gap-2 mb-5">
+<div class="hero-left lg:col-span-7 flex flex-col justify-center pr-0 lg:pr-6">
+<div class="hero-eyebrow inline-flex items-center gap-2 mb-5">
 <span class="w-2 h-2 bg-deep-navy"></span>
 <span class="font-sans text-xs sm:text-sm tracking-[0.18em] text-deep-navy uppercase font-bold">Premium Lubricants</span>
 </div>
@@ -102,17 +109,27 @@ const brands = [
 </li>
 ))}
 </ul>
-<div class="flex flex-wrap items-center gap-3 sm:gap-4">
+<div class="hero-actions flex flex-wrap items-center gap-3 sm:gap-4">
 <a class="hero-btn hero-btn-primary" data-path="products" href="products.html">Explore our lubricants <span aria-hidden="true">→</span></a>
 <a class="hero-btn hero-btn-ghost" data-path="dealership" href="dealership.html">Become a distributor</a>
 </div>
 </div>
 <!-- Right Column: the picture changes with the word in the headline -->
-<div class="lg:col-span-5 flex justify-center">
+<div class="hero-right lg:col-span-5 flex justify-center">
+<div class="hero-stage" data-hero-stage>
+<span class="hero-rings" aria-hidden="true"></span>
 <div class="hero-visual" data-hero-visual>
 {slides.map((sl, i) => (
 <Picture class:list={['hero-slide', i === 0 && 'is-on']} src={sl.img} formats={['webp']} widths={[480, 720]} sizes="(min-width: 1024px) 460px, 90vw" alt={sl.alt} loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} />
 ))}
+</div>
+<div class="hero-cap" aria-live="polite"><small>Currently viewing</small><span data-hero-cap>{slides[0].text}</span></div>
+<div class="hero-index" aria-hidden="true"><strong data-hero-index>01</strong> / {String(slides.length).padStart(2, '0')}</div>
+<div class="hero-pills" role="group" aria-label="Choose a product range">
+{slides.map((sl, i) => (
+<button type="button" class:list={['hero-pill', i === 0 && 'is-on']} data-hero-pill={i} aria-pressed={i === 0 ? 'true' : 'false'}>{sl.short}</button>
+))}
+</div>
 </div>
 </div>
 </div>
@@ -125,9 +142,9 @@ const brands = [
 <div class="w-full marquee brand-marquee">
 {[0, 1].map((copy) => (
 <ul class="marquee-track-row" aria-hidden={copy === 1 ? 'true' : undefined}>
-{brands.map((b) => (
+{[...brands, ...brands, ...brands].map((b) => (
 <li class="brand-item">
-<img class="brand-logo" src={`/logos/${b.file}.svg`} alt={b.name} height={b.h} style={`height:${b.h}px`} loading="lazy" decoding="async" draggable="false" />
+<img class="brand-logo" src={`/logos/${b.file}.svg`} alt={b.name} height={b.h} style={`height:${b.h}px`} loading="eager" decoding="async" draggable="false" />
 </li>
 ))}
 </ul>
@@ -201,88 +218,38 @@ const brands = [
 <!-- SECTION 5: APPLICATIONS (Five Cards in a Hairline Row) -->
 <section class="scene scene-apps w-full bg-white border-b border-hairline" data-scene="Applications" data-no-motion>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-<div class="mb-8 pb-6 border-b border-hairline" data-r="up"><span class="text-xs font-semibold uppercase tracking-widest text-logo-blue block mb-2">Applications</span><h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal">Where Our Oils and Lubricants Work</h2></div>
-<!-- Single Row with Hairline Borders -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-hairline bg-hairline gap-px">
-<!-- App 1 -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<span class="font-serif italic text-lg text-logo-blue block mb-3">01 / Mobility</span>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-3">Two-Wheelers</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Smooth clutch grip and engine protection for high-mileage motorcycles and automatic scooters.
-                </p>
+<div class="mb-6" data-r="up"><span class="text-xs font-semibold uppercase tracking-widest text-logo-blue block mb-2">Applications</span><h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal">Where Our Oils and Lubricants Work</h2></div>
 </div>
-<div class="pt-4 border-t border-hairline">
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="applications" href="applications.html">
-                  View application →
-                </a>
+<div class="apps" data-apps data-r="up" style="--d:160ms">
+<div class="apps-tabs" role="tablist" aria-label="Applications" data-apps-tabs>
+{apps.map((a, i) => (
+<button type="button" role="tab" class:list={['apps-tab', i === 0 && 'is-active']} id={`apps-tab-${i}`} aria-controls={`apps-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-apps-tab={i}>
+<span class="apps-tab-label">{a.tab}</span><span class="apps-tab-bar" aria-hidden="true"></span>
+</button>
+))}
 </div>
+<div class="apps-viewport" data-apps-viewport>
+<div class="apps-track" data-apps-track>
+{apps.map((a, i) => (
+<div class:list={['apps-card', `theme-${a.theme}`, i === 0 && 'is-active']} id={`apps-panel-${i}`} role="tabpanel" aria-labelledby={`apps-tab-${i}`} data-apps-card={i}>
+<div class="apps-copy">
+<span class="apps-tag">{a.tag}</span>
+<h3 class="font-serif">{a.title}</h3>
+<p>{a.text}</p>
+<a class="apps-link" data-path="applications" href="applications.html">View application <span aria-hidden="true">→</span></a>
 </div>
-<!-- App 2 -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<span class="font-serif italic text-lg text-logo-blue block mb-3">02 / Logistics</span>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-3">Commercial Fleets</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Durable lubricants engineered for long-haul trucks and bus fleets running continuous routes.
-                </p>
-</div>
-<div class="pt-4 border-t border-hairline">
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="applications" href="applications.html">
-                  View application →
-                </a>
+<div class="apps-art">
+<Picture class="apps-photo" src={a.img} formats={['webp']} widths={[360, 640]} sizes="(min-width: 1024px) 340px, 70vw" alt="" loading="lazy" />
+<div class="apps-chip">
+<small>Where it runs</small>
+<ul>{a.runs.map((r) => <li>{r}</li>)}</ul>
 </div>
 </div>
-<!-- App 3 -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<span class="font-serif italic text-lg text-logo-blue block mb-3">03 / Agronomy</span>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-3">Agricultural Machinery</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Reliable protection for tractors, pumps, and harvesters operating in muddy and dusty soil.
-                </p>
 </div>
-<div class="pt-4 border-t border-hairline">
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="applications" href="applications.html">
-                  View application →
-                </a>
+))}
 </div>
 </div>
-<!-- App 4 -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<span class="font-serif italic text-lg text-logo-blue block mb-3">04 / Earthmoving</span>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-3">Off-Highway Equipment</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Heavy hydraulic oils and greases designed for excavators, cranes, and quarry machinery.
-                </p>
-</div>
-<div class="pt-4 border-t border-hairline">
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="applications" href="applications.html">
-                  View application →
-                </a>
-</div>
-</div>
-<!-- App 5 -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<span class="font-serif italic text-lg text-logo-blue block mb-3">05 / Manufacturing</span>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-3">Industrial Plants</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Continuous protection for factory power presses, gear units, and manufacturing assembly lines.
-                </p>
-</div>
-<div class="pt-4 border-t border-hairline">
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="applications" href="applications.html">
-                  View application →
-                </a>
-</div>
-</div>
-<!-- Empty Cell Placeholder for Clean Hairline Grid Closure -->
-<div class="bg-white p-8 hidden lg:flex flex-col justify-between border-hairline pointer-events-none">
-</div>
-</div>
+<div class="apps-dots" aria-hidden="true">{apps.map((a, i) => <span class:list={['apps-dot', i === 0 && 'is-active']}></span>)}</div>
 </div>
 </section>
 <!-- SECTION 6: HOW WE MAKE IT -->
