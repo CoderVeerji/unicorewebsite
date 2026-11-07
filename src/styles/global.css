@@ -205,7 +205,7 @@ html.theme-ready body { transition: background-color 180ms ease, color 180ms eas
 @media (prefers-reduced-motion: reduce) { html.theme-ready body { transition: none; } }
 
 @layer base {
-  html, body { margin:0; padding:0; background-color:rgb(var(--c-page-bg)); color:rgb(var(--c-body-text)); font-family:'Inter', sans-serif; }
+  html, body { margin:0; padding:0; background-color:rgb(var(--c-page-bg)); color:rgb(var(--c-body-text)); font-family:'Montserrat Text', system-ui, sans-serif; }
   body { overscroll-behavior: none; }
   /* All box shadows are forbidden except the desktop Products dropdown. */
   * { box-shadow: none !important; }
@@ -303,3 +303,13 @@ html.strip-ready main           { transition: padding-top 300ms ease; }
     overflow-wrap: anywhere;
   }
 }
+
+/* ---- Montserrat headings ---------------------------------------------------
+   The markup sets every heading with `font-serif font-normal`. In the old
+   condensed serif that was right; in Montserrat a regular weight looks thin,
+   so headings take a firm weight here. Numerals and small italic labels stay
+   lighter so they read as detail rather than as headings. */
+.font-serif { font-weight: 700; letter-spacing: -0.012em; }
+.font-serif.italic { font-weight: 600; }
+.font-serif.italic.text-light-text, .font-serif.italic.text-logo-blue.block { font-weight: 500; }
+h1.font-serif { letter-spacing: -0.02em; }

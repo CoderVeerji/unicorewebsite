@@ -3,7 +3,31 @@ import Base from '../layouts/Base.astro';
 import HeroToran from '../components/HeroToran.astro';
 import Antigravity from '../components/Antigravity.astro';
 import { Picture } from 'astro:assets';
-import bottle from '../assets/tyreprotect-bottle.png';
+import bottle from '../assets/tyre/bottles.png';
+import HeroDrips from '../components/HeroDrips.astro';
+import heroLubricants from '../assets/hero/lubricants.png';
+import heroAutomotive from '../assets/hero/automotive.png';
+import heroCoolants from '../assets/hero/coolants.png';
+import heroBrake from '../assets/hero/brake.png';
+import heroGrease from '../assets/hero/grease.png';
+import heroTyre from '../assets/hero/tyre-sealant.png';
+
+// The word in the highlighted box and the picture beside it change together.
+// "Lubricants" is the first state and the only one in the HTML a crawler reads.
+const slides = [
+  { text: 'Lubricants', img: heroLubricants, alt: 'Golden lubricant oil pouring from a metal can into a pool' },
+  { text: 'Automotive & Industrial Oil', img: heroAutomotive, alt: 'Automotive and industrial oil pouring into a pool' },
+  { text: 'Coolants', img: heroCoolants, alt: 'Green engine coolant pouring from a metal can' },
+  { text: 'Shocker & Brake Fluids', img: heroBrake, alt: 'Orange shock absorber and brake fluid pouring from a metal can' },
+  { text: 'High Temp. Grease', img: heroGrease, alt: 'Blue high temperature grease flowing from a metal can' },
+  { text: 'Tyre Sealant Liquid', img: heroTyre, alt: 'Unicore TyreProtect tyre sealant bottles in 250 ml and 500 ml' },
+];
+const heroFeatures = [
+  { label: ['Engine', 'Protection'], icon: '<path d="M4 10h2l2-3h5l2 3h3v6h-2l-1 2H9l-2-2H4z"/><path d="M2 12v4M22 12v4M10 7V5h4v2"/>' },
+  { label: ['Reduced', 'Friction'], icon: '<circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/><circle cx="12" cy="12" r="6.6"/>' },
+  { label: ['Heat', 'Control'], icon: '<path d="M10 4a2 2 0 0 1 4 0v9.3a4 4 0 1 1-4 0z"/><path d="M12 9v6"/><circle cx="12" cy="17.2" r="1.3"/>' },
+  { label: ['Extended', 'Equipment Life'], icon: '<path d="M12 3l7.5 3v5.5c0 4.6-3.2 8-7.5 9.5-4.3-1.5-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>' },
+];
 
 // Logos in /public/logos: Tata, Mahindra, Honda, Hyundai, Toyota, Kia, JCB,
 // John Deere, Volvo, Scania from the Simple Icons set; Hero, Bajaj, Royal
@@ -54,34 +78,42 @@ const brands = [
 <section class="w-full bg-page-bg border-b border-hairline relative overflow-hidden scene-home-hero">
 <Antigravity mobile fade="46%" />
 <HeroToran />
+<HeroDrips />
 <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
 <!-- Left Column -->
-<div class="lg:col-span-8 flex flex-col justify-center pr-0 lg:pr-8">
-<div class="inline-flex items-center gap-2 mb-6">
-<span class="w-2 h-2 bg-logo-blue"></span>
-<span class="font-sans text-xs tracking-widest text-logo-blue uppercase font-semibold">
-                  HEAVY DUTY &amp; INDUSTRIAL OILS
-                </span>
+<div class="lg:col-span-7 flex flex-col justify-center pr-0 lg:pr-6">
+<div class="inline-flex items-center gap-2 mb-5">
+<span class="w-2 h-2 bg-deep-navy"></span>
+<span class="font-sans text-xs sm:text-sm tracking-[0.18em] text-deep-navy uppercase font-bold">Premium Lubricants</span>
 </div>
-<h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-heading-black font-normal leading-tight mb-8">
-                Oils and lubricants <span class="hero-accent italic text-logo-blue" data-phrases="built to last|built for heat|built for load">built tough</span> for Indian roads, farms, and factories.
-              </h1>
-<p class="font-sans text-base sm:text-lg text-body-text leading-relaxed mb-10 max-w-2xl">
-                Unicore produces reliable engine oils, transmission fluids, greases, and industrial oils that protect hardworking vehicles and plant equipment. Every product is made to perform under heavy loads, hot operating temperatures, and long working hours.
-              </p>
-<div class="flex flex-wrap items-center gap-4">
-<a class="inline-flex items-center justify-center bg-heading-black hover:bg-logo-blue text-white px-8 py-4 text-xs font-semibold uppercase tracking-wider transition-colors duration-150 rounded-[2px]" data-path="products" href="products.html">
-                  See our products
-                </a>
-<a class="inline-flex items-center justify-center bg-white hover:bg-product-frame text-heading-black hover:text-logo-blue px-8 py-4 text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-structural-line rounded-[2px]" data-path="dealership" href="dealership.html">
-                  Become a distributor
-                </a>
+<h1 class="hero-h1 font-serif text-heading-black" data-hero-rotator data-phrases={JSON.stringify(slides.slice(1).map((x) => x.text))}>
+<span class="hero-l1">High-performance</span>
+<span class="hl-box" data-hl-box>
+<span class="hl-first">{slides[0].text}</span>
+</span>
+<span class="hero-l3">for a smoother, longer life</span>
+</h1>
+<ul class="hero-feats" aria-label="Benefits">
+{heroFeatures.map((f) => (
+<li class="hero-feat">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={f.icon} />
+<span>{f.label[0]}<br />{f.label[1]}</span>
+</li>
+))}
+</ul>
+<div class="flex flex-wrap items-center gap-3 sm:gap-4">
+<a class="hero-btn hero-btn-primary" data-path="products" href="products.html">Explore our lubricants <span aria-hidden="true">→</span></a>
+<a class="hero-btn hero-btn-ghost" data-path="dealership" href="dealership.html">Become a distributor</a>
 </div>
 </div>
-<!-- Right Column: Product Frame (No drawn bottle) -->
-<div class="lg:col-span-4 flex justify-center">
-<div class="w-full max-w-[460px] aspect-square bg-product-frame border border-hairline relative flex flex-col items-center justify-center p-8"><div class="text-center px-4"><p class="font-serif italic text-base sm:text-lg text-heading-black max-w-xs leading-relaxed">[Photograph: Pack shot of Engine Oil container on light ground]</p></div><div class="absolute bottom-0 right-0 left-0 sm:left-auto bg-white border-t sm:border-l border-hairline p-3 sm:max-w-xs"><span class="block text-xs font-semibold tracking-wider text-heading-black uppercase mb-0.5">Engine Oil</span><span class="block text-[11px] text-light-text">Pack sizes: [to be confirmed by Unicore]</span></div></div>
+<!-- Right Column: the picture changes with the word in the headline -->
+<div class="lg:col-span-5 flex justify-center">
+<div class="hero-visual" data-hero-visual>
+{slides.map((sl, i) => (
+<Picture class:list={['hero-slide', i === 0 && 'is-on']} src={sl.img} formats={['webp']} widths={[480, 720]} sizes="(min-width: 1024px) 460px, 90vw" alt={sl.alt} loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} />
+))}
+</div>
 </div>
 </div>
 </div>
@@ -144,29 +176,23 @@ const brands = [
 </div>
 </div>
 </section>
-<!-- SCENE: TYRE SEALANT GEL (dark, product photo) -->
+<!-- SCENE: TYRE SEALANT GEL (client banner: white, green, two bottles) -->
 <section class="scene scene-tyre" data-scene="Tyre Sealant" data-no-motion>
 <div class="tyre-bg" aria-hidden="true"><span class="tyre-ring tyre-ring-1"></span><span class="tyre-ring tyre-ring-2"></span><span class="tyre-ring tyre-ring-3"></span></div>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
 <div class="lg:col-span-7 order-2 lg:order-1">
 <span class="tyre-eyebrow" data-r="up"><span class="tyre-dot"></span>Specialty Products</span>
-<h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-normal leading-[1.05] mb-6" data-r="up" style="--d:120ms">Tyre Sealant Gel <span class="italic tyre-accent">for tubeless tyres</span></h2>
-<p class="text-base sm:text-lg text-white/75 leading-relaxed mb-8 max-w-xl" data-r="up" style="--d:240ms">Our heavy gel coats the inside of tubeless tyres and automatically fills punctures as you continue driving on the road. It stops slow air leaks across hot highways and rough work sites.</p>
-<div data-r="up" style="--d:300ms"><ul class="tyre-feats"><li style="--d:0ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents and repairs flat tyres</span></li><li style="--d:70ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Seals instantly, for two years</span></li><li style="--d:140ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Stops slow leaks</span></li><li style="--d:210ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Safe and easy to use</span></li><li style="--d:280ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Environmentally friendly</span></li><li style="--d:350ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>2-in-1: tyre and tube</span></li></ul></div>
+<h2 class="tyre-h2 font-serif" data-r="up" style="--d:120ms">Tyre Sealant Gel <span class="tyre-accent">for tubeless tyres</span></h2>
+<p class="tyre-lead" data-r="up" style="--d:240ms">Heavy-duty tyre sealant gel that helps seal punctures, reduce slow leaks, and keep vehicles moving longer on roads and worksites.</p>
+<div data-r="up" style="--d:300ms"><ul class="tyre-feats"><li style="--d:0ms"><svg class="tyre-tick" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents and repairs flat tyres</span></li><li style="--d:70ms"><svg class="tyre-tick" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Seals instantly</span></li><li style="--d:140ms"><svg class="tyre-tick" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Stops slow leaks</span></li><li style="--d:210ms"><svg class="tyre-tick" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Safe and easy to use</span></li><li style="--d:280ms"><svg class="tyre-tick" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Environmentally friendly</span></li><li style="--d:350ms"><svg class="tyre-tick" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Available in 250ml &amp; 500ml</span></li></ul></div>
 <div data-r="up" style="--d:520ms"><a class="tyre-cta" data-path="tyre-sealant" href="tyre-sealant.html">Explore Tyre Sealant Gel <span aria-hidden="true">→</span></a></div>
 </div>
 <div class="lg:col-span-5 order-1 lg:order-2 flex justify-center">
-<div class="tyre-stage" data-r="scale" data-parallax="-0.06">
+<div class="tyre-stage" data-r="scale" data-parallax="-0.05">
 <span class="tyre-glow" aria-hidden="true"></span>
-<div class="tyre-badge" aria-hidden="true">
-<svg viewBox="0 0 120 120" width="112" height="112"><defs><path id="tb-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
-<g class="tyre-badge-ring"><text font-size="9.2" fill="currentColor"><textPath href="#tb-circle" textLength="283" lengthAdjust="spacing">NO MORE PUNCTURE • 2-IN-1 TYRE &amp; TUBE •</textPath></text></g>
-<circle cx="60" cy="60" r="27" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
-<text x="60" y="58" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">500</text>
-<text x="60" y="71" text-anchor="middle" font-size="9" font-weight="600" letter-spacing="1.5" fill="currentColor">ML</text>
-</svg></div>
-<Picture class="tyre-bottle" src={bottle} formats={['webp']} widths={[340, 408]} sizes="(min-width: 1024px) 340px, 60vw" width={340} height={510} alt="Unicore TyreProtect 2-in-1 tyre and tube premium sealant, 500 ml bottle" loading="lazy" />
+<div class="tyre-badge" aria-hidden="true"><small>Available in</small><strong>250ML &amp;</strong><strong>500ML</strong><i></i></div>
+<Picture class="tyre-bottle" src={bottle} formats={['webp']} widths={[440, 740]} sizes="(min-width: 1024px) 440px, 80vw" alt="Unicore TyreProtect Tyre Sealant, anti puncture, latex based, 500 ml and 250 ml bottles" loading="lazy" />
 </div>
 </div>
 </div>

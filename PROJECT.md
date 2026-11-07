@@ -354,3 +354,13 @@ Done: `products` rebuilt; header, footer and script shared; scroll and hover ani
 - **Diwali strip and toran** (`AnnouncementStrip.astro`, `HeroToran.astro`, `festive.css`): gold on navy, with a "Happy Diwali" pill, a twinkling star and a countdown. The toran lamps are gold with a lit flame. Both retire with the announcement window in `src/config/announcement.js`.
 - **Touches** (`polish.js`, `polish.css`): reading-progress line, header turns slightly translucent after scrolling, nav underline, button sweep on hover, `data-parallax` on the tyre bottle.
 - **Tyre Sealant label points** shown on the home block and the Tyre Sealant page are taken from the bottle's own label ("Prevents & repairs", "Seals instantly for two years", "Stops slow leaks", "Safe & easy", "Environmentally friendly", 500 ml). **Confirm with Unicore that each of these may be claimed on the site.**
+
+## Client reference pass: Montserrat, new hero, new Tyre Sealant look
+
+- **Font**: Montserrat throughout (`@fontsource-variable/montserrat`, one variable file, declared in `src/styles/fonts.css` as "Montserrat Display" at 82% size-adjust for headings and "Montserrat Text" at 93% for the rest, so the existing type scale still fits). `.font-serif` now means "heading": weight 700.
+- **Hero** (`index.astro`, `hero.css`, `hero-rotator.js`): follows the client's banner. "HIGH-PERFORMANCE [word] FOR A SMOOTHER, LONGER LIFE", four benefits, two buttons. The word in the navy box and the picture beside it change together: LUBRICANTS, AUTOMOTIVE & INDUSTRIAL OIL, COOLANTS, SHOCKER & BRAKE FLUIDS, HIGH TEMP. GREASE, TYRE SEALANT LIQUID. Edit the list in the `slides` array at the top of `index.astro`.
+- **Hero pictures** (`src/assets/hero/`): the oil pour is cropped from the client's banner; coolants, brake fluid, grease and the mirrored "automotive" shot are colour-shifted versions of it (no stock or AI photos). **Replace them with real photography when available**; keep the same file names.
+- **Tyre Sealant** (`tyre.css`, `src/assets/tyre/bottles.png`): white TyreProtect bottles (250 ml and 500 ml) cut out of the client's second banner; green palette from that banner (`#064614` dark, `#3C9A0A` bright). The page and the homepage block share the same styles.
+- **Oil drops** (`HeroDrips.astro`) hang along the top of the hero outside the Diwali window; the diyas replace them during it.
+- **Brand logos** now show in colour; on the dark theme each sits on a light tile.
+- **Diwali strip on phones**: the greeting scrolls past (marquee) next to the countdown.

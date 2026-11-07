@@ -90,3 +90,18 @@
   .fest-shimmer, .fest-spark, .fest-star { animation: none !important; }
   .fest-spark { opacity: 0; }
 }
+
+/* ---- Phones: the greeting scrolls past instead of being cut off ------------- */
+.fest-marquee {
+  flex: 1 1 0; min-width: 0; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.fest-marquee-track { display: inline-flex; white-space: nowrap; animation: fest-marq 22s linear infinite; will-change: transform; }
+.fest-marquee-track > span { padding-right: 3rem; }
+@keyframes fest-marq { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .fest-marquee-track { animation: none; }
+  .fest-marquee-track > span:nth-child(2) { display: none; }
+  .fest-marquee { overflow: hidden; text-overflow: ellipsis; }
+}

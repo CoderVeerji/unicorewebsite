@@ -1,0 +1,46 @@
+/*
+ * Montserrat, self-hosted (@fontsource-variable/montserrat, Latin subset).
+ *
+ * One variable file, declared twice with different size-adjust values, so the
+ * type scale already in the markup keeps working without touching a single
+ * utility class:
+ *
+ *   Montserrat Display  headings (.font-serif)   82%  - Montserrat is much wider
+ *                                                      than the condensed serif the
+ *                                                      headings were set for
+ *   Montserrat Text     everything else (.font-sans) 93% - a touch wider than Inter
+ *
+ * Indic and other non-Latin text falls back to the system font, as it did before.
+ */
+@font-face {
+  font-family: 'Montserrat Display';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  size-adjust: 82%;
+  src: url('../../node_modules/@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Montserrat Display';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  size-adjust: 82%;
+  src: url('../../node_modules/@fontsource-variable/montserrat/files/montserrat-latin-wght-italic.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Montserrat Text';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  size-adjust: 93%;
+  src: url('../../node_modules/@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Montserrat Text';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  size-adjust: 93%;
+  src: url('../../node_modules/@fontsource-variable/montserrat/files/montserrat-latin-wght-italic.woff2') format('woff2-variations');
+}

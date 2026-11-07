@@ -39,17 +39,22 @@ const countdown = countdownLabel();
     <span class="fest-spark fest-spark-4" aria-hidden="true"></span>
     <span class="fest-spark fest-spark-5" aria-hidden="true"></span>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-10 flex items-center justify-center relative">
-      <p class="fest-msg flex items-center gap-2 sm:gap-3 text-[12px] font-medium pr-7 min-w-0">
+      <p class="fest-msg flex items-center gap-2 sm:gap-3 text-[12px] font-medium pr-7 min-w-0 w-full md:w-auto">
 
         {/* A four-point star that twinkles, in the festival gold. */}
         <svg class="fest-star shrink-0" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 1.5c.7 5.6 3.4 9.1 10.5 10.5-7.1 1.4-9.8 4.9-10.5 10.5C11.3 16.9 8.6 13.4 1.5 12 8.6 10.6 11.3 7.1 12 1.5Z" fill="currentColor"/>
         </svg>
 
-        <span class="fest-pill shrink-0">Happy Diwali</span>
+        <span class="fest-pill shrink-0 hidden sm:inline-block">Happy Diwali</span>
 
         <span class="hidden md:inline truncate fest-text">Unicore Lubricants wishes our trade partners a safe and prosperous Diwali</span>
-        <span class="hidden sm:inline md:hidden truncate fest-text">A safe and prosperous Diwali</span>
+        <span class="fest-marquee md:hidden">
+          <span class="fest-marquee-track">
+            <span>Happy Diwali. Unicore Lubricants wishes our trade partners a safe and prosperous Diwali</span>
+            <span aria-hidden="true">Happy Diwali. Unicore Lubricants wishes our trade partners a safe and prosperous Diwali</span>
+          </span>
+        </span>
 
         <span class="fest-count shrink-0 tabular-nums">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>

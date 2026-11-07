@@ -113,18 +113,16 @@ main h1 .italic {
   align-items: center;
   padding: 0 clamp(28px, 4.5vw, 64px);
 }
-/* Logos sit as quiet grey marks and take their own colour on hover. */
+/* Logos show in their own colours. */
 .brand-logo {
   display: block;
   width: auto;
   max-width: 150px;
-  filter: grayscale(1) contrast(0.9);
-  opacity: 0.55;
-  transition: filter 300ms ease, opacity 300ms ease, transform 300ms ease;
+  transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.brand-item:hover .brand-logo { filter: none; opacity: 1; transform: scale(1.06); }
-html.dark .brand-logo { filter: grayscale(1) invert(1) brightness(1.1); opacity: 0.6; }
-html.dark .brand-item:hover .brand-logo { filter: grayscale(1) invert(1) brightness(1.5); opacity: 1; }
+.brand-item:hover .brand-logo { transform: scale(1.08); }
+/* Dark theme: dark logos would disappear, so each one sits on a light tile. */
+html.dark .brand-logo { background: #fff; padding: 9px 14px; box-sizing: content-box; border-radius: 8px; }
 @media (prefers-reduced-motion: reduce) {
   .brand-marquee { overflow-x: auto; }
   .marquee-track-row:nth-child(2) { display: none; }
@@ -333,7 +331,7 @@ html[data-motion="off"] { --intro: 0ms !important; }
 
 .curtain-mark {
   position: relative;
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: 'Montserrat Display', system-ui, sans-serif; font-weight: 700;
   font-size: clamp(40px, 9vw, 120px);
   line-height: 1;
   letter-spacing: 0.22em;
@@ -359,7 +357,7 @@ html[data-motion="off"] { --intro: 0ms !important; }
 @keyframes curtain-fade { from { opacity: 0; } to { opacity: 1; } }
 
 .curtain-welcome {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Montserrat Text', system-ui, sans-serif;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.42em;
@@ -397,7 +395,7 @@ html[data-motion="off"] { --intro: 0ms !important; }
   position: absolute;
   right: clamp(20px, 4vw, 56px);
   bottom: clamp(20px, 4vw, 48px);
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: 'Montserrat Display', system-ui, sans-serif; font-weight: 700;
   font-size: clamp(28px, 4vw, 52px);
   line-height: 1;
   color: rgba(255, 255, 255, 0.85);

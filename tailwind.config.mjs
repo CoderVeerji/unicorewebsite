@@ -29,10 +29,11 @@ export default {
         'logo-blue': 'rgb(var(--c-logo-blue) / <alpha-value>)',
         'deep-navy': 'rgb(var(--c-deep-navy) / <alpha-value>)',
       },
-      // Two families: Instrument Serif (display) and Inter (body/UI).
+      // Montserrat throughout: 'Display' for headings (.font-serif), 'Text' for the
+      // rest. Both are the same file at different size-adjust: see src/styles/fonts.css.
       fontFamily: {
-        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
-        sans: ['"Inter"', 'sans-serif'],
+        serif: ['"Montserrat Display"', 'system-ui', 'sans-serif'],
+        sans: ['"Montserrat Text"', 'system-ui', 'sans-serif'],
       },
     },
   },

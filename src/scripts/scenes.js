@@ -68,7 +68,7 @@ function init() {
     if (idx === activeIdx) return;
     activeIdx = idx;
     dots.forEach((d, i) => (i === idx ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current')));
-    if (rail) rail.classList.toggle('on-dark', scenes[idx] && scenes[idx].matches('.scene-tyre, .scene-dealer'));
+    if (rail) rail.classList.toggle('on-dark', scenes[idx] && scenes[idx].matches('.scene-dealer'));
   };
   // The active scene is the one crossing the middle of the viewport.
   let ticking = false;

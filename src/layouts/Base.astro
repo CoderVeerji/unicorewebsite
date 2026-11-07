@@ -22,16 +22,8 @@ import Footer from '../components/Footer.astro';
 import AnnouncementStrip from '../components/AnnouncementStrip.astro';
 import CurtainReveal from '../components/CurtainReveal.astro';
 import { STORAGE_KEY, isAnnouncementActive } from '../config/announcement.js';
-import '@fontsource/inter/latin-400.css';
-import '@fontsource/inter/latin-500.css';
-import '@fontsource/inter/latin-600.css';
-import '@fontsource/inter/latin-700.css';
-import '@fontsource/instrument-serif/latin-400.css';
-import '@fontsource/instrument-serif/latin-400-italic.css';
-import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
-import inter600 from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
-import serif400 from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
-import serif400i from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
+import montserrat from '@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2?url';
+import '../styles/fonts.css';
 import '../styles/global.css';
 import '../styles/motion.css';
 import '../styles/carousel.css';
@@ -39,6 +31,8 @@ import '../styles/scenes.css';
 import '../styles/menu.css';
 import '../styles/festive.css';
 import '../styles/polish.css';
+import '../styles/hero.css';
+import '../styles/tyre.css';
 
 // Build-time: see src/config/announcement.js to change the window.
 const stripActive = isAnnouncementActive();
@@ -61,14 +55,11 @@ const {
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {/*
-      Fonts are self-hosted (@fontsource), bundled by Astro: no connection to
-      Google, no render-blocking third-party stylesheet. The three faces used
-      above the fold are preloaded; display:swap comes from fontsource.
+      Montserrat is self-hosted (@fontsource-variable), bundled by Astro: no
+      connection to Google, no render-blocking third-party stylesheet. The one
+      variable file is preloaded; the faces are declared in src/styles/fonts.css.
     */}
-    <link rel="preload" as="font" type="font/woff2" href={inter400} crossorigin="anonymous" />
-    <link rel="preload" as="font" type="font/woff2" href={inter600} crossorigin="anonymous" />
-    <link rel="preload" as="font" type="font/woff2" href={serif400} crossorigin="anonymous" />
-    <link rel="preload" as="font" type="font/woff2" href={serif400i} crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={montserrat} crossorigin="anonymous" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
     <ClientRouter />
@@ -120,7 +111,7 @@ const {
       import '../scripts/lang.js';
       import '../scripts/products-menu.js';
       import '../scripts/motion.js';
-      import '../scripts/accent-rotator.js';
+      import '../scripts/hero-rotator.js';
       import '../scripts/carousel.js';
       import '../scripts/scenes.js';
       import '../scripts/smooth.js';

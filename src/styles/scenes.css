@@ -145,59 +145,6 @@ html.pin-on .scene-products .pc-card { padding: 20px; }
   html.pin-on .scene-products .pc-foot > span:nth-child(-n+2) { display: none; }
 }
 
-/* ---- Tyre Sealant scene (dark, green, product photo) ------------------------ */
-.scene-tyre {
-  position: relative;
-  overflow: hidden;
-  color: #fff;
-  background: radial-gradient(120% 90% at 78% 40%, #14230f 0%, #0b100a 55%, #070a07 100%);
-  --tg: 88 176 48;            /* the green on the bottle label */
-}
-.tyre-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgb(var(--tg));
-  margin-bottom: 20px;
-}
-.tyre-dot { width: 8px; height: 8px; background: rgb(var(--tg)); display: inline-block; }
-.tyre-accent { color: rgb(var(--tg)); }
-.tyre-cta {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 26px;
-  font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  color: #0b100a; background: rgb(var(--tg));
-  border-radius: 2px;
-  transition: background-color 200ms ease, transform 200ms ease;
-}
-.tyre-cta:hover { background: #7ad54a; }
-.tyre-cta span { transition: transform 250ms ease; }
-.tyre-cta:hover span { transform: translateX(5px); }
-
-.tyre-stage { position: relative; width: min(340px, 64vw); }
-.tyre-glow {
-  position: absolute; left: 50%; top: 52%;
-  width: 150%; aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(88, 176, 48, 0.38), rgba(88, 176, 48, 0.1) 55%, transparent 72%);
-  filter: blur(6px);
-  animation: tyre-breathe 6s ease-in-out infinite alternate;
-}
-@keyframes tyre-breathe { from { opacity: 0.7; transform: translate(-50%, -50%) scale(0.94); } to { opacity: 1; transform: translate(-50%, -50%) scale(1.04); } }
-.tyre-bottle { position: relative; z-index: 1; display: block; width: 100%; }
-.tyre-bottle img { display: block; width: 100%; height: auto; animation: tyre-float 7s ease-in-out infinite alternate; filter: drop-shadow(0 28px 36px rgba(0, 0, 0, 0.55)); }
-@keyframes tyre-float { from { transform: translate3d(0, 6px, 0) rotate(-1.2deg); } to { transform: translate3d(0, -12px, 0) rotate(1.2deg); } }
-.tyre-bg { position: absolute; inset: 0; pointer-events: none; }
-.tyre-ring {
-  position: absolute; right: -8%; top: 50%;
-  border-radius: 9999px;
-  border: 1px solid rgba(88, 176, 48, 0.16);
-  transform: translateY(-50%);
-}
-.tyre-ring-1 { width: 520px; height: 520px; }
-.tyre-ring-2 { width: 760px; height: 760px; border-color: rgba(88, 176, 48, 0.1); }
-.tyre-ring-3 { width: 1020px; height: 1020px; border-color: rgba(88, 176, 48, 0.06); }
-@media (max-width: 1023.98px) { .tyre-ring-1 { right: 50%; margin-right: -260px; } .tyre-ring-2, .tyre-ring-3 { display: none; } }
-
 /* Staggered cards inside the scenes. */
 .has-scenes .scene-apps .grid > *,
 .has-scenes .scene-contact .grid > * { will-change: transform, opacity; }
@@ -212,49 +159,3 @@ html[data-motion="off"].has-scenes [data-r] { opacity: 1 !important; transform: 
 html.pin-on .scene-products .pc-controls { margin-top: 14px; }
 html.pin-on .scene-products [data-r].mb-6 { margin-bottom: 14px; }
 .scene > .max-w-7xl, .scene > div > .max-w-7xl { width: 100%; }
-
-/* ---- Tyre Sealant page: colours taken from the product's own label ----------
-   The bottle is black with a green label, so this one page swaps the blue
-   accent for that green and the navy for near-black. The two tokens are the
-   only things changed; every utility that reads them follows. */
-body.theme-tyre { --c-logo-blue: 58 134 28; --c-deep-navy: 15 22 15; }
-html.dark body.theme-tyre { --c-logo-blue: 118 196 66; --c-deep-navy: 12 18 12; }
-.tyre-frame {
-  background: radial-gradient(90% 80% at 50% 55%, #1b3314 0%, #0e170c 60%, #080c07 100%);
-  border: 1px solid rgb(var(--c-hairline));
-}
-.tyre-frame-glow {
-  position: absolute; left: 50%; top: 54%;
-  width: 90%; aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(88, 176, 48, 0.4), rgba(88, 176, 48, 0.08) 60%, transparent 74%);
-  animation: tyre-breathe 6s ease-in-out infinite alternate;
-}
-.tyre-frame-bottle { position: relative; z-index: 1; height: 88%; width: auto; }
-.tyre-frame-bottle img { height: 100%; width: auto; display: block; filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.55)); animation: tyre-float 7s ease-in-out infinite alternate; }
-@media (prefers-reduced-motion: reduce) { .tyre-frame-glow, .tyre-frame-bottle img { animation: none; } }
-
-/* ---- Tyre Sealant: label features and the rotating badge ------------------- */
-.tyre-feats { list-style: none; margin: 0 0 32px; padding: 0; display: grid; grid-template-columns: 1fr; gap: 10px 28px; max-width: 560px; }
-@media (min-width: 520px) { .tyre-feats { grid-template-columns: 1fr 1fr; } }
-.tyre-feats li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255, 255, 255, 0.86); }
-.tyre-feats li svg { flex: none; color: rgb(88 176 48); }
-.tyre-feats-light li { color: rgb(var(--c-body-text)); }
-.tyre-feats-light li svg { color: rgb(var(--c-logo-blue)); }
-.has-scenes .scene-tyre .tyre-feats li { opacity: 0; transform: translate3d(-14px, 0, 0); }
-.has-scenes .scene-tyre.is-in .tyre-feats li { opacity: 1; transform: none; transition: opacity 600ms ease calc(500ms + var(--d, 0ms)), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(500ms + var(--d, 0ms)); }
-
-.tyre-badge {
-  position: absolute; z-index: 2;
-  right: -34px; top: 6%;
-  width: 112px; height: 112px;
-  color: rgb(88 176 48);
-  background: rgba(8, 12, 7, 0.78);
-  border-radius: 9999px;
-}
-.tyre-badge-ring { transform-origin: 60px 60px; animation: tyre-spin 22s linear infinite; }
-@keyframes tyre-spin { to { transform: rotate(360deg); } }
-@media (max-width: 1023.98px) { .tyre-badge { right: -8px; top: 2%; width: 92px; height: 92px; } .tyre-badge svg { width: 92px; height: 92px; } }
-@media (prefers-reduced-motion: reduce) { .tyre-badge-ring { animation: none; } }
-.tyre-frame .tyre-badge { right: 12px; top: 12px; width: 92px; height: 92px; }
-.tyre-frame .tyre-badge svg { width: 92px; height: 92px; }

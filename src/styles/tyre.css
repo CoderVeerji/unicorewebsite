@@ -1,0 +1,119 @@
+/*
+ * Tyre Sealant: colours and layout taken from the client's banner
+ * (white ground, deep green headline, bright green second line, green ticks,
+ * dark green button and badge) and the two white TyreProtect bottles.
+ * Used by the homepage block and by the Tyre Sealant page.
+ *
+ *   --tg-dark   #064614   headline, button, badge
+ *   --tg        #3C9A0A   second headline line, ticks, accents
+ */
+:root { --tg-dark: 6 70 20; --tg: 60 154 10; }
+
+/* ---- The page: swap the blue accent for the green --------------------------- */
+body.theme-tyre { --c-logo-blue: 47 138 7; --c-deep-navy: 6 70 20; }
+html.dark body.theme-tyre { --c-logo-blue: 120 200 60; --c-deep-navy: 6 52 16; }
+
+/* ---- Shared pieces ------------------------------------------------------------- */
+.tyre-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgb(var(--tg-dark));
+  margin-bottom: 18px;
+}
+.tyre-dot { width: 9px; height: 9px; background: rgb(var(--tg)); display: inline-block; }
+.tyre-h2 {
+  margin: 0 0 22px;
+  font-weight: 800 !important; text-transform: uppercase; letter-spacing: -0.015em !important; line-height: 1.04;
+  font-size: clamp(2rem, 5.4vw, 4.2rem);
+  color: rgb(var(--tg-dark));
+}
+@media (min-width: 1024px) { .tyre-h2 { font-size: clamp(2.4rem, 4.4vw, 4.2rem); } }
+.tyre-h2 .tyre-accent { display: block; color: rgb(var(--tg)); font-style: normal; }
+.tyre-lead { margin: 0 0 24px; max-width: 34rem; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.65; color: rgb(var(--c-body-text)); }
+
+.tyre-feats { list-style: none; margin: 0 0 30px; padding: 0; display: grid; grid-template-columns: 1fr; gap: 12px 30px; max-width: 580px; }
+@media (min-width: 540px) { .tyre-feats { grid-template-columns: 1fr 1fr; } }
+.tyre-feats li { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: rgb(var(--c-heading-black)); }
+.tyre-feats li svg { flex: none; }
+.tyre-tick { color: rgb(var(--tg)); }
+.tyre-feats-light li { color: rgb(var(--c-body-text)); }
+
+.tyre-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 17px 30px;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #fff; background: rgb(var(--tg-dark));
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 220ms ease, transform 220ms ease;
+}
+.tyre-cta:hover { background: rgb(var(--tg)); }
+.tyre-cta span { transition: transform 280ms ease; }
+.tyre-cta:hover span { transform: translateX(6px); }
+
+.tyre-badge {
+  position: absolute; z-index: 2;
+  width: clamp(110px, 12vw, 150px); aspect-ratio: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  border-radius: 9999px;
+  background: rgb(var(--tg-dark));
+  color: #fff;
+  line-height: 1.1;
+  outline: 3px solid rgba(60, 154, 10, 0.18); outline-offset: 5px;
+}
+.tyre-badge small { font-size: clamp(8px, 0.9vw, 10.5px); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.92; }
+.tyre-badge strong { font-size: clamp(14px, 1.7vw, 20px); font-weight: 800; letter-spacing: -0.01em; color: #8FE04A; }
+.tyre-badge i { display: block; width: 26px; height: 2px; margin-top: 7px; background: rgba(143, 224, 74, 0.6); border-radius: 2px; }
+
+@keyframes tyre-float { from { transform: translate3d(0, 6px, 0); } to { transform: translate3d(0, -10px, 0); } }
+@keyframes tyre-breathe { from { opacity: 0.7; transform: translate(-50%, -50%) scale(0.95); } to { opacity: 1; transform: translate(-50%, -50%) scale(1.04); } }
+.tyre-bottle { position: relative; z-index: 1; display: block; width: 100%; }
+.tyre-bottle img { display: block; width: 100%; height: auto; animation: tyre-float 7s ease-in-out infinite alternate; }
+.tyre-glow {
+  position: absolute; left: 50%; top: 56%;
+  width: 150%; aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(110, 200, 60, 0.32), rgba(110, 200, 60, 0.1) 55%, transparent 74%);
+  animation: tyre-breathe 6s ease-in-out infinite alternate;
+}
+.tyre-ring { position: absolute; border-radius: 9999px; border: 1.5px solid rgba(60, 154, 10, 0.16); pointer-events: none; }
+
+/* ---- Homepage block ---------------------------------------------------------- */
+.scene-tyre {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(70% 90% at 80% 52%, rgba(190, 232, 160, 0.55) 0%, rgba(190, 232, 160, 0) 70%),
+    linear-gradient(180deg, rgb(var(--c-white)) 0%, rgb(var(--c-page-bg)) 100%);
+}
+.scene-tyre .tyre-bg { position: absolute; inset: 0; pointer-events: none; }
+.scene-tyre .tyre-ring { right: -6%; top: 50%; transform: translateY(-50%); }
+.tyre-ring-1 { width: 560px; height: 560px; }
+.tyre-ring-2 { width: 820px; height: 820px; border-color: rgba(60, 154, 10, 0.11); }
+.tyre-ring-3 { width: 1100px; height: 1100px; border-color: rgba(60, 154, 10, 0.07); }
+@media (max-width: 1023.98px) { .tyre-ring-1 { right: 50%; margin-right: -280px; } .tyre-ring-2, .tyre-ring-3 { display: none; } }
+.tyre-stage { position: relative; width: min(440px, 82vw, max(240px, calc((100svh - var(--hdr, 156px) - 120px) * 0.63))); }
+.scene-tyre .tyre-badge { right: -6%; top: -4%; }
+@media (max-width: 1023.98px) { .scene-tyre .tyre-badge { right: 0; top: 0; } }
+html.dark .scene-tyre { background: radial-gradient(70% 90% at 80% 52%, rgba(60, 120, 30, 0.35) 0%, transparent 70%), rgb(var(--c-page-bg)); }
+html.dark .tyre-h2 { color: #fff; }
+html.dark .tyre-eyebrow { color: #9fe36a; }
+html.dark .tyre-feats li { color: rgba(255, 255, 255, 0.9); }
+html.dark .tyre-cta { background: rgb(var(--tg)); }
+
+/* ---- Tyre Sealant page hero --------------------------------------------------- */
+.tyre-frame {
+  background: radial-gradient(85% 75% at 55% 55%, rgba(170, 224, 130, 0.5) 0%, rgba(170, 224, 130, 0) 70%), linear-gradient(180deg, #fbfdf9, #f1f5ee);
+  border: 1px solid rgb(var(--c-hairline));
+}
+html.dark .tyre-frame { background: radial-gradient(85% 75% at 55% 55%, rgba(80, 150, 40, 0.35), transparent 70%), rgb(var(--c-product-frame)); }
+.tyre-frame-bottle { position: relative; z-index: 1; height: 86%; width: auto; }
+.tyre-frame-bottle img { height: 100%; width: auto; display: block; animation: tyre-float 7s ease-in-out infinite alternate; }
+.tyre-frame-glow { position: absolute; left: 50%; top: 56%; width: 95%; aspect-ratio: 1; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(110, 200, 60, 0.3), rgba(110, 200, 60, 0.08) 60%, transparent 74%); animation: tyre-breathe 6s ease-in-out infinite alternate; }
+.tyre-frame .tyre-badge { right: 12px; top: 12px; width: 104px; }
+.tyre-frame .tyre-badge strong { font-size: 14px; }
+
+/* Entrance of the feature ticks (homepage block). */
+.has-scenes .scene-tyre .tyre-feats li { opacity: 0; transform: translate3d(-14px, 0, 0); }
+.has-scenes .scene-tyre.is-in .tyre-feats li { opacity: 1; transform: none; transition: opacity 600ms ease calc(500ms + var(--d, 0ms)), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(500ms + var(--d, 0ms)); }
+
+@media (prefers-reduced-motion: reduce) { .tyre-glow, .tyre-bottle img, .tyre-frame-glow, .tyre-frame-bottle img { animation: none; } }
