@@ -97,10 +97,69 @@ function stampAlternates(html, page, base) {
   return html.replace(/<\/head>/i, `${block}</head>`);
 }
 
-export default function i18n({ base = '' } = {}) {
+/*
+ * hreflang needs ABSOLUTE URLs, so the alternates are only written when the
+ * site's address is known. Netlify provides it as $URL and Vercel as $VERCEL_PROJECT_PRODUCTION_URL at build time; set
+ * SITE_URL to override (e.g. SITE_URL=https://www.unicore.in npm run build).
+ * Without either, the block is left out rather than emitted as relative
+ * paths, which search engines reject.
+ */
+const VERCEL = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : '';
+const SITE_BASE = (process.env.SITE_URL || process.env.URL || VERCEL || '').replace(/\/+$/, '');
+
+export default function i18n({ base = SITE_BASE } = {}) {
   return {
     name: 'unicore-i18n',
     hooks: {
+      /*
+       * Dev only. The copies above are made after a build, so without this
+       * every language link 404s under `npm run dev`. This middleware does the
+       * same job on the fly: ask the dev server for the English page, run the
+       * same translate/stamp steps over it, send that back.
+       */
+      'astro:server:setup': ({ server, logger }) => {
+        const i18nDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'i18n');
+        const codes = new Set(TRANSLATED.map((l) => l.code));
+        // Netlify Forms answers a form POST with a redirect to the form's
+        // `action` page. The dev server has no such handler and would 404 or
+        // 405, so a form looks dead locally. Do the same redirect here.
+        server.middlewares.use((req, res, next) => {
+          if (req.method === 'POST' && /thank-you(\.html)?$/.test((req.url || '').split('?')[0])) {
+            req.resume();
+            req.on('end', () => {
+              res.statusCode = 303;
+              res.setHeader('location', (req.url || '').split('?')[0].replace(/\.html$/, '') + '.html');
+              res.end();
+            });
+            return;
+          }
+          next();
+        });
+        server.middlewares.use(async (req, res, next) => {
+          const m = /^\/([a-z]{2})(\/[^?#]*)?(\?.*)?$/.exec(req.url || '');
+          if (!m || !codes.has(m[1])) return next();
+          try {
+            const locale = TRANSLATED.find((l) => l.code === m[1]);
+            const dict = loadDictionary(i18nDir, locale.code) || {};
+            let page = (m[2] || '/').replace(/^\/+/, '');
+            if (page === '' || page === 'index') page = 'index.html';
+            const addr = server.httpServer && server.httpServer.address();
+            const port = addr && typeof addr === 'object' ? addr.port : 4321;
+            const r = await fetch(`http://localhost:${port}/${page}`);
+            if (!r.ok) return next();
+            let html = await r.text();
+            html = translate(html, dict, { seen: 0, hit: 0, missing: new Set() });
+            html = stampLang(html, locale);
+            html = stampPicker(html, locale);
+            res.statusCode = 200;
+            res.setHeader('content-type', 'text/html; charset=utf-8');
+            res.end(html);
+          } catch (e) {
+            logger.warn(`dev i18n: ${e.message}`);
+            next();
+          }
+        });
+      },
       'astro:build:done': async ({ dir, logger }) => {
         const outDir = fileURLToPath(dir);
         const i18nDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'i18n');
@@ -114,7 +173,7 @@ export default function i18n({ base = '' } = {}) {
         for (const page of pages) {
           const file = join(outDir, page);
           let html = readFileSync(file, 'utf8');
-          html = stampAlternates(html, page, base);
+          if (base) html = stampAlternates(html, page, base);
           html = stampPicker(html, english);
           writeFileSync(file, html, 'utf8');
         }

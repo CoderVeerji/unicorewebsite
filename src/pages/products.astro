@@ -28,7 +28,7 @@ import Base from '../layouts/Base.astro';
 </div>
 </section>
 <!-- Mobile / Tablet Index Rail (Horizontal Scrollable Strip) -->
-<div class="lg:hidden w-full bg-white border-b border-hairline sticky top-[116px] z-40 overflow-x-auto py-3 px-4 sm:px-6">
+<div class="lg:hidden w-full max-w-full min-w-0 bg-white border-b border-hairline sticky top-[116px] z-40 overflow-x-auto py-3 px-4 sm:px-6">
 <div class="flex items-center space-x-6 whitespace-nowrap min-w-max text-xs font-semibold">
 <a class="text-logo-blue border-b-2 border-logo-blue pb-1 flex items-center gap-1.5" href="#engine-oils">
 <span class="font-serif text-lg">01</span> Engine Oils
@@ -564,7 +564,7 @@ import Base from '../layouts/Base.astro';
           </p>
 </div>
 <div>
-<a class="bg-logo-blue hover:bg-white hover:text-deep-navy border border-white/20 text-white text-xs font-semibold uppercase tracking-wider px-6 py-3 rounded-[2px] transition-colors inline-block text-center whitespace-nowrap" data-path="contact" href="contact.html">
+<a class="bg-logo-blue hover:bg-white hover:text-deep-navy border border-white/20 text-white text-xs font-semibold uppercase tracking-wider px-6 py-3 rounded-[2px] transition-colors inline-block text-center sm:whitespace-nowrap max-w-full" data-path="contact" href="contact.html">
             CONTACT SALES &amp; DISTRIBUTION →
           </a>
 </div>

@@ -15,7 +15,7 @@
  * otherwise one is created.
  */
 
-const PIXEL_BUDGET = 2.4e6;
+const PIXEL_BUDGET = 1.2e6;
 // The field is scaled in "world units" off the SHORTER side of the container.
 // The original keyed this to height alone, which is fine for a wide hero but
 // blows the particles up on a tall, narrow (mobile) one.
@@ -338,7 +338,7 @@ const mount = (container, canvas, s, firstRun, onContextRestored) => {
     antialias: false,
     depth: false,
     stencil: false,
-    powerPreference: 'high-performance',
+    powerPreference: 'default',   // not 'high-performance': that wakes the discrete GPU for a decorative effect
   });
   const shader = gl ? link(gl) : null;
   if (!gl || !shader) return null;
@@ -560,9 +560,16 @@ const mount = (container, canvas, s, firstRun, onContextRestored) => {
     }
   };
 
+  let lastDraw = 0;
   const frame = (now) => {
     raf = 0;
     if (lost || !field) return;
+    // Cap at ~30fps: the field is slow, soft motion and does not need 60.
+    if (now - lastDraw < 30) {
+      if (visible && pageVisible) raf = requestAnimationFrame(frame);
+      return;
+    }
+    lastDraw = now;
     updatePalette();
     const dt = clamp((now - last) / 1000 || 0, 0, 1 / 30);
     last = Math.max(last, now);

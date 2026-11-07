@@ -1,0 +1,134 @@
+/*
+ * Product carousel (homepage). Scroll-snap track, so touch swipe, trackpad
+ * and keyboard all work natively; src/scripts/carousel.js adds the buttons,
+ * mouse-drag, the progress bar, the staggered entrance and a gentle parallax
+ * on each card's drawing. Animates opacity and transform only.
+ */
+.pc { position: relative; }
+.pc-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 2px 2px 8px;
+  /* let the cards bleed to the viewport edge on small screens */
+  margin-inline: -16px;
+  padding-inline: 16px;
+  scroll-padding-inline: 16px;
+  outline-offset: 4px;
+}
+@media (min-width: 640px)  { .pc-track { margin-inline: -24px; padding-inline: 24px; scroll-padding-inline: 24px; } }
+@media (min-width: 1024px) { .pc-track { margin-inline: 0; padding-inline: 2px; scroll-padding-inline: 2px; } }
+.pc-track.is-dragging { scroll-snap-type: none; scroll-behavior: auto; cursor: grabbing; user-select: none; }
+.pc-track.is-dragging .pc-link { pointer-events: none; }
+
+.pc-card {
+  position: relative;
+  flex: 0 0 min(84vw, 360px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: rgb(var(--c-white));
+  border: 1px solid rgb(var(--c-hairline));
+  transition: border-color 250ms ease, background-color 250ms ease, transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.pc-card:hover { border-color: rgb(var(--c-logo-blue)); background-color: rgb(var(--c-page-bg)); transform: translate3d(0, -6px, 0); }
+.pc-link { position: absolute; inset: 0; z-index: 2; }
+.pc-link:focus-visible { outline: 2px solid rgb(var(--c-logo-blue)); outline-offset: 3px; }
+
+.pc-media {
+  position: relative;
+  aspect-ratio: 4 / 4.2;
+  margin-bottom: 28px;
+  overflow: hidden;
+  background: rgb(var(--c-product-frame));
+  border: 1px solid rgb(var(--c-hairline));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--c-logo-blue));
+}
+.pc-num {
+  position: absolute;
+  top: 14px; left: 16px;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1;
+  color: rgb(var(--c-light-text));
+}
+.pc-icon {
+  position: relative;
+  z-index: 1;
+  width: 46%;
+  height: auto;
+  transform: translate3d(var(--px, 0px), 0, 0);
+  transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.pc-card:hover .pc-icon { transform: translate3d(var(--px, 0px), -4px, 0) scale(1.06); }
+/* Concentric rings behind the drawing, expanding on hover like a ripple in oil. */
+.pc-rings {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 62%; aspect-ratio: 1;
+  margin: -31% 0 0 -31%;
+  border-radius: 9999px;
+  border: 1px solid rgb(var(--c-structural-line));
+  opacity: 0.7;
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 700ms ease;
+}
+.pc-rings::before, .pc-rings::after {
+  content: '';
+  position: absolute;
+  inset: -18%;
+  border-radius: inherit;
+  border: 1px solid rgb(var(--c-hairline));
+}
+.pc-rings::after { inset: -40%; opacity: 0.8; }
+.pc-card:hover .pc-rings { transform: scale(1.12); opacity: 1; }
+
+.pc-foot { margin-top: auto; padding-top: 16px; border-top: 1px solid rgb(var(--c-hairline)); }
+.pc-arrow { display: inline-block; transition: transform 250ms ease; }
+.pc-card:hover .pc-arrow { transform: translate3d(5px, 0, 0); }
+
+.pc-controls { display: flex; align-items: center; gap: 24px; margin-top: 28px; }
+.pc-progress { flex: 1; height: 1px; background: rgb(var(--c-structural-line)); position: relative; overflow: hidden; }
+.pc-progress-bar {
+  position: absolute; inset: 0;
+  background: rgb(var(--c-logo-blue));
+  transform-origin: left center;
+  transform: scaleX(var(--pc-progress, 0.2));
+  transition: transform 150ms linear;
+  height: 3px; top: -1px;
+}
+.pc-btn {
+  width: 44px; height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid rgb(var(--c-structural-line));
+  border-radius: 9999px;
+  background: rgb(var(--c-white));
+  color: rgb(var(--c-heading-black));
+  font-size: 16px;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, opacity 200ms ease;
+}
+.pc-btn:hover:not(:disabled) { background: rgb(var(--c-logo-blue)); border-color: rgb(var(--c-logo-blue)); color: rgb(255 255 255); }
+.pc-btn:disabled { opacity: 0.35; cursor: default; }
+
+/* Entrance: cards rise in one after another when the carousel scrolls into view. */
+.pc.is-armed .pc-card { opacity: 0; transform: translate3d(0, 28px, 0); }
+.pc.is-armed.is-in .pc-card {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms ease calc(var(--i) * 110ms), transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i) * 110ms),
+              border-color 250ms ease, background-color 250ms ease;
+}
+.pc.is-armed.is-in .pc-card:hover { transform: translate3d(0, -6px, 0); transition-delay: 0s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-track { scroll-behavior: auto; }
+  .pc.is-armed .pc-card { opacity: 1; transform: none; }
+  .pc-card, .pc-icon, .pc-rings { transition: none; }
+}

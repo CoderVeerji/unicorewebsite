@@ -81,7 +81,7 @@ All `data-path` attributes are preserved.
 | `dealership` | Dealership network and application |
 | `contact` | Contact / enquiry |
 
-Footer links for Safety Data Sheets, Terms of Trade and Privacy Policy stay `href="#"`: those pages do not exist yet.
+Footer links for Safety Data Sheets, Terms of Trade and Privacy Policy now point to `safety-data-sheets`, `terms-of-trade` and `privacy-policy`: short placeholder pages marked `[to be confirmed by Unicore]` until the client supplies the real text.
 
 ## Design system
 
@@ -218,17 +218,14 @@ Type size, tracking and the light-text colour are untouched. One content change 
 
 Hovering pauses it. Under reduced motion it freezes, the duplicate is hidden and the list re-centres, i.e. it looks exactly like the static strip it replaced.
 
-### The custom cursor, and how to disable it
+### Removed: custom cursor
+The custom cursor (ring and dot) was removed on request. Native cursor everywhere.
 
-Pick whichever fits:
+### Welcome intro
+`CurtainReveal.astro` + the "Welcome intro" block in `motion.css`. Plays on every full load and refresh, not when clicking between pages (about 2.8s): the UNICORE wordmark fills from the bottom while a counter runs 00 to 100, then the navy layer lifts away. Hero copy is delayed by `--intro` so it animates in after it. Hidden under reduced motion.
 
-1. **Remove it entirely** — delete the `../styles/cursor.css` import and the `../scripts/cursor.js` import from `src/layouts/Base.astro`. That is the clean off switch.
-2. **Per visitor** — it never initialises under `prefers-reduced-motion: reduce`.
-3. **Sitewide with motion** — `data-motion="off"` on `<html>` disables it along with everything else.
-
-It only starts on a device that passes `matchMedia('(hover: hover) and (pointer: fine)')`, so it never runs on touch. The native cursor is hidden *only* once the script is confirmed running (it adds `cursor-active` to `<html>`), and `cursor.css` additionally forces the native cursor back under any touch or reduced-motion media query — so a touch device, a failed script or a torn-down page always keeps a real cursor. Nothing is ever left uncursored.
-
-Because the site uses view transitions, page scripts must run on `astro:page-load` (the drawer, scrollspy and motion scripts do).
+### Vehicle brand strip and product carousel (homepage)
+The viscosity-grade strip was replaced by a marquee of vehicle/machinery makes, set as text wordmarks (not logos, which are trademarks). **Confirm with Unicore which makes may be named.** The product range is now a scroll-snap carousel (`carousel.css`, `carousel.js`) with line icons in place of the photo placeholders.
 
 ### The hero toran
 
@@ -330,3 +327,30 @@ Done: `products` rebuilt; header, footer and script shared; scroll and hover ani
 1. Fill in content when the client supplies it.
 2. Add the pages the footer points at (Safety Data Sheets, Terms of Trade, Privacy Policy).
 3. Replace the photograph placeholders with real photography.
+
+
+## Performance and dev notes (latest pass)
+
+- **Fonts are self-hosted** via `@fontsource/inter` and `@fontsource/instrument-serif` (Latin subsets), imported in `Base.astro` and preloaded. No requests to Google.
+- **Particle field**: 700 particles (260 on phones), capped at about 30fps, device-pixel-ratio capped at 1.25, default GPU preference. The toran dots no longer animate (their keyframes used custom properties, which forced a style recalculation each frame).
+- **Welcome intro** plays on every full load or refresh (about 2.8s) but not when moving between pages by clicking a link. Timings are in `motion.css`.
+- **Links are prefetched on hover/tap** (`prefetch` in `astro.config.mjs`), so a click swaps in an already-fetched page.
+- **Header switches to the burger menu below 1280px** (was 1024px). The desktop nav does not fit beside the language picker and Enquiry button in less space, least of all in Tamil or Kannada.
+- **Dev server** (`npm run dev`) now serves the language copies (`/hi/...`) and answers form POSTs with a redirect to the thank-you page, like Netlify does. The Astro dev toolbar is disabled.
+- **hreflang alternates** are only written when the site address is known: Netlify provides `$URL` at build time; otherwise set `SITE_URL`. They must be absolute URLs.
+- Forms use Netlify Forms (`data-netlify`). They only store submissions once deployed to Netlify.
+
+## Homepage scenes, pinned product row, logos, Tyre Sealant theme
+
+- **Scenes** (`src/styles/scenes.css`, `src/scripts/scenes.js`): the homepage is a set of full-screen blocks (Home, Products, Tyre Sealant, Applications, Quality, Dealership, Contact). Scrolling snaps gently from one to the next (`scroll-snap-type: y proximity`), each block animates in as it arrives, and a dot rail on the right (desktop, 1100px and up) shows where you are and jumps to any block. To add a block, give a `<section>` the classes `scene` and `data-scene="Name"`. Everything is off under reduced motion.
+- **Pinned product row** (`carousel.js`, `setupPinned`): the Products block sticks under the header and scrolling down slides the cards sideways, with a slight tilt/dim on the cards near the edges. Prev/next buttons scroll the page to the next card. Without JavaScript, or under reduced motion, it is a normal swipeable row.
+- **Brand logos** (`public/logos/*.svg`, list in `index.astro`): Tata, Mahindra, Honda, Hyundai, Toyota, Kia, JCB, John Deere, Volvo, Scania (Simple Icons) and Hero, Bajaj, Royal Enfield, Maruti Suzuki (Wikimedia Commons). Shown grey, in colour on hover. They are trademarks of their owners: **confirm with Unicore which makes may appear**. Still to add when the files are supplied: Ashok Leyland, Eicher, TVS, Swaraj, Sonalika, BharatBenz.
+- **Tyre Sealant**: the product photo is `src/assets/tyreprotect-bottle.png` (408x612: ask for a larger original). The Tyre Sealant page (`body.theme-tyre` in `scenes.css`) swaps the blue accent for the label's green and the navy for near-black; only those two colour tokens change. The homepage Tyre Sealant block is dark with the same green.
+
+## Smooth scroll, mobile menu, Diwali strip
+
+- **Smooth scrolling** uses Lenis (`src/scripts/smooth.js`): wheel and trackpad glide, touch stays native. CSS scroll-snap was removed (it fights smooth scrolling). Scripts that need to scroll call `window.unicoreScrollTo(y)`. Off under reduced motion.
+- **Mobile menu** (`MobileDrawer.astro`, `menu.css`): two-line round button that turns into a cross, and a navy full-screen sheet that opens as a growing circle with the links rising in one by one. Open state is `data-open` on `#mobile-menu-drawer`. Shown below 1280px.
+- **Diwali strip and toran** (`AnnouncementStrip.astro`, `HeroToran.astro`, `festive.css`): gold on navy, with a "Happy Diwali" pill, a twinkling star and a countdown. The toran lamps are gold with a lit flame. Both retire with the announcement window in `src/config/announcement.js`.
+- **Touches** (`polish.js`, `polish.css`): reading-progress line, header turns slightly translucent after scrolling, nav underline, button sweep on hover, `data-parallax` on the tyre bottle.
+- **Tyre Sealant label points** shown on the home block and the Tyre Sealant page are taken from the bottle's own label ("Prevents & repairs", "Seals instantly for two years", "Stops slow leaks", "Safe & easy", "Environmentally friendly", 500 ml). **Confirm with Unicore that each of these may be claimed on the site.**

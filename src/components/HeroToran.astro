@@ -47,8 +47,8 @@ if (show) {
     dots.push({
       left: +x.toFixed(2),
       size: 3 + Math.round(r * 3),                       // 3px – 6px
-      colour: rand() > 0.5 ? 'rgb(var(--c-logo-blue))' : 'rgb(var(--c-deep-navy))',
-      opacity: +(0.15 + rand() * 0.25).toFixed(3),       // 0.15 – 0.40
+      colour: rand() > 0.5 ? '#E8B04A' : '#F2C86B',
+      opacity: +(0.45 + rand() * 0.4).toFixed(3),        // 0.45 – 0.85
       delay: +(-(rand() * 4)).toFixed(2),                // offset so the line breathes
       drop: 3 + Math.round(rand() * 5),                  // how far it hangs below the line
     });
@@ -63,7 +63,7 @@ if (show) {
       left: +(base + (rand() - 0.5) * 5).toFixed(2),
       thread: 26 + Math.round(rand() * 42),              // 26px – 68px of thread
       size: 16 + Math.round(rand() * 8),                 // bowl width 16px – 24px
-      opacity: +(0.2 + rand() * 0.22).toFixed(3),        // 0.20 – 0.42
+      opacity: +(0.8 + rand() * 0.2).toFixed(3),         // 0.80 – 1.00
       sway: +(5.5 + rand() * 3.5).toFixed(2),            // 5.5s – 9s per sway
       delay: +(-(rand() * 6)).toFixed(2),
     });

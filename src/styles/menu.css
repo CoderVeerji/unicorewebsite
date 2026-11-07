@@ -1,0 +1,128 @@
+/*
+ * Mobile menu: the two-line button and the full-screen sheet it opens.
+ * Markup: Header.astro (button) and MobileDrawer.astro (sheet).
+ * Only opacity, transform and clip-path are animated.
+ */
+
+/* ---- Button ----------------------------------------------------------------
+   A dark round button with two lines of different lengths. The short one
+   stretches on hover; opening turns both into a cross. */
+.menu-btn {
+  position: relative;
+  flex: none;
+  width: 46px; height: 46px;
+  border-radius: 9999px;
+  border: 0;
+  background: rgb(var(--c-heading-black));
+  color: rgb(var(--c-page-bg));
+  cursor: pointer;
+  transition: background-color 350ms ease, transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.menu-btn:hover { transform: scale(1.06); }
+.menu-btn:active { transform: scale(0.94); }
+.menu-btn:focus-visible { outline: 2px solid rgb(var(--c-logo-blue)); outline-offset: 3px; }
+.menu-btn.is-open { background: rgb(var(--c-logo-blue)); color: #fff; }
+.menu-line {
+  position: absolute;
+  left: 50%; top: 50%;
+  height: 1.5px;
+  margin-left: -9px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 450ms cubic-bezier(0.7, 0, 0.2, 1), width 300ms ease;
+}
+.menu-line-1 { width: 18px; transform: translate3d(0, -4px, 0); }
+.menu-line-2 { width: 11px; transform: translate3d(7px, 3px, 0); }
+.menu-btn:hover .menu-line-2 { width: 18px; transform: translate3d(0, 3px, 0); }
+.menu-btn.is-open .menu-line-1 { transform: translate3d(0, 0, 0) rotate(45deg); }
+.menu-btn.is-open .menu-line-2,
+.menu-btn.is-open:hover .menu-line-2 { width: 18px; transform: translate3d(0, 0, 0) rotate(-45deg); }
+
+/* ---- Sheet -------------------------------------------------------------------- */
+.menu-drawer {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  top: var(--hdr, 116px);
+  z-index: 40;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: radial-gradient(120% 80% at 100% 0%, #1B4FA0 0%, #143A78 38%, #0c2655 100%);
+  color: #fff;
+  visibility: hidden;
+  clip-path: circle(0% at calc(100% - 40px) 0);
+  transition: clip-path 800ms cubic-bezier(0.77, 0, 0.18, 1), visibility 0s linear 800ms;
+}
+.menu-drawer[data-open="true"] {
+  visibility: visible;
+  clip-path: circle(150% at calc(100% - 40px) 0);
+  transition: clip-path 900ms cubic-bezier(0.77, 0, 0.18, 1), visibility 0s;
+}
+.menu-drawer:focus { outline: none; }
+/* Cream sheet in dark mode would glare; keep it the deep navy either way. */
+.menu-inner { position: relative; z-index: 1; min-height: 100%; padding: 24px 24px 32px; display: flex; flex-direction: column; }
+.menu-list { list-style: none; margin: 0; padding: 0; flex: 1; }
+.menu-rings { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.menu-rings span { position: absolute; right: -30%; top: 12%; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.08); }
+.menu-rings span:nth-child(1) { width: 380px; height: 380px; }
+.menu-rings span:nth-child(2) { width: 560px; height: 560px; right: -50%; top: 0; }
+.menu-rings span:nth-child(3) { width: 760px; height: 760px; right: -80%; top: -10%; border-color: rgba(255, 255, 255, 0.05); }
+
+.menu-item, .menu-foot {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.menu-drawer[data-open="true"] .menu-item,
+.menu-drawer[data-open="true"] .menu-foot {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms ease calc(280ms + var(--i) * 65ms), transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(280ms + var(--i) * 65ms);
+}
+.menu-item { border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
+.menu-link {
+  width: 100%;
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 16px 0;
+  color: #fff;
+  background: none; border: 0; text-align: left; cursor: pointer;
+  text-decoration: none;
+}
+.menu-num { flex: none; width: 26px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: rgba(255, 255, 255, 0.5); font-variant-numeric: tabular-nums; }
+.menu-text { flex: 1; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(30px, 8.5vw, 44px); line-height: 1.05; transition: transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1), color 250ms ease; }
+.menu-arrow { flex: none; font-size: 20px; color: rgba(255, 255, 255, 0.55); transition: transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1), color 250ms ease; }
+.menu-link:hover .menu-text, .menu-link:focus-visible .menu-text { transform: translateX(8px); }
+.menu-link:hover .menu-arrow { transform: translateX(4px); color: #fff; }
+.menu-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.menu-link.is-active .menu-text { font-style: italic; color: #9DBDF5; }
+.menu-link.is-active .menu-num { color: #9DBDF5; }
+.menu-link-btn .menu-arrow { font-size: 26px; font-weight: 300; line-height: 1; }
+.menu-link-btn.is-open .menu-arrow { transform: rotate(45deg); color: #fff; }
+
+/* Products accordion: grid-rows trick, so it animates to its real height. */
+.menu-sub { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 450ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.menu-sub[data-open="true"] { grid-template-rows: 1fr; }
+.menu-sub-inner { overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; padding-left: 42px; }
+.menu-sub[data-open="true"] .menu-sub-inner { padding-bottom: 16px; }
+.menu-sub-link { padding: 8px 0; font-size: 14px; color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: color 200ms ease, transform 250ms ease; }
+.menu-sub-link:hover { color: #fff; transform: translateX(4px); }
+.menu-sub-all { grid-column: 1 / -1; padding-top: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #9DBDF5; text-decoration: none; }
+
+.menu-foot { padding-top: 28px; }
+.menu-cta {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 18px 20px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #143A78; background: #fff; border-radius: 2px; text-decoration: none;
+  transition: transform 250ms ease, background-color 200ms ease;
+}
+.menu-cta:active { transform: scale(0.98); }
+.menu-tag { margin: 18px 0 0; text-align: center; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.45); }
+
+/* Reduced motion: appear and disappear, no travelling circle. */
+@media (prefers-reduced-motion: reduce) {
+  .menu-drawer, .menu-drawer[data-open="true"] { clip-path: none; transition: none; }
+  .menu-item, .menu-foot { opacity: 1; transform: none; transition: none; }
+  .menu-line, .menu-btn { transition: none; }
+}
+html[data-motion="off"] .menu-drawer { clip-path: none; transition: none; }
+html[data-motion="off"] .menu-item, html[data-motion="off"] .menu-foot { opacity: 1; transform: none; transition: none; }

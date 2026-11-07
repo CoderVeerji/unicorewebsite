@@ -22,9 +22,23 @@ import Footer from '../components/Footer.astro';
 import AnnouncementStrip from '../components/AnnouncementStrip.astro';
 import CurtainReveal from '../components/CurtainReveal.astro';
 import { STORAGE_KEY, isAnnouncementActive } from '../config/announcement.js';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/latin-700.css';
+import '@fontsource/instrument-serif/latin-400.css';
+import '@fontsource/instrument-serif/latin-400-italic.css';
+import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
+import inter600 from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
+import serif400 from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
+import serif400i from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
 import '../styles/global.css';
 import '../styles/motion.css';
-import '../styles/cursor.css';
+import '../styles/carousel.css';
+import '../styles/scenes.css';
+import '../styles/menu.css';
+import '../styles/festive.css';
+import '../styles/polish.css';
 
 // Build-time: see src/config/announcement.js to change the window.
 const stripActive = isAnnouncementActive();
@@ -46,18 +60,15 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     {/*
-      Deliberately render-blocking, and measured both ways.
-      Loading it asynchronously does cut the blocking time, but the text then
-      paints in the fallback face and reflows when the webfont lands: mobile
-      CLS went from 0.04 to 0.17 while LCP barely moved (2.45s -> 2.52s),
-      because the LCP element is text that waits for the font either way.
-      Blocking is the better trade here. Revisit by self-hosting the two
-      families with size-adjust metrics, which removes the swap entirely.
+      Fonts are self-hosted (@fontsource), bundled by Astro: no connection to
+      Google, no render-blocking third-party stylesheet. The three faces used
+      above the fold are preloaded; display:swap comes from fontsource.
     */}
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="font" type="font/woff2" href={inter400} crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={inter600} crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={serif400} crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={serif400i} crossorigin="anonymous" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
     <ClientRouter />
@@ -84,18 +95,6 @@ const {
         if (dark) document.documentElement.classList.add('dark');
       } catch (e) { /* blocked storage: light, or whatever the OS says */ }
     </script>
-    <script is:inline>
-      // Curtain reveal: play it on the first page of a session only. The
-      // curtain itself is pure CSS and opens with or without this script;
-      // all this does is suppress a repeat. See CurtainReveal.astro.
-      try {
-        if (sessionStorage.getItem('unicore:curtain') === '1') {
-          document.documentElement.classList.add('curtain-seen');
-        } else {
-          sessionStorage.setItem('unicore:curtain', '1');
-        }
-      } catch (e) { /* blocked storage: the curtain simply plays again */ }
-    </script>
     <slot name="head" />
   </head>
   <body class={bodyClass}>
@@ -121,8 +120,11 @@ const {
       import '../scripts/lang.js';
       import '../scripts/products-menu.js';
       import '../scripts/motion.js';
-      import '../scripts/cursor.js';
       import '../scripts/accent-rotator.js';
+      import '../scripts/carousel.js';
+      import '../scripts/scenes.js';
+      import '../scripts/smooth.js';
+      import '../scripts/polish.js';
     </script>
   </body>
 </html>

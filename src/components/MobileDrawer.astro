@@ -1,95 +1,130 @@
 ---
 /**
- * Canonical full-screen mobile drawer plus its vanilla-JS toggle script.
+ * Full-screen mobile menu, opened by the two-line button in Header.astro.
  * Exists once; rendered by Base.astro. Takes the same props as Header.astro.
+ *
+ * It is a navy sheet that opens as a circle growing from the button's corner,
+ * then the links rise in one after another. The styles are in
+ * src/styles/menu.css; the open/close state is the data-open attribute.
  */
 const { active = '', enquiryHref = 'contact.html' } = Astro.props;
 
-const ON = 'mobile-link font-serif text-[26px] text-logo-blue border-b border-hairline pb-3';
-const OFF = 'mobile-link font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3';
-const link = (key) => (active === key ? ON : OFF);
-
-const productsBtn =
-  active === 'products'
-    ? 'w-full flex items-center justify-between font-serif text-[26px] text-logo-blue border-b border-hairline pb-3 text-left'
-    : 'w-full flex items-center justify-between font-serif text-[26px] text-heading-black hover:text-logo-blue border-b border-hairline pb-3 text-left';
-const sub = 'mobile-link text-sm font-medium text-body-text hover:text-logo-blue';
+const items = [
+  { key: 'home', label: 'Home', href: 'index.html' },
+  { key: 'products', label: 'Products', href: 'products.html', sub: true },
+  { key: 'tyre-sealant', label: 'Tyre Sealant', href: 'tyre-sealant.html' },
+  { key: 'applications', label: 'Applications', href: 'applications.html' },
+  { key: 'about', label: 'About', href: 'about.html' },
+  { key: 'dealership', label: 'Dealership', href: 'dealership.html' },
+  { key: 'contact', label: 'Contact', href: 'contact.html' },
+];
+const subs = [
+  ['products-engine-oils', 'Engine Oils', 'products.html#engine-oils'],
+  ['products-gear-oils', 'Gear Oils', 'products.html#gear-oils'],
+  ['products-coolants', 'Coolants', 'products.html#coolants'],
+  ['products-greases', 'Greases', 'products.html#greases'],
+  ['products-agricultural-oils', 'Agricultural Oils', 'products.html#agricultural-oils'],
+  ['products-industrial-hydraulic-oils', 'Industrial & Hydraulic Oils', 'products.html#industrial-hydraulic-oils'],
+];
+const num = (i) => String(i + 1).padStart(2, '0');
 ---
   <!-- MOBILE MENU DRAWER -->
-  <div class="fixed inset-0 top-[116px] bg-white z-40 hidden flex-col overflow-y-auto border-t border-hairline px-6 py-8" id="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1">
-    <div class="flex flex-col space-y-6">
-      <a class={link('home')} data-path="home" href="index.html">Home</a>
-      <div>
-        <button class={productsBtn} id="mobile-products-toggle" type="button">
-          <span class="">Products</span>
-          <span class="text-sm transition-transform duration-200" id="mobile-products-arrow">▼</span>
-        </button>
-        <div class="hidden flex-col pl-4 pt-4 space-y-3 bg-product-frame my-2 p-4 border-l border-logo-blue" id="mobile-products-menu">
-          <a class={sub} data-path="products-engine-oils" href="products.html#engine-oils">Engine Oils</a>
-          <a class={sub} data-path="products-gear-oils" href="products.html#gear-oils">Gear Oils</a>
-          <a class={sub} data-path="products-coolants" href="products.html#coolants">Coolants</a>
-          <a class={sub} data-path="products-greases" href="products.html#greases">Greases</a>
-          <a class={sub} data-path="products-agricultural-oils" href="products.html#agricultural-oils">Agricultural Oils</a>
-          <a class={sub} data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">Industrial &amp; Hydraulic Oils</a>
-          <a class="mobile-link text-xs tracking-wider uppercase text-logo-blue font-semibold pt-2 block" data-path="products" href="products.html">All products →</a>
-        </div>
-      </div>
-      <a class={link('tyre-sealant')} data-path="tyre-sealant" href="tyre-sealant.html">Tyre Sealant</a>
-      <a class={link('applications')} data-path="applications" href="applications.html">Applications</a>
-      <a class={link('about')} data-path="about" href="about.html">About</a>
-      <a class={link('dealership')} data-path="dealership" href="dealership.html">Dealership</a>
-      <a class={link('contact')} data-path="contact" href="contact.html">Contact</a>
-      <div class="pt-4">
-        <a class="mobile-link w-full inline-flex items-center justify-center bg-logo-blue text-white py-4 rounded-[2px] text-xs font-semibold uppercase tracking-wider text-center" data-path="enquiry" href={enquiryHref}>Enquiry Now</a>
+  <div class="menu-drawer" id="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1" data-open="false">
+    <div class="menu-rings" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="menu-inner">
+      <ol class="menu-list">
+        {items.map((it, i) => (
+          <li class="menu-item" style={`--i:${i}`}>
+            {it.sub ? (
+              <>
+                <button class:list={['menu-link', 'menu-link-btn', active === it.key && 'is-active']} id="mobile-products-toggle" type="button">
+                  <span class="menu-num">{num(i)}</span>
+                  <span class="menu-text">{it.label}</span>
+                  <span class="menu-arrow" id="mobile-products-arrow" aria-hidden="true">+</span>
+                </button>
+                <div class="menu-sub" id="mobile-products-menu" data-open="false">
+                  <div class="menu-sub-inner">
+                    {subs.map(([path, label, href]) => (
+                      <a class="mobile-link menu-sub-link" data-path={path} href={href}>{label}</a>
+                    ))}
+                    <a class="mobile-link menu-sub-all" data-path="products" href="products.html">All products <span aria-hidden="true">→</span></a>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <a class:list={['mobile-link', 'menu-link', active === it.key && 'is-active']} data-path={it.key} href={it.href} aria-current={active === it.key ? 'page' : undefined}>
+                <span class="menu-num">{num(i)}</span>
+                <span class="menu-text">{it.label}</span>
+                <span class="menu-arrow" aria-hidden="true">→</span>
+              </a>
+            )}
+          </li>
+        ))}
+      </ol>
+      <div class="menu-foot" style="--i:8">
+        <a class="mobile-link menu-cta" data-path="enquiry" href={enquiryHref}>Enquiry Now <span aria-hidden="true">→</span></a>
+        <p class="menu-tag">Industrial Lubricants · PAN India</p>
       </div>
     </div>
   </div>
 
 <script>
-  // Drawer script. Runs on first load and after every Astro view-transition
-  // navigation (astro:page-load), because the DOM is swapped on navigation.
+  // Runs on first load and after every Astro view-transition navigation
+  // (astro:page-load), because the DOM is swapped on navigation.
   function initDrawer() {
     const toggleBtn = document.getElementById('mobile-nav-toggle');
     const drawer = document.getElementById('mobile-menu-drawer');
-    const burgerIcon = document.getElementById('mobile-burger-icon');
-    const closeIcon = document.getElementById('mobile-close-icon');
     const productsToggle = document.getElementById('mobile-products-toggle');
     const productsMenu = document.getElementById('mobile-products-menu');
-    const productsArrow = document.getElementById('mobile-products-arrow');
-    if (!drawer || !burgerIcon || !closeIcon) return;
+    if (!drawer || !toggleBtn) return;
 
     const FOCUSABLE = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
+    const isOpen = () => drawer.dataset.open === 'true';
 
-    function setDrawer(open) {
-      if (open) {
-        drawer.classList.remove('hidden'); drawer.classList.add('flex');
-        burgerIcon.classList.add('hidden'); closeIcon.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        // Move focus into the panel, otherwise a keyboard user opens the
-        // drawer and is still parked behind it in the page.
-        drawer.focus();
-      } else {
-        drawer.classList.add('hidden'); drawer.classList.remove('flex');
-        burgerIcon.classList.remove('hidden'); closeIcon.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-      // Announce the state instead of leaving it to the icon swap.
-      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    function setProducts(open) {
+      if (!productsToggle || !productsMenu) return;
+      productsMenu.dataset.open = open ? 'true' : 'false';
+      productsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      productsToggle.classList.toggle('is-open', open);
     }
 
-    function isOpen() { return !drawer.classList.contains('hidden'); }
+    function setDrawer(open) {
+      drawer.dataset.open = open ? 'true' : 'false';
+      toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggleBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      toggleBtn.classList.toggle('is-open', open);
+      document.documentElement.classList.toggle('menu-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (window.unicoreScrollLock) window.unicoreScrollLock(open);
+      if (open) {
+        // Move focus into the panel, otherwise a keyboard user opens the menu
+        // and is still parked behind it in the page.
+        drawer.focus({ preventScroll: true });
+      } else {
+        setProducts(false);
+      }
+    }
+
+    if (productsToggle) {
+      productsToggle.setAttribute('aria-controls', 'mobile-products-menu');
+      setProducts(false);
+      productsToggle.addEventListener('click', () => setProducts(productsMenu.dataset.open !== 'true'));
+    }
+
+    toggleBtn.addEventListener('click', () => setDrawer(!isOpen()));
+    drawer.querySelectorAll('.mobile-link').forEach((link) => link.addEventListener('click', () => setDrawer(false)));
 
     // Escape closes it and hands focus back to the button that opened it.
-    document.addEventListener('keydown', (e) => {
+    const onKey = (e) => {
       if (e.key === 'Escape' && isOpen()) {
         e.preventDefault();
         setDrawer(false);
-        if (toggleBtn) toggleBtn.focus();
+        toggleBtn.focus();
       }
-    });
+    };
+    document.addEventListener('keydown', onKey);
 
-    // Keep Tab inside the open drawer. Without this the thirty tab stops of
-    // the page behind it are still reachable while it covers the screen.
+    // Keep Tab inside the open menu.
     drawer.addEventListener('keydown', (e) => {
       if (e.key !== 'Tab' || !isOpen()) return;
       const items = [...drawer.querySelectorAll(FOCUSABLE)].filter((el) => el.offsetParent !== null);
@@ -102,30 +137,19 @@ const sub = 'mobile-link text-sm font-medium text-body-text hover:text-logo-blue
         e.preventDefault(); first.focus();
       }
     });
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        const isOpen = !drawer.classList.contains('hidden');
-        setDrawer(!isOpen);
-      });
-    }
-    if (productsToggle && productsMenu && productsArrow) {
-      productsToggle.setAttribute('aria-expanded', 'false');
-      productsToggle.setAttribute('aria-controls', 'mobile-products-menu');
-      productsToggle.addEventListener('click', () => {
-        const isProdOpen = !productsMenu.classList.contains('hidden');
-        productsToggle.setAttribute('aria-expanded', isProdOpen ? 'false' : 'true');
-        if (isProdOpen) {
-          productsMenu.classList.add('hidden'); productsMenu.classList.remove('flex');
-          productsArrow.classList.remove('rotate-180');
-        } else {
-          productsMenu.classList.remove('hidden'); productsMenu.classList.add('flex');
-          productsArrow.classList.add('rotate-180');
-        }
-      });
-    }
-    document.querySelectorAll('.mobile-link').forEach((link) => {
-      link.addEventListener('click', () => setDrawer(false));
-    });
+
+    // Rotating the phone or widening the window past the burger breakpoint
+    // while the menu is open must not leave the page locked.
+    const mq = window.matchMedia('(min-width: 1280px)');
+    const onMq = () => { if (mq.matches && isOpen()) setDrawer(false); };
+    mq.addEventListener('change', onMq);
+
+    document.addEventListener('astro:before-swap', () => {
+      document.removeEventListener('keydown', onKey);
+      mq.removeEventListener('change', onMq);
+      document.body.style.overflow = '';
+      document.documentElement.classList.remove('menu-open');
+    }, { once: true });
   }
   document.addEventListener('astro:page-load', initDrawer);
 </script>

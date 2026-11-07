@@ -1,0 +1,49 @@
+/* Small touches. See src/scripts/polish.js. */
+
+/* Reading progress line. */
+.scroll-progress { position: fixed; left: 0; right: 0; top: 0; height: 2px; z-index: 100; pointer-events: none; }
+.scroll-progress span {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, rgb(var(--c-logo-blue)), rgb(242 200 107));
+  transform: scaleX(0); transform-origin: left center;
+}
+
+/* Header turns a touch translucent once scrolled. Colour only (no backdrop blur:
+   re-blurring moving content every frame is the costliest thing a header can do). */
+header .h-20 { transition: background-color 300ms ease; }
+html.scrolled header .h-20 {
+  background-color: rgb(var(--c-white) / 0.94);
+}
+
+/* Nav links: an underline that draws in from the left. */
+header nav > a { position: relative; }
+header nav > a::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: -7px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+header nav > a:hover::after, header nav > a[aria-current="page"]::after { transform: scaleX(1); }
+
+/* Buttons: a soft band of light crosses on hover. */
+.btn-fx { position: relative; overflow: hidden; isolation: isolate; transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease, transform 250ms ease; }
+.btn-fx::before {
+  content: '';
+  position: absolute; top: 0; bottom: 0; left: -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: translate3d(0, 0, 0) skewX(-18deg);
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.btn-fx:hover::before { opacity: 1; transform: translate3d(420%, 0, 0) skewX(-18deg); transition: transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 100ms ease; }
+.btn-fx:active { transform: scale(0.98); }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none; }
+  .btn-fx::before { display: none; }
+  header nav > a::after { transition: none; }
+}

@@ -28,11 +28,12 @@
 }
 main :has(> h1) > :not(:has(.grid)):nth-child(-n+5) {
   animation: m-hero-in var(--m-dur) ease-out backwards;
+  animation-delay: var(--intro);
 }
-main :has(> h1) > :not(:has(.grid)):nth-child(2) { animation-delay: calc(var(--m-hero-step) * 1); }
-main :has(> h1) > :not(:has(.grid)):nth-child(3) { animation-delay: calc(var(--m-hero-step) * 2); }
-main :has(> h1) > :not(:has(.grid)):nth-child(4) { animation-delay: calc(var(--m-hero-step) * 3); }
-main :has(> h1) > :not(:has(.grid)):nth-child(5) { animation-delay: calc(var(--m-hero-step) * 4); }
+main :has(> h1) > :not(:has(.grid)):nth-child(2) { animation-delay: calc(var(--intro) + var(--m-hero-step) * 1); }
+main :has(> h1) > :not(:has(.grid)):nth-child(3) { animation-delay: calc(var(--intro) + var(--m-hero-step) * 2); }
+main :has(> h1) > :not(:has(.grid)):nth-child(4) { animation-delay: calc(var(--intro) + var(--m-hero-step) * 3); }
+main :has(> h1) > :not(:has(.grid)):nth-child(5) { animation-delay: calc(var(--intro) + var(--m-hero-step) * 4); }
 
 /* ---- Hero accent: the italic phrase inside the page H1 wipes in left to right.
    The H1 itself is in the DOM and painted from the first frame (crawlers and
@@ -46,7 +47,7 @@ main :has(> h1) > :not(:has(.grid)):nth-child(5) { animation-delay: calc(var(--m
 }
 main h1 .italic {
   animation: m-accent-wipe 600ms ease-out backwards;
-  animation-delay: calc(var(--m-hero-step) + var(--m-dur) + 200ms);
+  animation-delay: calc(var(--intro) + var(--m-hero-step) + var(--m-dur) + 200ms);
 }
 
 /* ---- Rotating hero accent (homepage only) --------------------------------
@@ -84,6 +85,51 @@ main h1 .italic {
 }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 
+/* Brand strip: two <ul> copies side by side, the pair slides -50%. */
+.brand-marquee {
+  display: flex;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.brand-marquee { --brand-w: max-content; }
+.marquee-track-row {
+  display: flex;
+  flex: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: brand-scroll 55s linear infinite;
+  will-change: transform;
+}
+@keyframes brand-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-100%, 0, 0); }
+}
+.brand-marquee:hover .marquee-track-row { animation-play-state: paused; }
+.brand-item {
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(28px, 4.5vw, 64px);
+}
+/* Logos sit as quiet grey marks and take their own colour on hover. */
+.brand-logo {
+  display: block;
+  width: auto;
+  max-width: 150px;
+  filter: grayscale(1) contrast(0.9);
+  opacity: 0.55;
+  transition: filter 300ms ease, opacity 300ms ease, transform 300ms ease;
+}
+.brand-item:hover .brand-logo { filter: none; opacity: 1; transform: scale(1.06); }
+html.dark .brand-logo { filter: grayscale(1) invert(1) brightness(1.1); opacity: 0.6; }
+html.dark .brand-item:hover .brand-logo { filter: grayscale(1) invert(1) brightness(1.5); opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee { overflow-x: auto; }
+  .marquee-track-row:nth-child(2) { display: none; }
+}
+
 /* ---- Section heading details --------------------------------------------
    The square marker scales up and the big serif index numeral fades in as a
    section reaches the viewport. Both are driven from motion.js so they fire
@@ -106,8 +152,10 @@ main h1 .italic {
   position: absolute;
   border-radius: 9999px;
   opacity: var(--toran-o, 0.25);
-  animation: toran-breathe 4s ease-in-out infinite alternate;
 }
+/* The dots hold still. Their breathing used keyframes built from a custom
+   property, which cannot run on the compositor and cost a style recalculation
+   per frame for 29 elements. The lamps still sway and flicker. */
 @keyframes toran-breathe {
   from { opacity: calc(var(--toran-o, 0.25) * 0.45); }
   to   { opacity: var(--toran-o, 0.25); }
@@ -227,94 +275,154 @@ html[data-motion="off"]::view-transition-new(*) { animation: none !important; }
 html[data-motion="off"] .marquee-track { width: 100%; justify-content: center; }
 html[data-motion="off"] .marquee-track > :nth-child(2) { display: none; }
 
-/* ---- Curtain reveal (first load of a session) ----------------------------
-   Two deep-navy panels part left and right like a stage curtain, with the
-   wordmark fading out between them first. See src/components/CurtainReveal.astro.
+/* ---- Welcome intro (first load of a session) ----------------------------
+   A deep-navy layer. The UNICORE wordmark starts as an outline and "fills"
+   with white from the bottom like a tank being topped up, while a counter
+   runs 000 -> 100 and a welcome line fades in under it. Then the whole layer
+   lifts away upward in two stages (a pale sheet trails the navy one).
+   See src/components/CurtainReveal.astro.
 
-   The whole thing is CSS with `animation-fill-mode: both`, so it opens on its
-   own even with JavaScript switched off — the curtain can never stick shut.
+   All CSS with `animation-fill-mode: both`, so it finishes and removes
+   itself with JavaScript switched off — it can never stick over the site.
 
-   Beat sheet (desktop):
-     0 – 420ms    wordmark fades in, holds, fades out; panels held closed
-     430 – 1250ms panels slide apart
-     1300ms       the layer is taken out of the page                        */
+   Beat sheet:
+     0 – 450ms      outline wordmark + welcome line fade in
+     300 – 1800ms   fill rises, counter runs
+     2000 – 2700ms  layer lifts away
+     2800ms         layer removed from the page                            */
+@property --fill { syntax: '<percentage>'; inherits: false; initial-value: 0%; }
+@property --n    { syntax: '<integer>';    inherits: false; initial-value: 0; }
+
+:root { --intro: 0ms; }
+html:not(.curtain-seen) { --intro: 2300ms; }   /* hero copy waits for the intro */
+@media (prefers-reduced-motion: reduce) { :root, html:not(.curtain-seen) { --intro: 0ms; } }
+html[data-motion="off"] { --intro: 0ms !important; }
+
 .curtain {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  pointer-events: none;          /* never swallows a click, even if it lingers */
-  animation: curtain-clear 0s linear 1300ms forwards;
+  pointer-events: none;
+  animation: curtain-clear 0s linear 2800ms forwards;
 }
 @keyframes curtain-clear { to { visibility: hidden; } }
 
-.curtain-panel {
+.curtain-sheet,
+.curtain-navy {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: calc(50% + 1px);        /* the +1px hides a sub-pixel seam at the join */
-  /* Soft vertical pleats in the two brand blues — reads as hanging fabric
-     without introducing a colour or a gradient outside the palette. */
-  background: repeating-linear-gradient(
-    90deg,
-    #143A78 0 26px,
-    #1B4FA0 26px 28px,
-    #143A78 28px 54px
-  );
-  animation-duration: 820ms;
-  animation-delay: 430ms;
-  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
-  animation-fill-mode: both;
+  inset: 0;
+  animation: curtain-lift 700ms cubic-bezier(0.76, 0, 0.24, 1) both;
 }
-.curtain-panel-l {
-  left: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.38);
-  animation-name: curtain-part-l;
-}
-.curtain-panel-r {
-  right: 0;
-  animation-name: curtain-part-r;
-}
-@keyframes curtain-part-l {
+.curtain-sheet { background: #FAFAF8; animation-delay: 2100ms; }   /* trails */
+.curtain-navy  { background: #143A78; animation-delay: 2000ms; }
+@keyframes curtain-lift {
   from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-100%, 0, 0); }
+  to   { transform: translate3d(0, -101%, 0); }
 }
-@keyframes curtain-part-r {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(100%, 0, 0); }
+
+.curtain-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  animation: curtain-lift 700ms cubic-bezier(0.76, 0, 0.24, 1) 2000ms both;
 }
 
 .curtain-mark {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(26px, 5vw, 58px);
+  font-size: clamp(40px, 9vw, 120px);
   line-height: 1;
-  letter-spacing: 0.34em;
-  text-indent: 0.34em;            /* balances the trailing letter-space */
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
   white-space: nowrap;
+  animation: curtain-fade 450ms ease-out both;
+}
+.curtain-mark-outline {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.42);
+}
+.curtain-mark-fill {
+  position: absolute;
+  inset: 0;
   color: #FFFFFF;
-  animation: curtain-mark 420ms ease-out both;
+  --fill: 0%;
+  -webkit-mask: linear-gradient(#000 0 0) 0 100% / 100% var(--fill) no-repeat;
+          mask: linear-gradient(#000 0 0) 0 100% / 100% var(--fill) no-repeat;
+  animation: curtain-fill 1500ms cubic-bezier(0.45, 0.05, 0.25, 1) 300ms both;
 }
-@keyframes curtain-mark {
-  0%   { opacity: 0; }
-  26%  { opacity: 1; }
-  70%  { opacity: 1; }
-  100% { opacity: 0; }
+@keyframes curtain-fill { from { --fill: 0%; } to { --fill: 100%; } }
+@keyframes curtain-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.curtain-welcome {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  animation: curtain-rise 600ms ease-out 450ms both;
+}
+@keyframes curtain-rise {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to   { opacity: 1; transform: none; }
 }
 
-/* Phones: the same beat, roughly a third quicker, so it never feels like a
-   loading screen on a slow connection. */
-@media (max-width: 767.98px) {
-  .curtain        { animation-delay: 1000ms; }
-  .curtain-panel  { animation-duration: 620ms; animation-delay: 360ms; }
-  .curtain-mark   { animation-duration: 350ms; }
+/* The hairline under the welcome line grows as the fill rises. */
+.curtain-line {
+  width: min(260px, 52vw);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+  position: relative;
+  overflow: hidden;
+  animation: curtain-fade 450ms ease-out both;
+}
+.curtain-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #FFFFFF;
+  transform-origin: left center;
+  animation: curtain-grow 1500ms cubic-bezier(0.45, 0.05, 0.25, 1) 300ms both;
+}
+@keyframes curtain-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Counter, bottom-right: 000 -> 100, pure CSS via an animated integer. */
+.curtain-count {
+  position: absolute;
+  right: clamp(20px, 4vw, 56px);
+  bottom: clamp(20px, 4vw, 48px);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.85);
+  font-variant-numeric: tabular-nums;
+  --n: 0;
+  counter-reset: n var(--n);
+  animation: curtain-count 1500ms cubic-bezier(0.45, 0.05, 0.25, 1) 300ms both;
+}
+.curtain-count::before { content: counter(n, decimal-leading-zero); }
+@keyframes curtain-count { from { --n: 0; } to { --n: 100; } }
+
+.curtain-tag {
+  position: absolute;
+  left: clamp(20px, 4vw, 56px);
+  bottom: clamp(24px, 4vw, 52px);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  animation: curtain-rise 600ms ease-out 600ms both;
 }
 
-/* Reduced motion and the kill switch hide the curtain outright. They must NOT
-   fall through to the blanket `animation: none` above, which would freeze the
-   panels closed over the site. */
+/* Reduced motion and the kill switch hide the layer outright. They must NOT
+   fall through to the blanket `animation: none` above, which would freeze it
+   over the site. */
 @media (prefers-reduced-motion: reduce) { .curtain { display: none; } }
 html[data-motion="off"] .curtain { display: none; }
 /* Second and later page loads in the same session (set in Base.astro). */

@@ -2,15 +2,57 @@
 import Base from '../layouts/Base.astro';
 import HeroToran from '../components/HeroToran.astro';
 import Antigravity from '../components/Antigravity.astro';
+import { Picture } from 'astro:assets';
+import bottle from '../assets/tyreprotect-bottle.png';
+
+// Logos in /public/logos: Tata, Mahindra, Honda, Hyundai, Toyota, Kia, JCB,
+// John Deere, Volvo, Scania from the Simple Icons set; Hero, Bajaj, Royal
+// Enfield, Maruti Suzuki from Wikimedia Commons. They are registered
+// trademarks of their owners: confirm with Unicore which makes they may show.
+// Still to add when the files are supplied: Ashok Leyland, Eicher, TVS,
+// Swaraj, Sonalika, BharatBenz.
+const products = [
+  { name: 'Engine Oils', text: 'Multi-grade oils that protect engines from heavy wear, heat buildup, and internal deposits.', path: 'products-engine-oils', href: 'products.html#engine-oils',
+    icon: '<path d="M32 7C32 7 14 28 14 40a18 18 0 0 0 36 0C50 28 32 7 32 7Z"/><path d="M23 42a9 9 0 0 0 7 8"/>' },
+  { name: 'Gear Oils', text: 'Heavy-duty gear oils built to protect transmission gears under sudden shocks and extreme pressures.', path: 'products-gear-oils', href: 'products.html#gear-oils',
+    icon: '<circle cx="32" cy="32" r="9"/><circle cx="32" cy="32" r="19" stroke-width="5" stroke-dasharray="6.4 5.2" stroke-linecap="butt"/><circle cx="32" cy="32" r="15"/>' },
+  { name: 'Coolants', text: 'Radiator fluids that prevent overheating, boiling, and metal rust inside the cooling passage.', path: 'products-coolants', href: 'products.html#coolants',
+    icon: '<path d="M32 8v48M11 20l42 24M11 44l42-24"/><path d="M27 12l5 5 5-5M27 52l5-5 5 5M10 27l7 1-1 7M54 37l-7-1 1-7"/>' },
+  { name: 'Greases', text: 'Long-lasting lubricating greases that stay in place under high pressure and resist water washout.', path: 'products-greases', href: 'products.html#greases',
+    icon: '<ellipse cx="32" cy="22" rx="19" ry="7"/><path d="M13 22v22c0 3.9 8.5 7 19 7s19-3.1 19-7V22"/><path d="M13 33c0 3.9 8.5 7 19 7s19-3.1 19-7"/>' },
+  { name: 'Agricultural Oils', text: 'All-round farm oils protecting tractor engines, wet brakes, and hydraulic lift arms.', path: 'products-agricultural-oils', href: 'products.html#agricultural-oils',
+    icon: '<path d="M32 58V20"/><path d="M32 20c-5-3-5-9 0-13 5 4 5 10 0 13Z"/><path d="M32 32c-8 0-12-5-12-10 7 0 12 3 12 10ZM32 32c8 0 12-5 12-10-7 0-12 3-12 10ZM32 46c-8 0-12-5-12-10 7 0 12 3 12 10ZM32 46c8 0 12-5 12-10-7 0-12 3-12 10Z"/>' },
+  { name: 'Hydraulic Oils', text: 'Industrial fluids that keep hydraulic pumps and factory machinery operating smoothly without power loss.', path: 'products-industrial-hydraulic-oils', href: 'products.html#industrial-hydraulic-oils',
+    icon: '<rect x="6" y="22" width="30" height="20" rx="2"/><path d="M36 32h22M58 24v16M14 22v-6M28 22v-6M14 42v6M28 42v6"/><path d="M12 32h18"/>' },
+];
+const brands = [
+  { name: 'Tata', file: 'tata', h: 30 },
+  { name: 'Mahindra', file: 'mahindra', h: 15 },
+  { name: 'Maruti Suzuki', file: 'maruti', h: 28 },
+  { name: 'Hero', file: 'hero', h: 26 },
+  { name: 'Bajaj', file: 'bajaj', h: 22 },
+  { name: 'Royal Enfield', file: 'royalenfield', h: 32 },
+  { name: 'Honda', file: 'honda', h: 30 },
+  { name: 'Hyundai', file: 'hyundai', h: 22 },
+  { name: 'Toyota', file: 'toyota', h: 30 },
+  { name: 'JCB', file: 'jcb', h: 20 },
+  { name: 'John Deere', file: 'johndeere', h: 38 },
+  { name: 'Volvo', file: 'volvo', h: 34 },
+  { name: 'Scania', file: 'scania', h: 38 },
+  { name: 'Kia', file: 'kia', h: 18 },
+];
 ---
 <Base description="Unicore Lubricants manufactures engine oils, gear oils, coolants and specialty greases for transport fleets, farm machinery and industrial plants across India."
   title="Unicore Lubricants" active="home" htmlClass="scroll-smooth" bodyClass="bg-page-bg font-sans text-body-text antialiased">
 
-  <main id="main-content" class="w-full pt-[116px] bg-page-bg min-h-[calc(100vh-116px)]">
+  <main id="main-content" class="w-full pt-[116px] bg-page-bg min-h-[calc(100vh-116px)] scenes-root">
 <div class="flex flex-col w-full">
+<nav class="scene-dots" aria-label="Sections of this page" data-scene-dots></nav>
+<!-- SCENE 1: HOME = hero + brand strip, one full screen -->
+<div class="scene scene-home" data-scene="Home" id="home-scene">
 <!-- SECTION 1: HERO SECTION -->
-<section class="w-full bg-page-bg border-b border-hairline relative overflow-hidden">
-<Antigravity />
+<section class="w-full bg-page-bg border-b border-hairline relative overflow-hidden scene-home-hero">
+<Antigravity mobile fade="46%" />
 <HeroToran />
 <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -44,168 +86,96 @@ import Antigravity from '../components/Antigravity.astro';
 </div>
 </div>
 </section>
-<!-- SECTION 2: QUIET GRADE STRIP (Viscosity Only) -->
-<section class="w-full bg-page-bg border-b border-hairline py-4">
+<!-- SECTION 2: VEHICLE & MACHINERY BRAND STRIP -->
+<section class="w-full bg-page-bg border-b border-hairline py-7 scene-home-strip">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="w-full marquee">
-<div class="marquee-track">
-<p class="text-xs sm:text-sm text-light-text text-center tracking-[0.2em] uppercase whitespace-nowrap">
-              15W-40 <span class="text-structural-line mx-3">·</span>
-              20W-40 <span class="text-structural-line mx-3">·</span>
-              20W-50 <span class="text-structural-line mx-3">·</span>
-              5W-30 <span class="text-structural-line mx-3">·</span>
-              EP-90 <span class="text-structural-line mx-3">·</span>
-              85W-140 <span class="text-structural-line mx-3">·</span>
-              EP-2 <span class="text-structural-line mx-3">·</span>
-            </p>
-<p class="text-xs sm:text-sm text-light-text text-center tracking-[0.2em] uppercase whitespace-nowrap" aria-hidden="true">
-              15W-40 <span class="text-structural-line mx-3">·</span>
-              20W-40 <span class="text-structural-line mx-3">·</span>
-              20W-50 <span class="text-structural-line mx-3">·</span>
-              5W-30 <span class="text-structural-line mx-3">·</span>
-              EP-90 <span class="text-structural-line mx-3">·</span>
-              85W-140 <span class="text-structural-line mx-3">·</span>
-              EP-2 <span class="text-structural-line mx-3">·</span>
-            </p>
-</div>
+<p class="text-center text-[11px] font-semibold uppercase tracking-[0.3em] text-light-text mb-5">Built for the machines India runs on</p>
+<div class="w-full marquee brand-marquee">
+{[0, 1].map((copy) => (
+<ul class="marquee-track-row" aria-hidden={copy === 1 ? 'true' : undefined}>
+{brands.map((b) => (
+<li class="brand-item">
+<img class="brand-logo" src={`/logos/${b.file}.svg`} alt={b.name} height={b.h} style={`height:${b.h}px`} loading="lazy" decoding="async" draggable="false" />
+</li>
+))}
+</ul>
+))}
 </div>
 </div>
 </section>
+</div>
 <!-- SECTION 3: PRODUCT RANGE (Three-Across Hairline Grid, No drawn bottles) -->
-<section class="w-full bg-white py-20 border-b border-hairline">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 pb-6 border-b border-hairline gap-4">
+<section class="scene scene-products w-full bg-white border-b border-hairline" data-scene="Products" data-pin data-no-motion>
+<div class="ps-sticky">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-4 border-b border-hairline gap-4" data-r="up">
 <div><span class="text-xs font-semibold uppercase tracking-widest text-logo-blue block mb-2">Products</span><h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal">Product Range</h2></div>
 <a class="text-xs font-semibold uppercase tracking-wider text-logo-blue hover:underline inline-flex items-center gap-1" data-path="products" href="products.html">See all products →</a>
 </div>
-<!-- Hairline Grid Container -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-hairline bg-hairline gap-px">
-<!-- 01 Engine Oils -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<div class="w-full aspect-[4/3] bg-product-frame border border-hairline relative p-4 mb-6 flex flex-col items-center justify-center text-center"><span class="absolute top-3 left-3 font-serif italic text-2xl text-light-text">01</span><div class="text-center px-4"><p class="font-serif italic text-sm text-body-text max-w-xs leading-relaxed">[Photograph: Pack shot of Unicore Engine Oil container]</p></div></div>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-2">Engine Oils</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Multi-grade oils that protect engines from heavy wear, heat buildup, and internal deposits.
-                </p>
+<!-- Product carousel: scroll-snap track, prev/next, progress bar -->
+<div class="pc" data-carousel data-no-motion>
+<div class="pc-track" data-carousel-track tabindex="0" aria-label="Product range, scroll sideways">
+{products.map((pr, i) => (
+<article class="pc-card" style={`--i:${i}`}>
+<a class="pc-link" data-path={pr.path} href={pr.href}><span class="sr-only">{pr.name}: view product</span></a>
+<div class="pc-media">
+<span class="pc-num">{String(i + 1).padStart(2, '0')}</span>
+<svg class="pc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={pr.icon} />
+<span class="pc-rings" aria-hidden="true"></span>
 </div>
-<div class="pt-4 border-t border-hairline">
+<h3 class="font-serif text-3xl text-heading-black font-normal mb-3">{pr.name}</h3>
+<p class="text-sm text-body-text leading-relaxed mb-6">{pr.text}</p>
+<div class="pc-foot">
 <span class="text-[11px] uppercase tracking-wider text-light-text block mb-1">Standard Packaging</span>
 <span class="text-xs text-heading-black block font-medium mb-4">[to be confirmed by Unicore]</span>
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="products-engine-oils" href="products.html#engine-oils">
-                  View product →
-                </a>
+<span class="pc-cta text-xs uppercase tracking-wider font-semibold text-logo-blue inline-flex items-center gap-1">View product <span class="pc-arrow" aria-hidden="true">→</span></span>
 </div>
+</article>
+))}
 </div>
-<!-- 02 Gear Oils -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<div class="w-full aspect-[4/3] bg-product-frame border border-hairline relative p-4 mb-6 flex flex-col items-center justify-center text-center"><span class="absolute top-3 left-3 font-serif italic text-2xl text-light-text">02</span><div class="text-center px-4"><p class="font-serif italic text-sm text-body-text max-w-xs leading-relaxed">[Photograph: Pack shot of Unicore Gear Oil container]</p></div></div>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-2">Gear Oils</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Heavy-duty gear oils built to protect transmission gears under sudden shocks and extreme pressures.
-                </p>
+<div class="pc-controls">
+<div class="pc-progress" aria-hidden="true"><span class="pc-progress-bar" data-carousel-bar></span></div>
+<div class="flex items-center gap-2">
+<button type="button" class="pc-btn" data-carousel-prev aria-label="Previous products">←</button>
+<button type="button" class="pc-btn" data-carousel-next aria-label="Next products">→</button>
 </div>
-<div class="pt-4 border-t border-hairline">
-<span class="text-[11px] uppercase tracking-wider text-light-text block mb-1">Standard Packaging</span>
-<span class="text-xs text-heading-black block font-medium mb-4">[to be confirmed by Unicore]</span>
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="products-gear-oils" href="products.html#gear-oils">
-                  View product →
-                </a>
-</div>
-</div>
-<!-- 03 Coolants -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<div class="w-full aspect-[4/3] bg-product-frame border border-hairline relative p-4 mb-6 flex flex-col items-center justify-center text-center"><span class="absolute top-3 left-3 font-serif italic text-2xl text-light-text">03</span><div class="text-center px-4"><p class="font-serif italic text-sm text-body-text max-w-xs leading-relaxed">[Photograph: Pack shot of Unicore Coolant bottle]</p></div></div>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-2">Coolants</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Radiator fluids that prevent overheating, boiling, and metal rust inside the cooling passage.
-                </p>
-</div>
-<div class="pt-4 border-t border-hairline">
-<span class="text-[11px] uppercase tracking-wider text-light-text block mb-1">Standard Packaging</span>
-<span class="text-xs text-heading-black block font-medium mb-4">[to be confirmed by Unicore]</span>
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="products-coolants" href="products.html#coolants">
-                  View product →
-                </a>
-</div>
-</div>
-<!-- 04 Greases -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<div class="w-full aspect-[4/3] bg-product-frame border border-hairline relative p-4 mb-6 flex flex-col items-center justify-center text-center"><span class="absolute top-3 left-3 font-serif italic text-2xl text-light-text">04</span><div class="text-center px-4"><p class="font-serif italic text-sm text-body-text max-w-xs leading-relaxed">[Photograph: Pack shot of Unicore Grease tub and barrel]</p></div></div>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-2">Greases</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Long-lasting lubricating greases that stay in place under high pressure and resist water washout.
-                </p>
-</div>
-<div class="pt-4 border-t border-hairline">
-<span class="text-[11px] uppercase tracking-wider text-light-text block mb-1">Standard Packaging</span>
-<span class="text-xs text-heading-black block font-medium mb-4">[to be confirmed by Unicore]</span>
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="products-greases" href="products.html#greases">
-                  View product →
-                </a>
-</div>
-</div>
-<!-- 05 Agricultural Oils -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<div class="w-full aspect-[4/3] bg-product-frame border border-hairline relative p-4 mb-6 flex flex-col items-center justify-center text-center"><span class="absolute top-3 left-3 font-serif italic text-2xl text-light-text">05</span><div class="text-center px-4"><p class="font-serif italic text-sm text-body-text max-w-xs leading-relaxed">[Photograph: Pack shot of Unicore Tractor Oil can]</p></div></div>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-2">Agricultural Oils</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  All-round farm oils protecting tractor engines, wet brakes, and hydraulic lift arms.
-                </p>
-</div>
-<div class="pt-4 border-t border-hairline">
-<span class="text-[11px] uppercase tracking-wider text-light-text block mb-1">Standard Packaging</span>
-<span class="text-xs text-heading-black block font-medium mb-4">[to be confirmed by Unicore]</span>
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="products-agricultural-oils" href="products.html#agricultural-oils">
-                  View product →
-                </a>
-</div>
-</div>
-<!-- 06 Hydraulic Oils -->
-<div class="bg-white p-8 flex flex-col justify-between hover:bg-page-bg transition-colors">
-<div>
-<div class="w-full aspect-[4/3] bg-product-frame border border-hairline relative p-4 mb-6 flex flex-col items-center justify-center text-center"><span class="absolute top-3 left-3 font-serif italic text-2xl text-light-text">06</span><div class="text-center px-4"><p class="font-serif italic text-sm text-body-text max-w-xs leading-relaxed">[Photograph: Pack shot of Unicore Hydraulic Oil drum]</p></div></div>
-<h3 class="font-serif text-2xl text-heading-black font-normal mb-2">Hydraulic Oils</h3>
-<p class="text-sm text-body-text leading-relaxed mb-6">
-                  Industrial fluids that keep hydraulic pumps and factory machinery operating smoothly without power loss.
-                </p>
-</div>
-<div class="pt-4 border-t border-hairline">
-<span class="text-[11px] uppercase tracking-wider text-light-text block mb-1">Standard Packaging</span>
-<span class="text-xs text-heading-black block font-medium mb-4">[to be confirmed by Unicore]</span>
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="products-industrial-hydraulic-oils" href="products.html#industrial-hydraulic-oils">
-                  View product →
-                </a>
 </div>
 </div>
 </div>
 </div>
 </section>
-<!-- SECTION 4: TYRE SEALANT GEL TEASER -->
-<section class="w-full bg-white border-b border-hairline py-16 lg:py-20">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="border border-hairline bg-page-bg p-8 sm:p-12 lg:p-16">
-<div class="max-w-4xl">
-<div class="inline-flex items-center gap-2 mb-4">
-<span class="text-xs font-semibold uppercase tracking-widest text-logo-blue">Specialty Products</span>
+<!-- SCENE: TYRE SEALANT GEL (dark, product photo) -->
+<section class="scene scene-tyre" data-scene="Tyre Sealant" data-no-motion>
+<div class="tyre-bg" aria-hidden="true"><span class="tyre-ring tyre-ring-1"></span><span class="tyre-ring tyre-ring-2"></span><span class="tyre-ring tyre-ring-3"></span></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+<div class="lg:col-span-7 order-2 lg:order-1">
+<span class="tyre-eyebrow" data-r="up"><span class="tyre-dot"></span>Specialty Products</span>
+<h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-normal leading-[1.05] mb-6" data-r="up" style="--d:120ms">Tyre Sealant Gel <span class="italic tyre-accent">for tubeless tyres</span></h2>
+<p class="text-base sm:text-lg text-white/75 leading-relaxed mb-8 max-w-xl" data-r="up" style="--d:240ms">Our heavy gel coats the inside of tubeless tyres and automatically fills punctures as you continue driving on the road. It stops slow air leaks across hot highways and rough work sites.</p>
+<div data-r="up" style="--d:300ms"><ul class="tyre-feats"><li style="--d:0ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents and repairs flat tyres</span></li><li style="--d:70ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Seals instantly, for two years</span></li><li style="--d:140ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Stops slow leaks</span></li><li style="--d:210ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Safe and easy to use</span></li><li style="--d:280ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Environmentally friendly</span></li><li style="--d:350ms"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>2-in-1: tyre and tube</span></li></ul></div>
+<div data-r="up" style="--d:520ms"><a class="tyre-cta" data-path="tyre-sealant" href="tyre-sealant.html">Explore Tyre Sealant Gel <span aria-hidden="true">→</span></a></div>
 </div>
-<h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal mb-6">Tyre Sealant Gel for tubeless tyres</h2>
-<p class="text-base sm:text-lg text-body-text leading-relaxed mb-8">Our heavy gel coats the inside of tubeless tyres and automatically fills punctures as you continue driving on the road. It stops slow air leaks across hot highways and rough work sites.</p>
-<a class="text-xs uppercase tracking-wider font-semibold text-logo-blue hover:underline inline-flex items-center gap-1" data-path="tyre-sealant" href="tyre-sealant.html">
-                Explore Tyre Sealant Gel →
-              </a>
+<div class="lg:col-span-5 order-1 lg:order-2 flex justify-center">
+<div class="tyre-stage" data-r="scale" data-parallax="-0.06">
+<span class="tyre-glow" aria-hidden="true"></span>
+<div class="tyre-badge" aria-hidden="true">
+<svg viewBox="0 0 120 120" width="112" height="112"><defs><path id="tb-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+<g class="tyre-badge-ring"><text font-size="9.2" fill="currentColor"><textPath href="#tb-circle" textLength="283" lengthAdjust="spacing">NO MORE PUNCTURE • 2-IN-1 TYRE &amp; TUBE •</textPath></text></g>
+<circle cx="60" cy="60" r="27" fill="none" stroke="currentColor" stroke-opacity="0.35"/>
+<text x="60" y="58" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">500</text>
+<text x="60" y="71" text-anchor="middle" font-size="9" font-weight="600" letter-spacing="1.5" fill="currentColor">ML</text>
+</svg></div>
+<Picture class="tyre-bottle" src={bottle} formats={['webp']} widths={[340, 408]} sizes="(min-width: 1024px) 340px, 60vw" width={340} height={510} alt="Unicore TyreProtect 2-in-1 tyre and tube premium sealant, 500 ml bottle" loading="lazy" />
+</div>
 </div>
 </div>
 </div>
 </section>
 <!-- SECTION 5: APPLICATIONS (Five Cards in a Hairline Row) -->
-<section class="w-full bg-white py-20 border-b border-hairline">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="mb-12 pb-6 border-b border-hairline"><span class="text-xs font-semibold uppercase tracking-widest text-logo-blue block mb-2">Applications</span><h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal">Where Our Oils and Lubricants Work</h2></div>
+<section class="scene scene-apps w-full bg-white border-b border-hairline" data-scene="Applications" data-no-motion>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+<div class="mb-8 pb-6 border-b border-hairline" data-r="up"><span class="text-xs font-semibold uppercase tracking-widest text-logo-blue block mb-2">Applications</span><h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal">Where Our Oils and Lubricants Work</h2></div>
 <!-- Single Row with Hairline Borders -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-hairline bg-hairline gap-px">
 <!-- App 1 -->
@@ -290,7 +260,7 @@ import Antigravity from '../components/Antigravity.astro';
 </div>
 </section>
 <!-- SECTION 6: HOW WE MAKE IT -->
-<section class="w-full bg-page-bg py-20 border-b border-hairline">
+<section class="scene scene-quality w-full bg-page-bg border-b border-hairline" data-scene="Quality" data-no-motion>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 <!-- Left Side: Editorial & Steps -->
@@ -342,7 +312,7 @@ import Antigravity from '../components/Antigravity.astro';
 </div>
 </section>
 <!-- SECTION 7: DEALERSHIP BAND (Deep Navy) -->
-<section class="w-full bg-deep-navy text-white py-20 border-b border-hairline">
+<section class="scene scene-dealer w-full bg-deep-navy text-white border-b border-hairline" data-scene="Dealership" data-no-motion>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="max-w-4xl text-left flex flex-col items-start">
 <span class="text-xs uppercase tracking-widest text-white/80 font-semibold mb-4">
@@ -381,8 +351,8 @@ import Antigravity from '../components/Antigravity.astro';
 </div>
 </section>
 <!-- SECTION 8: CONTACT STRIP (Three Equal Cells with Hairline Borders) -->
-<section class="w-full bg-white border-b border-hairline">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<section class="scene scene-contact w-full bg-white border-b border-hairline" data-scene="Contact" data-no-motion>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
 <div class="grid grid-cols-1 md:grid-cols-3 border-t border-l border-hairline bg-hairline gap-px">
 <!-- Cell 1: Phone -->
 <div class="bg-white p-8 flex flex-col justify-center">

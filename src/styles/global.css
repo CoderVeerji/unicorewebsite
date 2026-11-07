@@ -103,7 +103,8 @@ html.dark .dropdown-shadow {
 @media (max-width: 1023.98px) {
   .utility-bar > div { justify-content: center; }
   .utility-bar .utility-left { display: none; }
-  .utility-bar .utility-right { white-space: nowrap; }
+  .utility-bar .utility-right { white-space: nowrap; max-width: 100%; min-width: 0; }
+  .utility-bar .utility-right > span:last-child { overflow: hidden; text-overflow: ellipsis; }
 }
 
 /* ── Logo sizing ──────────────────────────────────────────────────────────
@@ -113,7 +114,7 @@ html.dark .dropdown-shadow {
  * known from the height and can be stated up front.
  */
 .site-logo-img { width: 117px; }          /* 28px x 4.178 */
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .site-logo-img { width: 142px; }        /* 34px x 4.178 */
 }
 
@@ -238,6 +239,10 @@ html[data-strip] .top-\[136px\]    { top: calc(136px + var(--strip-h)); }
 /* box-sizing is border-box, so the 1px bottom border would survive height:0 —
    collapse it too, otherwise a hairline stays behind. */
 #announcement-strip                { height: var(--strip-h); }
+/* Fixed, not in flow: the header is fixed at top: --strip-h, so if the strip
+   scrolled away with the page a 40px gap opened above the header and page
+   content showed through it. Pinning the strip closes that gap. */
+html[data-strip] #announcement-strip { position: fixed; top: 0; left: 0; right: 0; z-index: 60; }
 html.strip-dismissed #announcement-strip { visibility: hidden; border-bottom-width: 0; }
 
 /* Transitions are armed only after the first paint (strip-ready), so restoring
@@ -256,4 +261,45 @@ html.strip-ready main           { transition: padding-top 300ms ease; }
   html.strip-ready .top-\[116px\],
   html.strip-ready .top-\[136px\],
   html.strip-ready main { transition: none; }
+}
+
+/* ── Translated headers at 1280–1535px ────────────────────────────────────
+ * Tamil, Telugu, Kannada and Malayalam-style labels run 30–40% wider than
+ * English, so the same seven nav items no longer fit beside the language
+ * picker and the Enquiry button. Tighten the type and the gaps for them only.
+ */
+@media (min-width: 1280px) and (max-width: 1535.98px) {
+  html:not([lang="en"]) header nav { gap: 0.9rem; }
+  html:not([lang="en"]) header nav a,
+  html:not([lang="en"]) header nav button { font-size: 13px; }
+}
+
+/* Long translated greeting on a 320px phone: let the strip's row shrink and
+   clip instead of pushing the page sideways. */
+#announcement-strip > div { min-width: 0; overflow: hidden; }
+#announcement-strip p { max-width: 100%; }
+
+/* ── Very narrow phones (<= 359px) ────────────────────────────────────────
+ * Logo + language picker + theme toggle + burger need ~360px. On a 320px
+ * phone with a longer language name the row pushed the whole layout wider
+ * than the screen (357px), which also clipped the burger. Squeeze each piece
+ * a little instead.
+ */
+@media (max-width: 359.98px) {
+  .site-logo-img { width: 100px; height: 24px; }
+  header .h-20 a[data-path="home"] { margin-right: 0.25rem; }
+  header .h-20 .xl\:hidden { gap: 0.25rem; }
+  header .lang-trigger { padding-left: 0.4rem; padding-right: 0.4rem; gap: 0.25rem; }
+  header .lang-caret { display: none; }
+  header .theme-toggle, header #mobile-nav-toggle { width: 2.5rem; height: 2.5rem; }
+  .utility-bar .utility-right span:last-child { font-size: 11px; }
+}
+
+/* Translated copy on small phones: a long Indic word that cannot break at a
+   space used to push the page wider than the screen (up to 469px on a 320px
+   phone). Allow a break inside the word only when it would otherwise overflow. */
+@media (max-width: 480px) {
+  html:not([lang="en"]) main :where(h1, h2, h3, h4, p, li, a, span, td, th, label, summary, dt, dd) {
+    overflow-wrap: anywhere;
+  }
 }

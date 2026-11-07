@@ -49,7 +49,7 @@ const dropdownItem =
     </div>
     <div class="h-20 bg-white border-b border-hairline">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-        <a class="flex items-center group" data-path="home" href="index.html">
+        <a class="flex items-center group shrink-0 mr-4" data-path="home" href="index.html">
           <Picture
             src={logo}
             formats={['webp']}
@@ -59,11 +59,11 @@ const dropdownItem =
             alt="Unicore Lubricants"
             loading="eager"
             decoding="async"
-            class="site-logo-img h-7 w-auto lg:h-[34px]"
+            class="site-logo-img h-7 w-auto xl:h-[34px]"
             pictureAttributes={{ class: 'block site-logo' }}
           />
         </a>
-        <nav class="hidden lg:flex items-center gap-7">
+        <nav class="hidden xl:flex items-center gap-5 2xl:gap-7 min-w-0 whitespace-nowrap">
           <a class={link('home')} aria-current={current('home')} data-path="home" href="index.html">Home</a>
           {/* Hover opens it for a mouse; focus-within and the script open it
               for a keyboard. The panel used to be `invisible`, which takes its
@@ -104,17 +104,17 @@ const dropdownItem =
           <a class={link('dealership')} aria-current={current('dealership')} data-path="dealership" href="dealership.html">Dealership</a>
           <a class={link('contact')} aria-current={current('contact')} data-path="contact" href="contact.html">Contact</a>
         </nav>
-        <div class="hidden lg:flex items-center gap-2">
+        <div class="hidden xl:flex items-center gap-2">
           <LanguagePicker />
           <ThemeToggle class="w-9 h-9" />
-          <a class="inline-flex items-center justify-center bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue" data-path="enquiry" href={enquiryHref}>Enquiry Now</a>
+          <a class="inline-flex items-center justify-center whitespace-nowrap bg-logo-blue hover:bg-deep-navy text-white px-6 py-2.5 rounded-[2px] text-xs font-semibold uppercase tracking-wider transition-colors duration-150 border border-logo-blue" data-path="enquiry" href={enquiryHref}>Enquiry Now</a>
         </div>
-        <div class="flex lg:hidden items-center gap-2">
+        <div class="flex xl:hidden items-center gap-2">
           <LanguagePicker class="lang-picker-compact" />
           <ThemeToggle class="w-11 h-11" />
-          <button aria-label="Toggle Menu" class="w-11 h-11 flex items-center justify-center border border-hairline bg-product-frame text-heading-black" id="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu-drawer">
-            <span class="text-xl font-bold" id="mobile-burger-icon">☰</span>
-            <span class="text-xl font-bold hidden" id="mobile-close-icon">×</span>
+          <button aria-label="Open menu" class="menu-btn" id="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu-drawer">
+            <span class="menu-line menu-line-1" aria-hidden="true"></span>
+            <span class="menu-line menu-line-2" aria-hidden="true"></span>
           </button>
         </div>
       </div>
