@@ -44,6 +44,13 @@ function init() {
     if (s.matches('.scene-home')) s.classList.add('is-in'); else reveal.observe(s);
   });
 
+  // Far-away scenes drop their heavy layers (see .is-away in scenes.css).
+  const away = new IntersectionObserver(
+    (entries) => entries.forEach((e) => e.target.classList.toggle('is-away', !e.isIntersecting)),
+    { rootMargin: '120% 0px 120% 0px' }
+  );
+  scenes.forEach((s) => away.observe(s));
+
   // Dot rail
   const rail = document.querySelector('[data-scene-dots]');
   const dots = [];
@@ -93,6 +100,8 @@ function init() {
     window.removeEventListener('scroll', onScroll);
     window.removeEventListener('resize', onScroll);
     reveal.disconnect();
+    away.disconnect();
+    scenes.forEach((s) => s.classList.remove('is-away'));
     if (rail) rail.innerHTML = '';
     html.classList.remove('has-scenes');
   });

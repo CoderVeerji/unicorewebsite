@@ -147,7 +147,7 @@ html.pin-on .scene-products .pc-card { padding: 20px; }
 
 /* Staggered cards inside the scenes. */
 .has-scenes .scene-apps .grid > *,
-.has-scenes .scene-contact .grid > * { will-change: transform, opacity; }
+.has-scenes .scene-contact .grid > * { }
 
 /* ---- Off switches ----------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -167,3 +167,8 @@ html.pin-on .scene-products [data-r].mb-6 { margin-bottom: 14px; }
   html.has-scenes { scroll-snap-type: y proximity; }
   html.has-scenes .scene { scroll-snap-align: start; }
 }
+
+/* Pinned scenes that are well off screen drop their big layers (full-size gradients,
+   cards, orbs) so the GPU is not holding them while you read something else.
+   scenes.js toggles .is-away. */
+.scene.is-away .apps-bg, .scene.is-away .apps-card, .scene.is-away .k4-intro, .scene.is-away .k4-bottles, .scene.is-away .k4-rider, .scene.is-away .pc-track { visibility: hidden; }

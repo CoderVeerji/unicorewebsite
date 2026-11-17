@@ -97,7 +97,7 @@ function init() {
   const measure = () => {
     root.style.height = '';
     const stickyH = sticky.offsetHeight;
-    dist = Math.round(window.innerHeight * 3.4);
+    dist = Math.round(window.innerHeight * (window.innerWidth < 900 ? 2.3 : 3.4));
     root.style.height = `${stickyH + dist}px`;
     top = root.getBoundingClientRect().top + window.scrollY - hdr();
     update();

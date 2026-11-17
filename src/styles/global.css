@@ -320,3 +320,52 @@ h1.font-serif { letter-spacing: -0.02em; }
 .products-sec { scroll-margin-top: calc(var(--hdr, 116px) + 72px); }
 @media (min-width: 1024px) { .products-sec { scroll-margin-top: calc(var(--hdr, 116px) + 24px); } }
 [id] { scroll-margin-top: calc(var(--hdr, 116px) + 16px); }
+
+/* ---- Phones: nothing smaller than 11px ------------------------------------------------
+   Measured on a 390px screen: several labels were 8.6-10px (hero pills, "currently
+   viewing", badge, "where it runs", scroll cue). Raise them so they are readable. */
+@media (max-width: 759.98px) {
+  .hero-pill { font-size: 10px !important; padding: 10px 2px !important; }
+  .hero-cap small, .k4-cap small, .apps-chip small, .tyre-badge small, .k4-scroll, .curtain-tag, .pc-foot .text-\[11px\] { font-size: 11px !important; }
+  .hero-index, .k4-index, .brand-name { font-size: 12px; }
+  .hero-feat { font-size: 12px; }
+  .apps-tag { font-size: 12px; }
+}
+
+/* ---- Touch targets and last small texts (full-site audit) ------------------------------
+   On phones every footer link, breadcrumb link and "View product ->" link was 16-24px
+   tall. Give them a 40px+ hit area without changing how they look. */
+@media (max-width: 1023.98px) {
+  footer a { min-height: 40px; display: inline-flex; align-items: center; }
+  main nav[aria-label="Breadcrumb"] a, main a[data-path="home"] { display: inline-flex; align-items: center; min-height: 40px; }
+  main a.text-xs.uppercase, main a.text-xs.font-medium, main a.inline-flex.items-center.gap-1 { display: inline-flex; align-items: center; min-height: 40px; }
+  header a[data-path="home"] { min-height: 44px; }
+}
+.text-\[9px\] { font-size: 10.5px !important; }
+.hero-cap small, .k4-cap small, .apps-chip small { font-size: 10.5px; }
+
+/* Astro's <Picture class="x"> puts the class on the <img> itself, so rules written as
+   ".x img" never matched and these images were stretched to their box (Lighthouse
+   "incorrect aspect ratio"). State the fit on the image directly. */
+img.hero-slide { object-fit: cover; }
+img.k4-bottle { object-fit: contain; }
+img.tyre-bottle, img.tyre-frame-bottle { object-fit: contain; }
+img.apps-photo { object-fit: cover; }
+
+/* Final text floor: nothing below 10px anywhere (these were set later in hero.css / tyre.css). */
+.hero-cap small, .k4-cap small, .apps-chip small { font-size: 10.5px !important; }
+.hero-pill { font-size: 10px !important; }
+.tyre-badge small, .tyre-frame .tyre-badge small { font-size: 10px !important; }
+@container (max-width: 440px) { .hero-pill { font-size: 10px !important; } }
+/* With the 10px floor six pills no longer fit in one row on a narrow stage: wrap to two rows
+   (three each) in normal flow under the picture instead of squeezing or scrolling. */
+@container (max-width: 440px) {
+  .hero-pills { position: static !important; flex-wrap: wrap !important; margin-top: 10px; overflow: visible !important; }
+  .hero-pill { flex: 1 1 30% !important; }
+}
+@media (max-width: 559.98px), (min-width: 1024px) and (max-width: 1180px) {
+  .hero-stage { padding-bottom: 0 !important; }
+  .hero-pills { position: static !important; flex-wrap: wrap !important; margin-top: 10px; overflow: visible !important; }
+  .hero-pill { flex: 1 1 30% !important; }
+  .hero-index { bottom: 104px !important; }
+}

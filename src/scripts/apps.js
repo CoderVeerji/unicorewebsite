@@ -41,7 +41,7 @@ function init() {
   html.classList.add('apps-pin');
   let top = 0, dist = 0, ticking = false, active = -1;
   const hdr = () => { const h = document.querySelector('header.fixed'); return Math.max(h ? h.getBoundingClientRect().bottom : 0, 116); };
-  const step = () => Math.max(window.innerHeight * 0.85, 460);
+  const step = () => (window.innerWidth < 760 ? Math.max(window.innerHeight * 0.55, 330) : Math.max(window.innerHeight * 0.85, 460));
 
   const measure = () => {
     scene.style.height = '';

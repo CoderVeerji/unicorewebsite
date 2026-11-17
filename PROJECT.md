@@ -387,3 +387,7 @@ Done: `products` rebuilt; header, footer and script shared; scroll and hover ani
 
 - **Applications** (`apps.css`, `apps.js`) are now scroll-driven stacked cards: pinned under the header, each card rises from below and lands on the previous one (which shrinks and dims). The tab row follows and jumps to a card on click; the backdrop cross-fades to the colour of the card on top while two soft orbs drift. Without pinning (reduced motion/no JS) the cards are listed normally and the tab row is hidden. The old auto-advancing side-by-side carousel was removed.
 - **Phones**: the rings behind the 4T pack are hidden (they ran through the headline); touch screens get gentle `scroll-snap-type: y proximity` on the scene starts so a flick settles on a section.
+
+## Full-site audit (all 12 pages x 6 screen sizes)
+
+Checked at 320, 390, 768, 1024, 1280 and 1920px: horizontal overflow, console and network errors, broken images, link names, text size, tap-target size, clipped text. Result: no overflow, errors or broken images anywhere. Fixed: footer/breadcrumb/"View product" links now have 40px+ touch targets on phones; remaining 9px labels raised to 10.5px; the Applications stack is sized to the space under the header so it is not cut off on tablets and small laptops; far-away pinned scenes drop their heavy layers (`.is-away`). Audit script is not in the repo (it was a throwaway puppeteer run).

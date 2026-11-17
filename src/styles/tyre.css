@@ -147,3 +147,6 @@ html.dark .tyre-frame { background: radial-gradient(85% 75% at 55% 55%, rgba(80,
   .scene-tyre .tyre-badge small { font-size: 8px; }
   .scene-tyre .tyre-badge strong { font-size: clamp(12px, 1.3vw, 16px); }
 }
+/* The bottles gently float (the old ".tyre-bottle img" selector never matched; class is on the img). */
+img.tyre-bottle, img.tyre-frame-bottle { animation: tyre-float 7s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) { img.tyre-bottle, img.tyre-frame-bottle { animation: none; } }

@@ -128,8 +128,8 @@ html[data-motion="off"] { --intro: 0ms !important; }
 }
 @keyframes nm-words { to { opacity: 1; transform: none; } }
 .curtain-tag {
-  position: absolute; left: 50%; bottom: clamp(20px, 5vh, 44px); transform: translateX(-50%);
-  font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; white-space: nowrap;
+  position: absolute; left: 0; right: 0; bottom: clamp(20px, 5vh, 44px); text-align: center;
+  font-size: 10.5px; letter-spacing: 0.34em; text-indent: 0.34em; text-transform: uppercase; white-space: nowrap;
   color: rgba(255, 255, 255, 0.4);
   opacity: 0; animation: nm-words 1200ms ease 3450ms both;
 }
