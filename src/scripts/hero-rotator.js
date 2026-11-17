@@ -19,7 +19,8 @@
  * prefers-reduced-motion the words and picture do not auto-change, but the
  * pills still work.
  */
-const HOLD = 3800; // ms each phrase stays
+const FIRST_HOLD = 9000; // ms the opening word, LUBRICANTS, stays
+const HOLD = 3800;       // ms every other phrase stays
 let timer = 0;
 let cleanup = [];
 
@@ -110,9 +111,12 @@ function init() {
   const start = () => {
     if (reduce || running || !visible || document.hidden) return;
     running = true;
-    timer = window.setInterval(tick, HOLD);
+    const arm = () => {
+      timer = window.setTimeout(() => { tick(); if (running) arm(); }, idx === 0 ? FIRST_HOLD : HOLD);
+    };
+    arm();
   };
-  const stop = () => { running = false; clearInterval(timer); };
+  const stop = () => { running = false; clearTimeout(timer); };
   const restart = () => { stop(); start(); };
 
   const pillHandlers = pills.map((b, i) => {

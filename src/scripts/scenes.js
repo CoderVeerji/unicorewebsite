@@ -16,7 +16,7 @@ function off() {
 const AUTO = 'h2, h2 ~ p, h2 ~ div, span.uppercase, .space-y-4, .divide-y > *, .grid > *, a.inline-flex, a.bg-white, .lg\\:col-span-5';
 
 function tag(scene) {
-  if (scene.matches('.scene-home, .scene-products, .scene-tyre')) return;
+  if (scene.matches('.scene-home, .scene-products, .scene-tyre, .scene-4t')) return;
   let i = 0;
   scene.querySelectorAll(AUTO).forEach((el) => {
     if (el.hasAttribute('data-r') || el.closest('[data-r], [data-apps]')) return;

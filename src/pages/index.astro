@@ -4,6 +4,11 @@ import HeroToran from '../components/HeroToran.astro';
 import Antigravity from '../components/Antigravity.astro';
 import { Picture } from 'astro:assets';
 import bottle from '../assets/tyre/bottles.png';
+import { bikeSvg } from '../components/k4-bike.mjs';
+import k4a from '../assets/kick/kick-20w40.png';
+import k4b from '../assets/kick/kick-20w50.png';
+import k4c from '../assets/kick/kick-10w30.png';
+import k4d from '../assets/kick/kick-15w50.png';
 import HeroDrips from '../components/HeroDrips.astro';
 import heroLubricants from '../assets/hero/lubricants.png';
 import heroAutomotive from '../assets/hero/automotive.png';
@@ -55,6 +60,14 @@ const apps = [
   { tab: 'Agricultural Machinery', tag: '03 / Agronomy', title: 'Agricultural Machinery', text: 'Reliable protection for tractors, pumps, and harvesters operating in muddy and dusty soil.', runs: ['Tractors', 'Pumps', 'Harvesters'], img: heroCoolants, theme: 'green' },
   { tab: 'Off-Highway Equipment', tag: '04 / Earthmoving', title: 'Off-Highway Equipment', text: 'Heavy hydraulic oils and greases designed for excavators, cranes, and quarry machinery.', runs: ['Excavators', 'Cranes', 'Quarry machinery'], img: heroBrake, theme: 'orange' },
   { tab: 'Industrial Plants', tag: '05 / Manufacturing', title: 'Industrial Plants', text: 'Continuous protection for factory power presses, gear units, and manufacturing assembly lines.', runs: ['Power presses', 'Gear units', 'Assembly lines'], img: heroAutomotive, theme: 'steel' },
+];
+// KICK-4T grades. 20W40 is the client's real pack photo; the other three are
+// that photo with the grade on the label re-set, until real pack photos arrive.
+const k4 = [
+  { grade: '20W40', img: k4a, real: true },
+  { grade: '20W50', img: k4b },
+  { grade: '10W30', img: k4c },
+  { grade: '15W50', img: k4d },
 ];
 const brands = [
   { name: 'Tata', file: 'tata', h: 30 },
@@ -159,7 +172,7 @@ const brands = [
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
 <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-4 border-b border-hairline gap-4" data-r="up">
 <div><span class="text-xs font-semibold uppercase tracking-widest text-logo-blue block mb-2">Products</span><h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal">Product Range</h2></div>
-<a class="text-xs font-semibold uppercase tracking-wider text-logo-blue hover:underline inline-flex items-center gap-1" data-path="products" href="products.html">See all products →</a>
+<a class="seeall" data-path="products" href="products.html"><span>See all products</span><svg class="seeall-ic" width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="16" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 17h12M18 11.5 23.5 17 18 22.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 </div>
 <!-- Product carousel: scroll-snap track, prev/next, progress bar -->
 <div class="pc" data-carousel data-no-motion>
@@ -192,6 +205,56 @@ const brands = [
 </div>
 </div>
 </div>
+</section>
+<!-- SCENE: KICK-4T BIKE ENGINE OILS (pinned: scrolling rides the bike and changes the grade) -->
+<section class="scene scene-4t" data-scene="Bike Engine Oils" data-no-motion data-k4 id="bike-engine-oils">
+<h2 class="sr-only">Our bike engine oil segment: Unicore KICK-4T in 20W40, 20W50, 10W30 and 15W50</h2>
+<div class="k4-sticky">
+<div class="k4-intro" aria-hidden="true">
+<span class="k4-intro-eyebrow">Unicore Lubricants</span>
+<span class="k4-intro-title">Our Bike<br />Engine Oil <em>Segment</em></span>
+<span class="k4-intro-sub">KICK-4T &middot; 4-stroke motorcycle engine oils</span>
+<span class="k4-scroll"><i></i>Scroll</span>
+</div>
+<div class="k4-stage max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+<div class="k4-copy">
+<div class="k4-eyebrow"><span></span>Premium 4-stroke engine oils</div>
+<p class="k4-h" aria-hidden="true">Power every<br />ride. <span class="k4-hl">KICK-4T</span></p>
+<p class="k4-lead">High-performance engine oil for 4-stroke motorcycles. Built to support smooth rides and dependable engine lubrication on everyday roads.</p>
+<ul class="k4-points">
+{[
+  ['Engine protection', '<path d="M4 6h10l4 4v8H4zM2 11h2m14 2h3M7 6V3h7"/><path d="M8 13h6"/>'],
+  ['Smooth performance', '<path d="M12 2v20M7 7a7 7 0 1 0 10 0M6 15h12"/>'],
+  ['4-stroke formulation', '<path d="m12 2 8 4v6c0 5-3.5 8.1-8 10-4.5-1.9-8-5-8-10V6z"/><path d="m8 12 3 3 5-6"/>'],
+  ['Everyday riding', '<path d="M9 3h6m-3 0v13M8 9c-2 3-4 6-4 8a8 8 0 0 0 16 0c0-2-2-5-4-8"/>'],
+].map(([t, p]) => <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={p} /><span>{t}</span></li>)}
+</ul>
+<div class="k4-grades" role="group" aria-label="Choose a viscosity grade">
+{k4.map((g, i) => <button type="button" class:list={['k4-grade', i === 0 && 'is-on']} data-k4-grade={i} aria-pressed={i === 0 ? 'true' : 'false'}>{g.grade}</button>)}
+</div>
+<a class="k4-cta" data-path="products-engine-oils" href="products.html#engine-oils">Explore 4T oils <span aria-hidden="true">→</span></a>
+</div>
+<div class="k4-visual" data-k4-visual>
+<span class="k4-rings" aria-hidden="true"></span>
+<span class="k4-burst" data-k4-burst aria-hidden="true"><b></b><i></i><i></i><i></i><u style="--a:0deg"></u><u style="--a:60deg"></u><u style="--a:120deg"></u><u style="--a:180deg"></u><u style="--a:240deg"></u><u style="--a:300deg"></u></span>
+<div class="k4-cap" aria-live="polite"><small>Currently viewing</small><span data-k4-cap>KICK-4T 20W40</span></div>
+<div class="k4-bottles">
+{k4.map((g, i) => (
+<Picture class:list={['k4-bottle', i === 0 && 'is-on']} src={g.img} formats={['webp']} widths={[320, 600]} sizes="(min-width: 1024px) 300px, 50vw" alt={`Unicore KICK-4T ${g.grade} 4-stroke engine oil, 900 ml bottle`} loading={i === 0 ? 'eager' : 'lazy'} />
+))}
+</div>
+<div class="k4-index" aria-hidden="true"><strong data-k4-index>01</strong> / 04</div>
+</div>
+</div>
+<div class="k4-road" aria-hidden="true">
+<div class="k4-lane"><span class="k4-dash" data-k4-dash></span></div>
+<div class="k4-rider" data-k4-rider>
+<span class="k4-shadow"></span>
+<span class="k4-flip" data-k4-flip set:html={bikeSvg("r")}></span>
+</div>
+</div>
+</div>
+<p class="k4-note">Grade labels on 10W30, 15W50 and 20W50 are illustrative until the pack photographs are supplied. Always follow your vehicle manufacturer's recommended viscosity and oil specification.</p>
 </section>
 <!-- SCENE: TYRE SEALANT GEL (client banner: white, green, two bottles) -->
 <section class="scene scene-tyre" data-scene="Tyre Sealant" data-no-motion>

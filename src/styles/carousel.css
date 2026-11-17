@@ -132,3 +132,34 @@
   .pc.is-armed .pc-card { opacity: 1; transform: none; }
   .pc-card, .pc-icon, .pc-rings { transition: none; }
 }
+
+/* Hover: the WHOLE card turns navy and its text turns white and bold. */
+.pc-card, .pc-card * { transition-property: color, background-color, border-color, transform, opacity, font-weight; }
+.pc-card:hover { background-color: rgb(var(--c-deep-navy)); border-color: rgb(var(--c-deep-navy)); }
+.pc-card:hover h3, .pc-card:hover p, .pc-card:hover span, .pc-card:hover small { color: #fff; }
+.pc-card:hover h3 { font-weight: 800; }
+.pc-card:hover p, .pc-card:hover .pc-foot span { font-weight: 700; }
+.pc-card:hover .pc-cta { font-weight: 800; letter-spacing: 0.1em; }
+.pc-card:hover .pc-foot { border-top-color: rgba(255, 255, 255, 0.3); }
+.pc-card:hover .pc-media { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.22); color: #fff; }
+.pc-card:hover .pc-num { color: rgba(255, 255, 255, 0.85); }
+.pc-card:hover .pc-rings, .pc-card:hover .pc-rings::before, .pc-card:hover .pc-rings::after { border-color: rgba(255, 255, 255, 0.28); }
+
+/* "See all products": a boxed, bold button with a circled-arrow indicator. */
+.seeall {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 8px 8px 8px 22px;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+  color: rgb(var(--c-deep-navy));
+  background: rgb(var(--c-white));
+  border: 2px solid rgb(var(--c-deep-navy));
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: background-color 280ms ease, color 280ms ease, transform 280ms ease;
+}
+html.dark .seeall { color: #fff; border-color: #9DBDF5; }
+.seeall:hover { background: rgb(var(--c-deep-navy)); color: #fff; transform: translateY(-2px); }
+html.dark .seeall:hover { background: #1B4FA0; border-color: #1B4FA0; }
+.seeall-ic { flex: none; transition: transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.seeall:hover .seeall-ic { transform: translateX(4px) rotate(-45deg); }
+.seeall:focus-visible { outline: 2px solid rgb(var(--c-logo-blue)); outline-offset: 3px; }

@@ -20,7 +20,7 @@ html.has-scenes { scroll-padding-top: var(--hdr); }
 .scene { scroll-margin-top: var(--hdr); }
 
 /* Every scene is at least one screen tall, content centred. */
-.scene:not(.scene-home):not(.scene-products) {
+.scene:not(.scene-home):not(.scene-products):not(.scene-4t) {
   min-height: calc(100svh - var(--hdr));
   display: flex;
   flex-direction: column;

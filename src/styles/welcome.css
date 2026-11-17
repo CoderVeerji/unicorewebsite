@@ -1,35 +1,32 @@
 /*
  * Welcome intro (every full page load). See src/components/CurtainReveal.astro.
  *
- *   0.0 - 1.0s   gold dust begins to drift up; a halo of light opens
- *   0.3 - 1.7s   twelve lotus petals open one after another, rings widen
- *   0.8 - 2.0s   the hands are revealed from the wrists up
- *   1.9 - 3.3s   a band of light passes over the hands
- *   1.6 - 2.6s   "नमस्ते", a hairline, "Welcome to Unicore"
- *   3.2 - 3.95s  the sheet lifts away upward
- *   4.0s         the layer is removed from the page
+ *   Every timing below is 1.5x slower than the first version (about 6s in all):
+ *   dust and halo, then the lotus, then the hands from the wrists up, a band of
+ *   light, then "नमस्ते" and a large bold "Welcome to Unicore", then the sheet
+ *   lifts away. The layer is removed after about 6s.
  *
  * All CSS with `animation-fill-mode: both`, so it finishes and removes itself
  * with JavaScript switched off: it can never stick over the site.
  * The hero copy waits for it (--intro). Only transform and opacity move.
  */
 :root { --intro: 0ms; }
-html:not(.curtain-seen) { --intro: 3300ms; }
+html:not(.curtain-seen) { --intro: 4950ms; }
 @media (prefers-reduced-motion: reduce) { :root, html:not(.curtain-seen) { --intro: 0ms; } }
 html[data-motion="off"] { --intro: 0ms !important; }
 
 .curtain {
   position: fixed; inset: 0; z-index: 9999;
   pointer-events: none;
-  animation: curtain-clear 0s linear 4000ms forwards;
+  animation: curtain-clear 0s linear 6000ms forwards;
 }
 @keyframes curtain-clear { to { visibility: hidden; } }
 
-.curtain-sheet, .curtain-navy { position: absolute; inset: 0; animation: curtain-lift 750ms cubic-bezier(0.76, 0, 0.24, 1) both; }
-.curtain-sheet { background: #FAFAF8; animation-delay: 3330ms; }
+.curtain-sheet, .curtain-navy { position: absolute; inset: 0; animation: curtain-lift 1125ms cubic-bezier(0.76, 0, 0.24, 1) both; }
+.curtain-sheet { background: #FAFAF8; animation-delay: 4995ms; }
 .curtain-navy {
   background: radial-gradient(90% 70% at 50% 42%, #1B4FA0 0%, #143A78 45%, #0b2556 100%);
-  animation-delay: 3200ms;
+  animation-delay: 4800ms;
 }
 @keyframes curtain-lift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -101%, 0); } }
 
@@ -37,17 +34,17 @@ html[data-motion="off"] { --intro: 0ms !important; }
   position: absolute; inset: 0;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 6px;
-  animation: curtain-lift 750ms cubic-bezier(0.76, 0, 0.24, 1) 3200ms both;
+  animation: curtain-lift 1125ms cubic-bezier(0.76, 0, 0.24, 1) 4800ms both;
 }
 
 /* ---- Gold dust ------------------------------------------------------------------- */
-.nm-dust { position: absolute; inset: 0; overflow: hidden; animation: curtain-lift 750ms cubic-bezier(0.76, 0, 0.24, 1) 3200ms both; }
+.nm-dust { position: absolute; inset: 0; overflow: hidden; animation: curtain-lift 1125ms cubic-bezier(0.76, 0, 0.24, 1) 4800ms both; }
 .nm-dust span {
   position: absolute; left: var(--x); bottom: -12px;
   width: var(--s); height: var(--s); border-radius: 9999px;
   background: radial-gradient(circle, #FFF1C2 0%, #F2C86B 55%, rgba(242, 200, 107, 0) 72%);
   opacity: 0;
-  animation: nm-dust 3600ms ease-out var(--d) both;
+  animation: nm-dust 5400ms ease-out var(--d) both;
 }
 @keyframes nm-dust {
   0% { opacity: 0; transform: translate3d(0, 0, 0); }
@@ -64,11 +61,11 @@ html[data-motion="off"] { --intro: 0ms !important; }
   border-radius: 9999px;
   border: 1px solid rgba(242, 200, 107, 0.5);
   transform: translate(-50%, -50%) scale(0.4); opacity: 0;
-  animation: nm-ring 2400ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: nm-ring 3600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-.nm-ring-1 { width: 118%; aspect-ratio: 1; animation-delay: 500ms; }
-.nm-ring-2 { width: 160%; aspect-ratio: 1; animation-delay: 750ms; border-color: rgba(242, 200, 107, 0.3); }
-.nm-ring-3 { width: 210%; aspect-ratio: 1; animation-delay: 1000ms; border-color: rgba(242, 200, 107, 0.16); }
+.nm-ring-1 { width: 118%; aspect-ratio: 1; animation-delay: 750ms; }
+.nm-ring-2 { width: 160%; aspect-ratio: 1; animation-delay: 1125ms; border-color: rgba(242, 200, 107, 0.3); }
+.nm-ring-3 { width: 210%; aspect-ratio: 1; animation-delay: 1500ms; border-color: rgba(242, 200, 107, 0.16); }
 @keyframes nm-ring { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); } 35% { opacity: 1; } 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } }
 
 /* the warm light behind everything */
@@ -76,13 +73,13 @@ html[data-motion="off"] { --intro: 0ms !important; }
   position: absolute; left: 50%; top: 50%; width: 150%; aspect-ratio: 1;
   transform: translate(-50%, -50%) scale(0.6);
   background: radial-gradient(closest-side, rgba(255, 214, 128, 0.42), rgba(242, 200, 107, 0.12) 52%, transparent 72%);
-  opacity: 0; animation: nm-halo 3000ms ease-out both;
+  opacity: 0; animation: nm-halo 4500ms ease-out both;
 }
 @keyframes nm-halo { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); } 40% { opacity: 1; } 100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.05); } }
 
 /* turning rays */
-.nm-rays { transform-origin: 150px 150px; animation: nm-turn 14000ms linear infinite; }
-.nm-rays path { stroke: #F2C86B; stroke-width: 1.6; stroke-linecap: round; opacity: 0; animation: nm-ray 1000ms ease calc(900ms + var(--i) * 28ms) both; }
+.nm-rays { transform-origin: 150px 150px; animation: nm-turn 21000ms linear infinite; }
+.nm-rays path { stroke: #F2C86B; stroke-width: 1.6; stroke-linecap: round; opacity: 0; animation: nm-ray 1500ms ease calc(1350ms + var(--i) * 42ms) both; }
 @keyframes nm-ray { 0% { opacity: 0; } 100% { opacity: 0.55; } }
 @keyframes nm-turn { to { transform: rotate(360deg); } }
 
@@ -91,50 +88,50 @@ html[data-motion="off"] { --intro: 0ms !important; }
   fill: rgba(242, 200, 107, 0.1); stroke: #F2C86B; stroke-width: 1.4; stroke-linejoin: round; stroke-opacity: 0.75;
   transform-box: view-box; transform-origin: 150px 150px;
   opacity: 0;
-  animation: nm-petal 1300ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(300ms + var(--i) * 70ms) both;
+  animation: nm-petal 1950ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(450ms + var(--i) * 105ms) both;
 }
 @keyframes nm-petal { 0% { opacity: 0; scale: 0.2; } 60% { opacity: 1; } 100% { opacity: 1; scale: 1; } }
-.nm-petals { transform-origin: 150px 150px; animation: nm-turn 40000ms linear infinite reverse; }
+.nm-petals { transform-origin: 150px 150px; animation: nm-turn 60000ms linear infinite reverse; }
 
 /* the hands: revealed from the wrists up */
-.nm-wipe { transform-box: fill-box; transform-origin: center bottom; transform: translateY(100%); animation: nm-wipe 1200ms cubic-bezier(0.55, 0, 0.2, 1) 800ms both; }
+.nm-wipe { transform-box: fill-box; transform-origin: center bottom; transform: translateY(100%); animation: nm-wipe 1800ms cubic-bezier(0.55, 0, 0.2, 1) 1200ms both; }
 @keyframes nm-wipe { to { transform: translateY(0); } }
-.nm-hands { transform-box: view-box; transform-origin: 150px 270px; animation: nm-rise 2400ms cubic-bezier(0.2, 0.8, 0.2, 1) 800ms both, nm-breathe 3200ms ease-in-out 3000ms infinite alternate; }
+.nm-hands { transform-box: view-box; transform-origin: 150px 270px; animation: nm-rise 3600ms cubic-bezier(0.2, 0.8, 0.2, 1) 1200ms both, nm-breathe 4800ms ease-in-out 4500ms infinite alternate; }
 @keyframes nm-rise { 0% { scale: 0.92; } 100% { scale: 1; } }
 @keyframes nm-breathe { to { scale: 1.02; } }
-.nm-shine { animation: nm-shine 1400ms ease-in-out 1900ms both; }
+.nm-shine { animation: nm-shine 2100ms ease-in-out 2850ms both; }
 @keyframes nm-shine { 0% { transform: skewX(-18deg) translateX(0); } 100% { transform: skewX(-18deg) translateX(460px); } }
 
 /* ---- The words ------------------------------------------------------------------ */
 .nm-hi {
   font-family: 'Noto Sans Devanagari Variable', 'Nirmala UI', 'Mangal', sans-serif;
   font-weight: 700;
-  font-size: clamp(34px, 7vmin, 66px);
+  font-size: clamp(30px, 6vmin, 56px);
   line-height: 1.2;
   letter-spacing: 0.12em;
   color: #fff;
   opacity: 0; transform: translate3d(0, 18px, 0);
-  animation: nm-words 900ms cubic-bezier(0.2, 0.8, 0.2, 1) 1600ms both;
+  animation: nm-words 1350ms cubic-bezier(0.2, 0.8, 0.2, 1) 2400ms both;
 }
 .nm-line-h {
   width: min(240px, 50vw); height: 1px;
   background: linear-gradient(90deg, transparent, rgba(242, 200, 107, 0.95), transparent);
-  transform: scaleX(0); animation: nm-grow 1000ms cubic-bezier(0.2, 0.8, 0.2, 1) 1900ms both;
+  transform: scaleX(0); animation: nm-grow 1500ms cubic-bezier(0.2, 0.8, 0.2, 1) 2850ms both;
 }
 @keyframes nm-grow { to { transform: scaleX(1); } }
 .nm-welcome {
-  margin-top: 8px;
-  font-size: clamp(11px, 1.7vmin, 14px); font-weight: 600; letter-spacing: 0.42em; text-indent: 0.42em; text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-  opacity: 0; transform: translate3d(0, 12px, 0);
-  animation: nm-words 800ms ease 2050ms both;
+  margin-top: 12px;
+  font-size: clamp(20px, 4.4vmin, 38px); font-weight: 800; letter-spacing: 0.22em; text-indent: 0.22em; text-transform: uppercase;
+  color: #fff;
+  opacity: 0; transform: translate3d(0, 14px, 0);
+  animation: nm-words 1200ms ease 3075ms both;
 }
 @keyframes nm-words { to { opacity: 1; transform: none; } }
 .curtain-tag {
   position: absolute; left: 50%; bottom: clamp(20px, 5vh, 44px); transform: translateX(-50%);
   font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; white-space: nowrap;
   color: rgba(255, 255, 255, 0.4);
-  opacity: 0; animation: nm-words 800ms ease 2300ms both;
+  opacity: 0; animation: nm-words 1200ms ease 3450ms both;
 }
 
 /* Reduced motion and the kill switch hide the layer outright. They must NOT
