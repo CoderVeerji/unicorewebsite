@@ -279,11 +279,17 @@ const brands = [
 </div>
 </section>
 <!-- SECTION 5: APPLICATIONS (Five Cards in a Hairline Row) -->
-<section class="scene scene-apps w-full bg-white border-b border-hairline" data-scene="Applications" data-no-motion>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-<div class="mb-6" data-r="up"><span class="text-xs font-semibold uppercase tracking-widest text-logo-blue block mb-2">Applications</span><h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal">Where Our Oils and Lubricants Work</h2></div>
+<section class="scene scene-apps w-full bg-white border-b border-hairline" data-scene="Applications" data-no-motion data-apps-scene>
+<div class="apps-sticky">
+<div class="apps-bg" aria-hidden="true">
+{apps.map((a) => <span class={`apps-bg-layer bg-${a.theme}`}></span>)}
+<span class="apps-orb apps-orb-1"></span><span class="apps-orb apps-orb-2"></span>
 </div>
-<div class="apps" data-apps data-r="up" style="--d:160ms">
+<div class="apps-content">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+<div class="mb-6"><span class="text-xs font-semibold uppercase tracking-widest text-logo-blue block mb-2">Applications</span><h2 class="font-serif text-3xl sm:text-4xl text-heading-black font-normal">Where Our Oils and Lubricants Work</h2></div>
+</div>
+<div class="apps" data-apps>
 <div class="apps-tabs" role="tablist" aria-label="Applications" data-apps-tabs>
 {apps.map((a, i) => (
 <button type="button" role="tab" class:list={['apps-tab', i === 0 && 'is-active']} id={`apps-tab-${i}`} aria-controls={`apps-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-apps-tab={i}>
@@ -313,6 +319,8 @@ const brands = [
 </div>
 </div>
 <div class="apps-dots" aria-hidden="true">{apps.map((a, i) => <span class:list={['apps-dot', i === 0 && 'is-active']}></span>)}</div>
+</div>
+</div>
 </div>
 </section>
 <!-- SECTION 6: HOW WE MAKE IT -->

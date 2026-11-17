@@ -1,88 +1,84 @@
 /*
- * Applications showcase (homepage): a row of tabs on top, one large card in
- * the middle with its neighbours peeking in from both sides. It changes by
- * itself every few seconds; a tab, a swipe, an arrow key or a click on a
- * neighbouring card picks one directly. Driven by src/scripts/apps.js.
- * Only transform and opacity are animated.
+ * Applications (homepage): cards that stack. See src/scripts/apps.js.
+ *
+ * The block is pinned under the header. Scrolling brings each card up from
+ * below and lays it over the previous one, which shrinks and dims behind it.
+ * The tab row follows along (and jumps to a card when clicked), and the whole
+ * backdrop changes colour with the card on top while soft orbs drift.
+ *
+ * Without JavaScript or under reduced motion there is no pinning: the cards
+ * are simply listed one under another. Only transform and opacity animate.
  */
-.apps { position: relative; overflow: hidden; padding-bottom: 6px; }
+.scene-apps { position: relative; padding: 0 !important; border-bottom: 1px solid rgb(var(--c-hairline)); background: rgb(var(--c-white)); }
+.apps-sticky { position: relative; padding: clamp(28px, 6vh, 56px) 0; }
+.apps-content { position: relative; z-index: 2; }
 
-/* ---- Tabs -------------------------------------------------------------------- */
-.apps-tabs {
-  display: flex; justify-content: center; gap: 6px;
-  max-width: 100%;
-  margin: 0 auto 22px;
-  padding: 2px 16px;
-  overflow-x: auto; scrollbar-width: none;
-}
+/* ---- Backdrop: one tinted layer per card, cross-faded, plus drifting orbs ------------- */
+.apps-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.apps-bg-layer { position: absolute; inset: 0; opacity: 0; }
+html:not(.apps-pin) .apps-bg { display: none; }
+.bg-gold   { background: radial-gradient(80% 70% at 85% 20%, #f6e4b6 0%, #fbf3e2 55%, #fffaf0 100%); }
+.bg-blue   { background: radial-gradient(80% 70% at 85% 20%, #c9dcf8 0%, #e8effb 55%, #f6f9ff 100%); }
+.bg-green  { background: radial-gradient(80% 70% at 85% 20%, #bfe4c2 0%, #e8f4e8 55%, #f6fbf6 100%); }
+.bg-orange { background: radial-gradient(80% 70% at 85% 20%, #f7cdb4 0%, #fbece3 55%, #fff7f2 100%); }
+.bg-steel  { background: radial-gradient(80% 70% at 85% 20%, #cfd6e0 0%, #eceff3 55%, #f7f8fa 100%); }
+html.dark .bg-gold { background: radial-gradient(80% 70% at 85% 20%, #4a3511 0%, #231a0a 60%, #14100a 100%); }
+html.dark .bg-blue { background: radial-gradient(80% 70% at 85% 20%, #17386d 0%, #0e1d3a 60%, #0a1222 100%); }
+html.dark .bg-green { background: radial-gradient(80% 70% at 85% 20%, #1b4a22 0%, #0f2412 60%, #0a150b 100%); }
+html.dark .bg-orange { background: radial-gradient(80% 70% at 85% 20%, #5a2a10 0%, #2a130a 60%, #170b06 100%); }
+html.dark .bg-steel { background: radial-gradient(80% 70% at 85% 20%, #2d3846 0%, #181e27 60%, #0f1319 100%); }
+.apps-orb { position: absolute; border-radius: 9999px; will-change: transform; }
+.apps-orb-1 { width: 46vmax; height: 46vmax; left: -12vmax; top: -10vmax; background: radial-gradient(closest-side, rgba(255, 255, 255, 0.75), transparent 70%); }
+.apps-orb-2 { width: 38vmax; height: 38vmax; right: -10vmax; bottom: -14vmax; background: radial-gradient(closest-side, rgba(27, 79, 160, 0.16), transparent 70%); }
+html.dark .apps-orb-1 { background: radial-gradient(closest-side, rgba(255, 255, 255, 0.07), transparent 70%); }
+
+/* ---- Tabs --------------------------------------------------------------------------- */
+.apps { position: relative; }
+.apps-tabs { display: none; justify-content: center; gap: 6px; max-width: 100%; margin: 0 auto 18px; padding: 2px 16px; overflow-x: auto; scrollbar-width: none; }
 .apps-tabs::-webkit-scrollbar { display: none; }
+html.apps-pin .apps-tabs { display: flex; }
 @media (max-width: 1099.98px) { .apps-tabs { justify-content: flex-start; } }
-.apps-tab {
-  position: relative; flex: none;
-  padding: 12px 20px;
-  font: inherit; font-size: 15px; font-weight: 600; color: rgb(var(--c-heading-black));
-  background: transparent; border: 0; border-radius: 9999px; cursor: pointer;
-  overflow: hidden;
-  transition: background-color 250ms ease, color 250ms ease;
-}
-.apps-tab:hover { background: rgb(var(--c-product-frame)); }
-.apps-tab.is-active { background: rgb(var(--c-hairline)); }
+.apps-tab { position: relative; flex: none; padding: 11px 18px; font: inherit; font-size: 14px; font-weight: 600; color: rgb(var(--c-heading-black)); background: transparent; border: 0; border-radius: 9999px; cursor: pointer; transition: background-color 250ms ease; }
+.apps-tab:hover { background: rgb(var(--c-white) / 0.7); }
+.apps-tab.is-active { background: rgb(var(--c-white)); }
 .apps-tab:focus-visible { outline: 2px solid rgb(var(--c-logo-blue)); outline-offset: 2px; }
-.apps-tab-label { position: relative; z-index: 1; white-space: nowrap; }
-/* The tab fills while its card is showing, so you can see when it will change. */
-.apps-tab-bar { position: absolute; left: 20px; right: 20px; bottom: 6px; height: 2px; border-radius: 2px; background: rgb(var(--c-logo-blue)); transform: scaleX(0); transform-origin: left center; opacity: 0; }
-.apps-tab.is-active .apps-tab-bar { opacity: 1; transform: scaleX(var(--p, 0)); }
+.apps-tab-label { position: relative; white-space: nowrap; }
+.apps-tab-bar { position: absolute; left: 18px; right: 18px; bottom: 5px; height: 2px; border-radius: 2px; background: rgb(var(--c-logo-blue)); transform-origin: left center; transform: scaleX(var(--p, 0)); opacity: 0; }
+.apps-tab.is-active .apps-tab-bar { opacity: 1; }
 
-/* ---- Cards ---------------------------------------------------------------------- */
-.apps-viewport { overflow: hidden; padding: 6px 0 10px; }
-.apps-track {
-  display: flex; gap: 22px; align-items: stretch;
-  transform: translate3d(var(--atx, 0px), 0, 0);
-  transition: transform 900ms cubic-bezier(0.22, 0.8, 0.2, 1);
-  will-change: transform; touch-action: pan-y; cursor: grab; user-select: none;
-}
-.apps-track.is-dragging { transition: none; cursor: grabbing; }
+/* ---- Cards: listed by default, stacked when pinned ---------------------------------------- */
+.apps-viewport { padding: 0 16px; }
+.apps-track { display: grid; gap: 18px; max-width: 1080px; margin: 0 auto; }
 .apps-card {
-  position: relative; flex: 0 0 var(--aw, min(1080px, 86vw));
-  min-height: clamp(340px, 46vh, 440px);
-  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: center;
-  padding: clamp(24px, 3.4vw, 48px);
-  border-radius: 20px; overflow: hidden;
-  color: #fff;
-  transform: scale(0.93); opacity: 0.5;
-  transition: transform 900ms cubic-bezier(0.22, 0.8, 0.2, 1), opacity 700ms ease;
+  position: relative; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: center;
+  min-height: 340px; padding: clamp(24px, 3.4vw, 48px);
+  border-radius: 20px; overflow: hidden; color: #fff;
 }
-.apps-card.is-active { transform: none; opacity: 1; }
 .apps-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(70% 90% at 90% 20%, rgba(255, 255, 255, 0.14), transparent 60%); pointer-events: none; }
+.apps-card::after { content: ''; position: absolute; inset: 0; background: #000; opacity: var(--dim, 0); pointer-events: none; border-radius: inherit; }
 .theme-gold   { background: linear-gradient(135deg, #2b1d0b 0%, #6b4713 55%, #a6761c 100%); }
 .theme-blue   { background: linear-gradient(135deg, #0b1f45 0%, #143A78 55%, #1B4FA0 100%); }
 .theme-green  { background: linear-gradient(135deg, #0a2a14 0%, #0f5a26 55%, #2f8a1f 100%); }
 .theme-orange { background: linear-gradient(135deg, #2b1206 0%, #7a3510 55%, #c2561a 100%); }
 .theme-steel  { background: linear-gradient(135deg, #10161f 0%, #2a3544 55%, #4a5a6e 100%); }
 
-.apps-copy { position: relative; z-index: 1; align-self: start; padding-top: clamp(0px, 3vh, 28px); }
+html.apps-pin .apps-sticky { position: sticky; top: var(--hdr, 116px); height: calc(100svh - var(--hdr, 116px)); min-height: 560px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; padding: clamp(12px, 3vh, 32px) 0; }
+html.apps-pin .apps-viewport { height: clamp(330px, 52svh, 470px); padding: 0 16px; }
+html.apps-pin .apps-track { display: block; position: relative; height: 100%; width: min(1080px, 100%); transform: none; }
+html.apps-pin .apps-card { position: absolute; inset: 0; min-height: 0; transform-origin: 50% 0; will-change: transform; border: 1px solid rgba(255, 255, 255, 0.18); }
+
+.apps-copy { position: relative; z-index: 1; align-self: start; padding-top: clamp(0px, 2vh, 20px); }
 .apps-tag { display: block; margin-bottom: 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255, 255, 255, 0.7); }
 .apps-card h3 { margin: 0 0 14px; font-size: clamp(1.7rem, 3.4vw, 3rem); line-height: 1.08; color: #fff; }
 .apps-card p { margin: 0 0 26px; max-width: 28rem; font-size: clamp(15px, 1.4vw, 18px); line-height: 1.6; color: rgba(255, 255, 255, 0.88); }
-.apps-link {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 24px;
-  font-size: 12.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-  color: #111; background: #fff; border-radius: 9999px; text-decoration: none;
-  transition: transform 250ms ease, background-color 250ms ease;
-}
+.apps-link { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; font-size: 12.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #111; background: #fff; border-radius: 9999px; text-decoration: none; transition: transform 250ms ease, background-color 250ms ease; }
 .apps-link span { transition: transform 280ms ease; }
 .apps-link:hover { transform: translateY(-2px); background: #f1f1ef; }
 .apps-link:hover span { transform: translateX(5px); }
-
 .apps-art { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; }
 .apps-photo { display: block; width: min(100%, 300px); aspect-ratio: 1; border-radius: 16px; overflow: hidden; transform: rotate(2deg); border: 1px solid rgba(255, 255, 255, 0.25); }
 .apps-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.apps-chip {
-  position: absolute; left: 4%; bottom: -6%;
-  padding: 14px 18px; min-width: 170px;
-  background: #fff; color: #17181c; border-radius: 12px;
-}
+.apps-chip { position: absolute; left: 4%; bottom: -6%; padding: 14px 18px; min-width: 170px; background: #fff; color: #17181c; border-radius: 12px; }
 .apps-chip small { display: block; margin-bottom: 7px; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6d727c; }
 .apps-chip ul { list-style: none; margin: 0; padding: 0; }
 .apps-chip li { position: relative; padding-left: 14px; font-size: 13px; font-weight: 600; line-height: 1.6; }
@@ -92,25 +88,33 @@
 .theme-gold .apps-chip li::before { background: #c18a1f; }
 .theme-steel .apps-chip li::before { background: #4a5a6e; }
 
-/* ---- Dots ----------------------------------------------------------------------- */
-.apps-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+.apps-dots { display: none; justify-content: center; gap: 8px; margin-top: 14px; }
+html.apps-pin .apps-dots { display: flex; }
 .apps-dot { width: 7px; height: 7px; border-radius: 9999px; background: rgb(var(--c-structural-line)); transition: transform 300ms ease, background-color 300ms ease; }
 .apps-dot.is-active { background: rgb(var(--c-logo-blue)); transform: scale(1.5); }
 
-/* ---- Phones ------------------------------------------------------------------------ */
+/* ---- Phones --------------------------------------------------------------------------------- */
 @media (max-width: 759.98px) {
-  .apps-card { grid-template-columns: 1fr; gap: 18px; min-height: 0; padding: 24px 20px 28px; flex-basis: var(--aw, 88vw); }
+  .apps-card { grid-template-columns: 1fr; gap: 12px; min-height: 0; padding: 22px 20px 20px; }
   .apps-copy { padding-top: 0; }
-  .apps-art { margin-top: 6px; justify-content: flex-start; padding-bottom: 22px; }
-  .apps-photo { width: 62%; }
-  .apps-chip { left: auto; right: 0; bottom: 0; min-width: 150px; }
+  .apps-card h3 { margin-bottom: 8px; font-size: 1.55rem; }
+  .apps-card p { margin-bottom: 14px; font-size: 14px; }
+  .apps-art { justify-content: flex-start; }
+  .apps-photo { width: 44%; transform: none; }
+  .apps-chip { left: auto; right: 0; bottom: 0; min-width: 140px; padding: 10px 12px; }
+  .apps-chip li { font-size: 12px; line-height: 1.5; }
+  html.apps-pin .apps-viewport { height: clamp(380px, 62svh, 520px); }
 }
+@media (prefers-reduced-motion: reduce) { .apps-tab, .apps-dot { transition: none; } }
 
-@media (prefers-reduced-motion: reduce) {
-  .apps-track, .apps-card { transition: none; }
-  .apps-tab-bar { display: none; }
+/* Room above the stack so the cards behind peek out under the tabs, not over them. */
+html.apps-pin .apps-viewport { margin-top: 40px; }
+html.apps-pin .apps-tabs { margin-bottom: 4px; }
+@media (max-width: 759.98px) {
+  html.apps-pin .apps-sticky { min-height: 0; padding-top: 10px; padding-bottom: 8px; }
+  html.apps-pin .apps-viewport { height: clamp(330px, calc(100svh - var(--hdr, 156px) - 250px), 480px); margin-top: 36px; }
+  html.apps-pin .apps-content h2 { font-size: 1.55rem; }
+  html.apps-pin .apps-content > .max-w-7xl > div { margin-bottom: 8px; }
+  html.apps-pin .apps-tabs { margin-bottom: 0; }
+  html.apps-pin .apps-dots { margin-top: 8px; }
 }
-html[data-motion="off"] .apps-track, html[data-motion="off"] .apps-card { transition: none; }
-
-/* This block is one screen: tighter padding than the other scenes. */
-.scene-apps { padding-top: clamp(24px, 5vh, 52px) !important; padding-bottom: clamp(24px, 4vh, 44px) !important; }

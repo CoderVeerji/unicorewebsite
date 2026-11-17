@@ -382,3 +382,8 @@ Done: `products` rebuilt; header, footer and script shared; scroll and hover ani
 
 - **Pack change effect**: a soft gold glow, three expanding rings and a few sparks play behind the pack each time the grade changes (`.k4-burst`).
 - **Hero timing**: LUBRICANTS stays 9s (`FIRST_HOLD`), every other phrase 3.8s (`HOLD`), both in `hero-rotator.js`.
+
+## Applications as stacked cards, phone fixes
+
+- **Applications** (`apps.css`, `apps.js`) are now scroll-driven stacked cards: pinned under the header, each card rises from below and lands on the previous one (which shrinks and dims). The tab row follows and jumps to a card on click; the backdrop cross-fades to the colour of the card on top while two soft orbs drift. Without pinning (reduced motion/no JS) the cards are listed normally and the tab row is hidden. The old auto-advancing side-by-side carousel was removed.
+- **Phones**: the rings behind the 4T pack are hidden (they ran through the headline); touch screens get gentle `scroll-snap-type: y proximity` on the scene starts so a flick settles on a section.
